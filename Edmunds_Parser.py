@@ -7,22 +7,14 @@ with open("./Test_Data/edmunds.html") as fp:
 
 # For the mpg range combining
 def combine_range(arr):
-    lower = None
-    higher = None
-    for i in arr:
-        if not lower:
-            lower = i[0]
-        if not higher:
-            higher = i[1]
-        elif i[0] < lower:
-            lower = i[0]
-        elif i[1] > higher:
-            higher = i[1]
+    lower = min(list(i[0] for i in arr))
+    higher = max(list(i[1] for i in arr))
     return [lower, higher]
 
 
 # Find price based on specific class name
 price = soup.find_all(class_="d-flex justify-content-between heading-3")[0].string.split(" - ")
+price = [int(i.lstrip("$").replace(",", "")) for i in price]
 
 # Get mpg by class and text
 mpg = soup.find_all(string=re.compile("city / "), class_="field")
@@ -30,7 +22,7 @@ mpg_ranges = []
 
 # Filter the parsed mpg into usable format
 for i in mpg:
-    a = list(map(int, i.string.rstrip(" hwy").split(" city / ")))
+    a = [int(i) for i in i.string.rstrip(" hwy").split(" city / ")]
     mpg_ranges.append(a)
 mpg = combine_range(mpg_ranges)
 
