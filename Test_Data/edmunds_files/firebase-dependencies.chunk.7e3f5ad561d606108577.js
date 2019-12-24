@@ -1,0 +1,2 @@
+(window.webpackJsonp=window.webpackJsonp||[]).push([["firebase-dependencies"],{"./site-modules/shared/components/profile/firebase-dependencies.jsx":function(e,s,n){"use strict";n.r(s);var i=n("../node_modules/firebase/app/dist/index.cjs.js"),d=n.n(i);n.d(s,"firebase",function(){return d.a});n("../node_modules/firebase/auth/dist/index.esm.js")}}]);
+//# sourceMappingURL=firebase-dependencies.chunk.47679651e9c200faf87f.js.map
