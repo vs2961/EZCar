@@ -19,6 +19,15 @@ for i in names:
 rat = soup.select("div", title="KBB Expert Rating")
 rats = [x.text.split(';')[-1].strip() for x in rat]
 print(rats)
-rating = soup.find_all("div", title="KBB Expert Rating")
-print(rating)
+rating = soup.find_all("div", class_="css-1hhfg7w e1q103pk0")
+for rate in rating:
+    car = rate.findChildren("h3", {"class": "css-fp7pcp e53mcov2"}, recursive=True)
+    child = rate.findChildren("div", {"class": "css-x9skgx-NumericRating e149jidm1"}, recursive=True)
+    chosen_car = ""
+    chosen_rating = ""
+    for j in car:
+        chosen_car = j.text
+    for i in child:
+        chosen_rating = i.text
+    print(chosen_car, chosen_rating)
 
