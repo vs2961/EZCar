@@ -6,8 +6,6 @@ with open("./Test_Data/edmunds.html") as fp:
     soup = BeautifulSoup(fp, features="html.parser")
 
 # For the mpg range combining
-
-
 def combine_range(arr):
     lower = min(list(i[0] for i in arr))
     higher = max(list(i[1] for i in arr))
