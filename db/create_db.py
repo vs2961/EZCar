@@ -16,7 +16,7 @@ class Car(Base):
     horsepower = Column("horsepower", Integer, nullable=False)
     rating = Column("rating", Float, nullable=True)
 
-    def __init__(self, name, price, mpg, horsepower, rating):
+    def __init__(self, name, rating, mpg, horsepower, price):
         self.name = name
         self.price = price
         self.mpg = mpg
@@ -31,8 +31,8 @@ class Car(Base):
 # echo set to TRUE for debugging purposes
 
 engine = create_engine("sqlite:///data.db", echo=True)
-
 if __name__ == "__main__":
+    engine = create_engine("sqlite:///db/data.db", echo=True)
     Base.metadata.create_all(bind=engine)
 
 
