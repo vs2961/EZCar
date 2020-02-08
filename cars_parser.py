@@ -17,3 +17,4 @@ car_mpg = car_details[2].text.strip().split("\n")[0]
 
 relations[car_name] = [car_type, price_range, car_seats, car_mpg]
 print(relations)
+
