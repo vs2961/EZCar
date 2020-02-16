@@ -1,6 +1,16 @@
 from bs4 import BeautifulSoup
 
-with open("./Test_Data/example_carscom.html") as file:
+
+with open("./Test_Data/cars_test.html") as file:
+    soup = BeautifulSoup(file, features="html.parser")
+
+for link in soup.find_all('a'):
+    a = link.get("href")
+    if a and "https://www.cars.com/research/" in a and "/consumer-reviews/" not in a:
+        print(a)
+
+"""
+with open("./Test_Data/test.html") as file:
     soup = BeautifulSoup(file, features="html.parser")
 
 relations = dict()
@@ -17,4 +27,4 @@ car_mpg = car_details[2].text.strip().split("\n")[0]
 
 relations[car_name] = [car_type, price_range, car_seats, car_mpg]
 print(relations)
-
+"""
