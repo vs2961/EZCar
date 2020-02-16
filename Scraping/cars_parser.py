@@ -1,5 +1,20 @@
-import requests
+from bs4 import BeautifulSoup
 
-a = requests.get("https://www.cars.com/for-sale/searchresults.action/?bsId=20217&dealerType=all&page=3&perPage=20&rd=30&searchSource=PAGINATION&sort=relevance&stkTypId=28881&zc=11204")
+with open("./Test_Data/example_carscom.html") as file:
+    soup = BeautifulSoup(file, features="html.parser")
 
-print(a.text)
+relations = dict()
+car = soup.find_all("h1", class_="cui-page-section__title")
+car_name = car[0].text
+price = soup.find_all("div", class_="mmy-header__msrp")
+
+price_range = price[0].text.strip().split("\n")[0]
+
+car_details = soup.find_all("div", class_="list-specs__value")
+car_type = car_details[0].text.strip()
+car_seats = car_details[1].text.strip()
+car_mpg = car_details[2].text.strip().split("\n")[0]
+
+relations[car_name] = [car_type, price_range, car_seats, car_mpg]
+print(relations)
+
