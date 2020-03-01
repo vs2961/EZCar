@@ -1,7 +1,9 @@
-from app import db
+from flask_sqlalchemy import SQLAlchemy
+import os
+from backend.project import db
+
 
 class Car(db.Model):
-
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String, nullable=False, unique=True)
     price = db.Column(db.Float, nullable=False)
