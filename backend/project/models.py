@@ -1,6 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
 import os
-from backend.project import db
+from . import db
 
 
 class Car(db.Model):
