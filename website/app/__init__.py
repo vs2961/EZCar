@@ -10,6 +10,6 @@ app = Flask(__name__, instance_relative_config=True)
 app.config.from_object("config.DevelopmentConfig")
 db = SQLAlchemy(app)
 
-from .cars.views import cars_blueprint
+from .views import cars_blueprint
 
 app.register_blueprint(cars_blueprint)
