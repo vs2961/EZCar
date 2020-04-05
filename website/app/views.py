@@ -1,5 +1,5 @@
 from flask import Blueprint, send_from_directory, Flask, render_template
-from ..models import Car
+from .models import Car
 import os
 
 flask_app = Flask(__name__)
