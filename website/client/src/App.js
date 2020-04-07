@@ -1,24 +1,32 @@
+import {Menu} from '@rmwc/menu';
+import {SimpleMenu, MenuItem, Button} from '@rmwc/menu';
 import React from 'react';
-
-import {BrowserRouter, Link, Switch, Route, useParams} from "react-router-dom";
 
 function App() {
   return (
-      <BrowserRouter>
-          <Switch>
-              <Route path={"/"} exact component={Home}/>
-        </Switch>
-      </BrowserRouter>
-  );
+      <div>
+      <Home/>
+      <Welcome/>
+      <SimpleMenu handle={<Button>Simple Menu</Button>}>
+          <MenuItem>Cookies</MenuItem>
+          <MenuItem>Pizza</MenuItem>
+          <MenuItem>Icecream</MenuItem>
+      </SimpleMenu>
+      </div>
+
+  )
 }
 
-function Home(props) {
-    return (
-        <div>
-            <h1>You're at the home page!</h1>
-        </div>
-    );
+function Home() {
+  return (
+      <h1> Hi</h1>
+  )
 }
 
+function Welcome() {
+  return (
+      <h2>He</h2>
+  )
+}
 
 export default App;

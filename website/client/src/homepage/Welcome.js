@@ -1,18 +1,8 @@
-import React from "react";
+import React from 'react';
 
-class Home extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
-    render() {
-        return(
-            <h1>HI</h1>
-        )
-    }
+function Welcome() {
+    return (
+        <h1> Hi</h1>
+);
 }
-
-export default Home;
-
-export class Home {
-}
+export default Welcome;
