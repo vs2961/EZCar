@@ -1,8 +1,12 @@
 import React from 'react';
 
-function Welcome() {
+function Welcome(props) {
     return (
-        <h1> Hi</h1>
+        // have some react thingy that fades in Welcome on load
+        <div className={props.className}>
+            <h1>EZCar</h1> 
+            <h2>Streamlining the Car Search</h2>
+        </div>
 );
 }
 export default Welcome;
