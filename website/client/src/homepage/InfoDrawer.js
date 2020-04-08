@@ -1,8 +1,10 @@
 import React, {useState} from 'react';
 import {Button} from '@rmwc/button';
-import {SimpleMenu, MenuItem} from '@rmwc/menu';
+// import {SimpleMenu, MenuItem} from '@rmwc/menu';
 import {Drawer, DrawerHeader, DrawerSubtitle, DrawerTitle, DrawerContent} from '@rmwc/drawer';
-import {List, ListItem, ListDivider} from '@rmwc/list';
+import {List, ListItem, ListDivider, SimpleListItem} from '@rmwc/list';
+import {NavLink} from 'react-router-dom';
+import '@rmwc/icon/styles';
 import '@rmwc/drawer/styles';
 
 function InfoDrawer(props) {
@@ -14,14 +16,31 @@ function InfoDrawer(props) {
           <DrawerTitle>Options</DrawerTitle>
           <DrawerSubtitle>Explore!</DrawerSubtitle>
         </DrawerHeader>
+
+
         <DrawerContent>
           <List>
-            <ListItem>My Profile</ListItem>
+          {/* self explanatory but each list item points to specific pages of interest */}
+            <NavLink to="/"><ListItem><b>Introduction (DEBUG)</b></ListItem></NavLink>
             <ListDivider></ListDivider>
-            <ListItem>Cars</ListItem>
+            <SimpleListItem
+            graphic="account_circle"
+            text="Profile"
+            />
+
             <ListDivider></ListDivider>
-            <ListItem>About</ListItem
-            >
+            <SimpleListItem 
+            graphic='directions_car'
+            text="Cars"
+            />
+            <ListDivider></ListDivider>
+  
+            <NavLink to="/about">
+              <SimpleListItem
+              graphic="supervisor_account"
+              text="About"
+              />
+            </NavLink>
           </List>
         </DrawerContent>
       </Drawer>
