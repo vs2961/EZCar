@@ -7,7 +7,7 @@ cars_blueprint = Blueprint(
     'cars', __name__,
     template_folder="templates"
 )
-@cars_blueprint.route('/')
+@cars_blueprint.route('/cars')
 def serve():
     car = Car.query.all()
     return render_template("index.html", car=car)
