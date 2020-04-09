@@ -10,4 +10,4 @@ cars_blueprint = Blueprint(
 @cars_blueprint.route('/cars')
 def serve():
     car = Car.query.all()
-    return render_template("index.html", car=car)
+    return "jusajfgjanfer";

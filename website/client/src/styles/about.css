@@ -1,0 +1,17 @@
+.monkeydoo {
+    font-weight: bold;
+    margin: 0 auto; /* Added */
+    float: none; /* Added */
+    margin-bottom: 10px; /* Added */
+}
+.card {
+    margin: 0 auto; /* Added */
+    float: none; /* Added */
+    margin-bottom: 1em; /* Added */
+}
+
+.aboutText {
+    font-size: 1.5em;
+    padding: 3em;
+    border: 
+}
