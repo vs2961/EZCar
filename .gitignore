@@ -134,4 +134,5 @@ db/data.db
 data.db
 
 # Michael's IDE
-.idea/
+.idea/*
+website/client/src/homepage/.idea/home.iml
