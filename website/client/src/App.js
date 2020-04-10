@@ -1,24 +1,15 @@
-import React from 'react';
 
-import {BrowserRouter, Link, Switch, Route, useParams} from "react-router-dom";
+import '@rmwc/button/styles';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import '@rmwc/menu/styles';
+import React from 'react';
+import "./styles/App.css";
+import CarRoutes from "./routing/CarRoutes";
 
 function App() {
   return (
-      <BrowserRouter>
-          <Switch>
-              <Route path={"/"} exact component={Home}/>
-        </Switch>
-      </BrowserRouter>
-  );
+    <CarRoutes/>
+  )
 }
-
-function Home(props) {
-    return (
-        <div>
-            <h1>You're at the home page!</h1>
-        </div>
-    );
-}
-
 
 export default App;
