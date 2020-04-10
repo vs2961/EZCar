@@ -1,9 +1,9 @@
 import React from 'react';
 import InfoDrawer from './InfoDrawer';
-import Image from 'react-bootstrap';
 import "../styles/about.css";
 import {Card} from 'react-bootstrap';
-
+import Test from './Test';
+import ComponentInfoDrawer from './ComponentInfoDrawer';
 function About() {
     const intro = `
     Look, we get it. Buying cars is a hassle. Car salesperson aren't good people! 
@@ -13,7 +13,7 @@ function About() {
     Just create an account and get started!`;
     console.log("Hi");
     return (
-        <div /*className={"monkeydoo"}*/ >
+        <div >
             <h1>What's EZCar?</h1>
             <Card className={"card"} style={{width: '36em', textAlign: 'center'}} border="primary">
                 <Card.Img variant="top" src='https://previews.123rf.com/images/gnicolson/gnicolson1208/gnicolson120800073/14996899-retro-car-salesman-cartoon.jpg'></Card.Img>
@@ -22,6 +22,8 @@ function About() {
                     <Card.Text>{intro}</Card.Text>
                 </Card.Body>
             </Card>
+            {/* <Test name={'Michael'}/> */}
+            <ComponentInfoDrawer></ComponentInfoDrawer>
 
         </div>
     )

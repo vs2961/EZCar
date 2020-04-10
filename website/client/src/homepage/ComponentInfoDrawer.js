@@ -1,26 +1,46 @@
-import React, {useState} from 'react';
+import React, { Component } from 'react'
 import {Button} from '@rmwc/button';
-// import {SimpleMenu, MenuItem} from '@rmwc/menu';
+
 import {Drawer, DrawerHeader, DrawerSubtitle, DrawerTitle, DrawerContent} from '@rmwc/drawer';
 import {List, ListItem, ListDivider, SimpleListItem} from '@rmwc/list';
 import {NavLink} from 'react-router-dom';
-import '@rmwc/icon/styles';
 import '@rmwc/drawer/styles';
 
-function InfoDrawer(props) {
-        console.log(props);
-        const [open, setOpen] = useState(false)
+export class ComponentInfoDrawer extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            open : false
+        }
+        this.setClose = this.setClose.bind(this);
+        this.setOpen = this.setOpen.bind(this);
+        console.log(this.props)
+    }
+
+    
+
+    setClose() {
+        this.setState({
+            open: false
+        })
+    };
+
+    setOpen() {
+        this.setState({
+            open: true
+        })
+    }
+
+    render() {
         return (
             <>
-                <Drawer modal open={open} onClose={() => setOpen(false)}>
-        <DrawerHeader>
-          <DrawerTitle>Options</DrawerTitle>
-          <DrawerSubtitle>Explore!</DrawerSubtitle>
-        </DrawerHeader>
-
-
-        <DrawerContent>
-          <List>
+            <Drawer modal open={this.state.open} onClose={this.setClose}>
+                <DrawerHeader>
+                    <DrawerTitle>Options</DrawerTitle>
+                    <DrawerSubtitle>Explore!</DrawerSubtitle>
+                </DrawerHeader>
+                <DrawerContent>
+                <List>
           {/* self explanatory but each list item points to specific pages of interest */}
             <NavLink to="/"><ListItem><b>Introduction (DEBUG)</b></ListItem></NavLink>
             <ListDivider></ListDivider>
@@ -44,13 +64,13 @@ function InfoDrawer(props) {
             </NavLink>
           </List>
         </DrawerContent>
-      </Drawer>
-
-      <Button  onClick={() => setOpen(!open)} raised>
-        Options
+        </Drawer>
+        <Button  onClick={this.setOpen} raised>
+            Options
       </Button>
             </>
         );
+    }
 }
 
-export default InfoDrawer;
+export default ComponentInfoDrawer
