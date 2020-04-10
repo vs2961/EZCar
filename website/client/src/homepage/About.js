@@ -22,7 +22,7 @@ function About() {
                     <Card.Text>{intro}</Card.Text>
                 </Card.Body>
             </Card>
-            {/* <Test name={'Michael'}/> */}
+            <Test name={'Michael'}/>
             <ComponentInfoDrawer></ComponentInfoDrawer>
 
         </div>
