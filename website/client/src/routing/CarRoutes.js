@@ -3,6 +3,8 @@ import {BrowserRouter, Switch, Route} from 'react-router-dom';
 import Welcome from "../homepage/Welcome";
 import About from "../homepage/About";
 import CarAppBar from "../homepage/CarAppBar";
+import Cars from '../carAbout/Cars';
+import CarDump from '../carAbout/CarDump';
 // Describes the routes of the website. 
 function CarRoutes() {
     return(
@@ -15,6 +17,8 @@ function CarRoutes() {
                     <CarAppBar/>
                     <About/>
                 </Route>
+
+                <Route path={"/cars"} component={CarDump} exact/>
             </Switch>
         </BrowserRouter>
     )
