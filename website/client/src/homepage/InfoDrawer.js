@@ -1,56 +1,84 @@
-import React, {useState} from 'react';
-import {Button} from '@rmwc/button';
-// import {SimpleMenu, MenuItem} from '@rmwc/menu';
-import {Drawer, DrawerHeader, DrawerSubtitle, DrawerTitle, DrawerContent} from '@rmwc/drawer';
-import {List, ListItem, ListDivider, SimpleListItem} from '@rmwc/list';
-import {NavLink} from 'react-router-dom';
-import '@rmwc/icon/styles';
-import '@rmwc/drawer/styles';
+import React from 'react'
+import {NavLink} from 'react-router-dom'
+import BugReportIcon from '@material-ui/icons/BugReport';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import DriveEtaIcon from '@material-ui/icons/DriveEta';
+import InfoIcon from '@material-ui/icons/Info';
+import IconButton from '@material-ui/core/IconButton'
+import {makeStyles} from '@material-ui/core/styles';
+import {List, ListItem, ListItemText, Divider, Button, Drawer, ListItemAvatar, Avatar} from '@material-ui/core'
+import MenuIcon from '@material-ui/icons/Menu';
 
-function InfoDrawer(props) {
-        console.log(props);
-        const [open, setOpen] = useState(false)
-        return (
+const useStyles = makeStyles(
+    {
+        root: {
+            background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+            border: 0,
+            borderRadius: 3,
+            boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+            color: 'white',
+            height: 48,
+            padding: '0 30px'
+        }
+    }
+);
+
+
+
+function MaterialInfoDrawer() {
+    const classes = useStyles();
+    // the drawer opens from the left
+    const [state, setState] = React.useState({
+        left: false,
+      });
+    // looks to see whether the user presses certain keys (mainly for UX)
+    const toggleDrawer = (anchor, open) => (event) => {
+        if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+            return;
+          }
+      
+          setState({ ...state, [anchor]: open });
+    } 
+
+    const routes = ["/", "/profile", "/cars", "/about"]
+    const icons = [<BugReportIcon/>, <AccountCircleIcon/>, <DriveEtaIcon/>, <InfoIcon/>]
+
+    const topics = (anchor) => (
+        <div role={"presentation"}
+        onClick={toggleDrawer(anchor, false)}
+        onKeyDown={toggleDrawer(anchor, false)}>
+            {/* Just maps out the topics, making listitems for each one */}
+            <List>
+            {['Introduction (DEBUG)', 'Profile', 'Cars', 'About'].map((text, index) => (
+                <>
+                <ListItem button key={index}>
+                    <NavLink to={routes[index]} >
+                    <ListItemAvatar>
+                    <Avatar>
+                        {icons[index]}
+                    </Avatar>
+                    </ListItemAvatar>
+                    <ListItemText primary={text} ></ListItemText>
+                    </NavLink>
+                </ListItem>
+                <Divider />
+                </>
+            ))}
+            </List>
+        </div>
+    )
+    return (
+        <div>
             <>
-                <Drawer modal open={open} onClose={() => setOpen(false)}>
-        <DrawerHeader>
-          <DrawerTitle>Options</DrawerTitle>
-          <DrawerSubtitle>Explore!</DrawerSubtitle>
-        </DrawerHeader>
-
-
-        <DrawerContent>
-          <List>
-          {/* self explanatory but each list item points to specific pages of interest */}
-            <NavLink to="/"><ListItem><b>Introduction (DEBUG)</b></ListItem></NavLink>
-            <ListDivider></ListDivider>
-            <SimpleListItem
-            graphic="account_circle"
-            text="Profile"
-            />
-
-            <ListDivider></ListDivider>
-            <SimpleListItem 
-            graphic='directions_car'
-            text="Cars"
-            />
-            <ListDivider></ListDivider>
-  
-            <NavLink to="/about">
-              <SimpleListItem
-              graphic="supervisor_account"
-              text="About"
-              />
-            </NavLink>
-          </List>
-        </DrawerContent>
-      </Drawer>
-
-      <Button  onClick={() => setOpen(!open)} raised>
-        Options
-      </Button>
+            <IconButton edge='start' onClick={toggleDrawer("left", true)} className={classes.root}>
+                <MenuIcon/>
+            </IconButton> 
+            <Drawer anchor={"left"} open={state["left"]} onClose={toggleDrawer("left", false)}>
+                {topics("left")}
+            </Drawer>
             </>
-        );
+        </div>
+    )
 }
 
-export default InfoDrawer;
+export default MaterialInfoDrawer;
