@@ -6,7 +6,7 @@ from app import db
 class Car(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     type = db.Column(db.String, nullable=False)
-    name = db.Column(db.String, nullable=False, unique=True)
+    name = db.Column(db.String, nullable=False, unique=False)
     rating = db.Column(db.Float, nullable=True)
     mpg = db.Column(db.Integer, nullable=False)
     horsepower = db.Column(db.Integer, nullable=False)
