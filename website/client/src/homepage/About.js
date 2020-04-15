@@ -1,7 +1,6 @@
 import React from 'react';
 import "../styles/about.css";
 import {Card} from 'react-bootstrap';
-import InfoDrawer from './InfoDrawer';
 function About() {
     const intro = `
     Look, we get it. Buying cars is a hassle. Car salesperson aren't good people! 

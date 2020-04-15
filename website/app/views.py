@@ -8,7 +8,7 @@ cars_blueprint = Blueprint(
     'cars', __name__,
     template_folder="templates"
 )
-@cars_blueprint.route('/cars')
+@cars_blueprint.route('/dump')
 def serve():
     car = Car.query.all()
     car_list = "{}".format(car)
