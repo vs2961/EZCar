@@ -28,7 +28,7 @@ def getPrices(html, price):
         try:
             price.append(soup.findAll("div", {"class":"BNeawe s3v9rd AP7Wnd"})[1].text[6:])
         except IndexError:
-            pass
+            price.append("Not available")
 
     # for bing
     '''print(soup.findAll("div", class_= ["b_focusTextMedium"]))'''
@@ -39,19 +39,21 @@ names_list = readMyFile('master.csv')
 print(names_list)
 
 p = 0
-b = 0
+j = random.randint(1,2)
+bruh = 0
 
 for car in names_list:
-    b = random.randint(40, 60)
-    time.sleep(b)
+    bruh = random.randint(1, 10)
+    if j == bruh:
+        time.sleep(60)
     a = requests.get(f"https://www.google.com/search?q={names_list[p]}/").text
     getPrices(a, prices)
     p += 1
-    if p%10 == 0:
-        print("time check" + str(p))
+    if p == 30:
+        break
 
-with open('master.csv', 'r') as read_obj, \
-        open('masterwithprices.csv', 'w', newline='') as write_obj:
+with open('master2.csv', 'r') as read_obj, \
+        open('masterwithprices2.csv', 'w', newline='') as write_obj:
     # Create a csv.reader object from the input file object
     csv_reader = csv.reader(read_obj)
     # Create a csv.writer object from the output file object
