@@ -78,7 +78,7 @@ def getCars(html, site, out):
 
     for item, val in enumerate(relations):
         try:
-            out.write(f"{relations[val][0]}, {val}, {', '.join(relations[val][1:])}\n")
+            out.write(f"{relations[val][0]}, {val}, {', '.join(relations[val][1:-1])}\n")
         except:
             print(val, relations[val])
 
