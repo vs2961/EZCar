@@ -46,7 +46,7 @@ def getCars(html, site, out):
             continue
 
         try:
-            marketprice = soup2.findAll("div", {"id":"fairPurchasePrice"})[0].text
+            marketprice = soup2.findAll("div", {"id":"fairPurchasePrice"})[0].text[1:].replace(",", "")
         except IndexError:
             continue
 
