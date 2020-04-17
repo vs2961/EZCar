@@ -16,12 +16,18 @@ def getCars(html, site, out):
     idscrape = soup.prettify()
     matchmatch = [match.start() for match in re.finditer("vehicleId", idscrape)]
 
+    car_mpg = [match.start() for match in re.finditer("combinedMpg", idscrape)]
+
+    car_hp = [match.start() for match in re.finditer("horsepower\"", idscrape)]
+
+    car_price = [match.start() for match in re.finditer("priceRange", idscrape)]
+
 # gets names of cars on page
-    cars = soup("a", attrs={"id": re.compile("pathLink")})
+    '''cars = soup("a", attrs={"id": re.compile("pathLink")})'''
     p = 0
 
-    for car in cars:
-        chosen_car = car.findChildren("h3", {"class": "css-fp7pcp e53mcov2"}, recursive=True)[0].text
+    for car in matchmatch:
+        '''chosen_car = car.findChildren("h3", {"class": "css-fp7pcp e53mcov2"}, recursive=True)[0].text
         try:
             chosen_rating = car.findChildren("div", {"itemprop": "reviewRating"}, recursive=True)[0].text[-4:]
         except IndexError:
@@ -33,25 +39,42 @@ def getCars(html, site, out):
         try:
             chosen_horsepower = car.findChildren("div", title="Horsepower")[0].findChildren("div")[0].text
         except IndexError:
-            continue
+            continue'''
+        chosen_price = soup.prettify()[int(matchmatch[p]) + 11:int(matchmatch[p]) + 17]
 
-        chosen_price = soup.prettify()[int(matchmatch[p])+11:int(matchmatch[p])+17]
+        price_range= soup.prettify()[int(car_price[p]) + 13:soup.prettify().find('"', int(car_price[p])+15)]
+        price_range = price_range.replace(",", "")
+
+        chosen_mpg = soup.prettify()[int(car_mpg[p])+14:soup.prettify().find('"', int(car_mpg[p])+16)]
+
+        chosen_horsepower = soup.prettify()[int(car_hp[p])+12:soup.prettify().find('"', int(car_hp[p])+12)-1]
 
         b = requests.get(f"https://www.kbb.com/vehicles/hub/_pricingmodal/?vehicleid={chosen_price}&intent=buy-new&tab=style&forceupdate=false/").text
         soup2 =  BeautifulSoup(b, features="html.parser")
 
         try:
-            price = soup2.findAll("div", {"id":"msrp"})[0].text
+            price = soup2.findAll("div", {"id":"msrp"})[0].text[1:].replace(",", "")
         except IndexError:
             continue
+
+        try:
+            chosen_car = soup2.findAll("div", {"class":"paragraph-one"})[0].text
+        except IndexError:
+            continue
+
+        if chosen_horsepower == "0":
+            bruh = chosen_car.replace(" ", "+") + "+HP"
+            a = requests.get(f"https://www.google.com/search?q={bruh}/").text
+            soup3 = BeautifulSoup(a, features="html.parser")
+            try:
+                chosen_horsepower = soup3.findAll("div", {"class":"BNeawe iBp4i AP7Wnd"})[0].text[0:3]
+            except IndexError:
+                pass
+
+        print(chosen_horsepower)
 
         try:
             marketprice = soup2.findAll("div", {"id":"fairPurchasePrice"})[0].text[1:].replace(",", "")
-        except IndexError:
-            continue
-
-        try:
-            pricerange = soup2.findAll("div", {"class":"paragraph-two msrp-title"})
         except IndexError:
             continue
 
@@ -60,15 +83,13 @@ def getCars(html, site, out):
         except IndexError:
             print("broken ooga")
 
-        imagelink = "https:"+imagelink[0]['src']
+        if imagelink[0]['src'] == "https://file.kbb.com/kbb/images/icons/no-image-te/640x480.png?interpolation=high-quality&downsize=200:*":
+            imagelink = "https:" + imagelink[1]['src']
+        imagelink = "https:"+ imagelink[0]['src']
 
-        pricerange = list(map(lambda x: int(x.text[1:].replace(",", "")), pricerange))
+        relations[p] = [site, chosen_car, chosen_mpg, chosen_horsepower, price, marketprice, price_range, imagelink]
 
-        pricemax = str(max(pricerange))
-        pricemin = str(min(pricerange))
-
-        if chosen_car not in relations.keys():
-            relations[chosen_car] = [site, chosen_rating.strip(), chosen_mpg, chosen_horsepower, pricemin, pricemax, marketprice, imagelink]
+        print(len(relations))
 
         if p%10 == 0:
             print("ooga checkpoint")
@@ -78,12 +99,12 @@ def getCars(html, site, out):
 
     for item, val in enumerate(relations):
         try:
-            out.write(f"{relations[val][0]}, {val}, {', '.join(relations[val][1:-1])}\n")
+            out.write(f"{relations[val][0]}, {', '.join(relations[val][1:-1])}\n")
         except:
             print(val, relations[val])
 
 out = open("./Parsed_Data/master.csv", "w")
-out.write("Type, Car, Rating, MPG, Horsepower, Min Price, Max Price, Market Price, Image Link\n")
+out.write("Type, Car, MPG, Horsepower, MSRP, Market Price, Price Range, Image Link\n")
 
 for site in sites:
     a = requests.get(f"https://www.kbb.com/{site}/").text
