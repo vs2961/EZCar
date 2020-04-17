@@ -107,7 +107,7 @@ def getCars(html, site, out):
         except:
             print(val, relations[val])
 
-out = open("./Parsed_Data/master.csv", "w")
+out = open("master.csv", "w")
 out.write("Type, Car, MPG, Horsepower, MSRP, Market Price, Price Range, Image Link\n")
 
 for site in sites:
