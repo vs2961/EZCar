@@ -71,12 +71,16 @@ def getCars(html, site, out):
             except IndexError:
                 pass
 
-        print(chosen_horsepower)
+        if chosen_mpg == "\",":
+            chosen_mpg = "0"
 
         try:
             marketprice = soup2.findAll("div", {"id":"fairPurchasePrice"})[0].text[1:].replace(",", "")
         except IndexError:
             continue
+
+        if marketprice == "/A":
+            marketprice = "0"
 
         try:
             imagelink = soup2.findAll("img")
@@ -99,7 +103,7 @@ def getCars(html, site, out):
 
     for item, val in enumerate(relations):
         try:
-            out.write(f"{relations[val][0]}, {', '.join(relations[val][1:-1])}\n")
+            out.write(f"{relations[val][0]}, {', '.join(relations[val][1:])}\n")
         except:
             print(val, relations[val])
 
@@ -111,3 +115,4 @@ for site in sites:
     getCars(a, site, out)
     print(f"Finished {site}")
     time.sleep(2)
+
