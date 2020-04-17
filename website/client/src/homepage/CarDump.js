@@ -15,19 +15,19 @@ const useStyles = makeStyles({
 })
 function CarDump(props) {
   const classes = useStyles();
-  const [carData, updateCarData] = useState(0);
+  const [carData, updateCarData] = useState([]);
 
   useEffect(() => {
-    fetch("/dump").then(response => response.json()).then(data => {updateCarData(data["cars"])}) 
+    fetch("/dump").then(response => response.json()).then(data => {updateCarData(data)}) 
 }, [])
 
-
+  console.log(carData);
  return (
   <React.Fragment>
     <CarAppBar/>
     {["Trucks", "SUVs", "Van-Minivans", "Hatchbacks", "Electrics", "Crossovers", "Convertibles", "Luxaries", "Wagons", "Coupes", "Sedans"]
     .map((text, index) => <Button variant="contained" color="primary" className={classes.root} key={index}>Load {text}</Button>)}
-    
+    {/* <h4>{carData}</h4> */}
 
   </React.Fragment>
   
