@@ -13,21 +13,34 @@ const useStyles = makeStyles({
     borderRadius: '1.1em'
     }
 })
+
 function CarDump(props) {
   const classes = useStyles();
   const [carData, updateCarData] = useState([]);
+  const [type, updateType] = useState("");
 
   useEffect(() => {
     fetch("/dump").then(response => response.json()).then(data => {updateCarData(data)}) 
 }, [])
 
-  console.log(carData);
+    //  console.log(carData);
+  var data = carData.filter((x) => x["TYPE"] == type.toLowerCase());
+  var update = Object.keys(data).map((key) => [Number(key), data[key]]);
+  // data contains object with cars, update contains array of that stuff
+  console.log(update);
  return (
   <React.Fragment>
     <CarAppBar/>
-    {["Trucks", "SUVs", "Van-Minivans", "Hatchbacks", "Electrics", "Crossovers", "Convertibles", "Luxaries", "Wagons", "Coupes", "Sedans"]
-    .map((text, index) => <Button variant="contained" color="primary" className={classes.root} key={index}>Load {text}</Button>)}
-    {/* <h4>{carData}</h4> */}
+    {["Truck", "SUV", "Van-Minivan", "Hatchback", "Electric", "Crossover", "Convertible", "Luxury", "Wagon", "Coupe", "Sedan"]
+    .map((text, index) => <Button 
+        variant="contained" 
+        color="primary" 
+        className={classes.root} 
+        key={index}
+        onClick={() => updateType(text)}>
+            Load {text}
+        </Button>
+    )}
 
   </React.Fragment>
   

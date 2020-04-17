@@ -113,7 +113,7 @@ class Car(db.Model):
             "RATING": self.rating,
             "MPG": self.mpg,
             "HORSEPOWER": self.horsepower, 
-            "PRICE_RANGE": "{} - {}".format(self.min_price, self.max_price),
+            "PRICE_RANGE": f"{self.min_price} - {self.max_price}",
             "IMAGE_LINK": self.image_link 
         }
 
@@ -129,4 +129,4 @@ class Car(db.Model):
             self.max_price,
             self.market_price, 
             self.image_link
-            )
+        )
