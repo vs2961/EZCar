@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 import re
 import requests
 import time
+from Scraping.seats_parser import getSeats
 
 sites = ["suv", "sedan", "hatchback", "luxury", "electric", "van-minivan", "crossover", "truck", "convertible", "coupe", "hybrid", "wagon"]
 matchmatch = []
@@ -23,24 +24,11 @@ def getCars(html, site, out):
     car_price = [match.start() for match in re.finditer("priceRange", idscrape)]
 
 # gets names of cars on page
-    '''cars = soup("a", attrs={"id": re.compile("pathLink")})'''
     p = 0
 
     for car in matchmatch:
-        '''chosen_car = car.findChildren("h3", {"class": "css-fp7pcp e53mcov2"}, recursive=True)[0].text
-        try:
-            chosen_rating = car.findChildren("div", {"itemprop": "reviewRating"}, recursive=True)[0].text[-4:]
-        except IndexError:
-            continue
-        try:
-            chosen_mpg = car.findChildren("div", title="Combined Fuel Economy")[0].findChildren("div")[0].text.split(" ")[0]
-        except IndexError:
-            continue
-        try:
-            chosen_horsepower = car.findChildren("div", title="Horsepower")[0].findChildren("div")[0].text
-        except IndexError:
-            continue'''
-        chosen_price = soup.prettify()[int(matchmatch[p]) + 11:int(matchmatch[p]) + 17]
+        carId = soup.prettify()[int(matchmatch[p]) + 11:int(matchmatch[p]) + 17]
+        chosen_seats = getSeats(site, carId)
 
         price_range= soup.prettify()[int(car_price[p]) + 13:soup.prettify().find('"', int(car_price[p])+15)]
         price_range = price_range.replace(",", "")
@@ -49,7 +37,7 @@ def getCars(html, site, out):
 
         chosen_horsepower = soup.prettify()[int(car_hp[p])+12:soup.prettify().find('"', int(car_hp[p])+12)-1]
 
-        b = requests.get(f"https://www.kbb.com/vehicles/hub/_pricingmodal/?vehicleid={chosen_price}&intent=buy-new&tab=style&forceupdate=false/").text
+        b = requests.get(f"https://www.kbb.com/vehicles/hub/_pricingmodal/?vehicleid={carId}&intent=buy-new&tab=style&forceupdate=false/").text
         soup2 =  BeautifulSoup(b, features="html.parser")
 
         try:
@@ -89,9 +77,9 @@ def getCars(html, site, out):
 
         if imagelink[0]['src'] == "https://file.kbb.com/kbb/images/icons/no-image-te/640x480.png?interpolation=high-quality&downsize=200:*":
             imagelink = "https:" + imagelink[1]['src']
-        imagelink = "https:"+ imagelink[0]['src']
+        imagelink = "https:"+ imagelink[0]['src'].replace(",", "")
 
-        relations[p] = [site, chosen_car, chosen_mpg, chosen_horsepower, price, marketprice, price_range, imagelink]
+        relations[p] = [carId, site, chosen_car, chosen_mpg, chosen_horsepower, chosen_seats, price, marketprice, price_range, imagelink]
 
         print(len(relations))
 
@@ -108,7 +96,7 @@ def getCars(html, site, out):
             print(val, relations[val])
 
 out = open("master.csv", "w")
-out.write("Type, Car, MPG, Horsepower, MSRP, Market Price, Price Range, Image Link\n")
+out.write("ID, Type, Car, MPG, Horsepower, Seats, MSRP, Market Price, Price Range, Image Link\n")
 
 for site in sites:
     a = requests.get(f"https://www.kbb.com/{site}/").text
