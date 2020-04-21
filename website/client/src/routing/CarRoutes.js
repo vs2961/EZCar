@@ -5,7 +5,6 @@ import Welcome from "../homepage/Welcome";
 import About from "../homepage/About";
 import CarAppBar from "../homepage/CarAppBar";
 import CarDump from "../homepage/CarDump";
-
 // Describes the routes of the website. 
 function CarRoutes() {
     return(
