@@ -9,32 +9,41 @@ const useStyles = makeStyles({
     fontWeight: 'bold',
     padding: '1.1em',
     margin: "1.1em",
-    backgroundColor: "#03f4fc"
-  }
+    backgroundColor: '#7557b5',
+    borderRadius: '1.1em'
+    }
 })
+
 function CarDump(props) {
   const classes = useStyles();
-  const [carData, updateCarData] = useState(0);
+  const [carData, updateCarData] = useState([]);
+  const [type, updateType] = useState("");
 
   useEffect(() => {
-    fetch("/dump").then(response => response.json()).then(data => {updateCarData(data["cars"])}) 
+    fetch("/dump").then(response => response.json()).then(data => {updateCarData(data)}) 
 }, [])
 
-
+    //  console.log(carData);
+  var data = carData.filter((x) => x["TYPE"] == type.toLowerCase());
+  var update = Object.keys(data).map((key) => [Number(key), data[key]]);
+  // data contains object with cars, update contains array of that stuff
+  console.log(update);
  return (
   <React.Fragment>
     <CarAppBar/>
-    {/* {carData} */}
-    {["Trucks", "SUVs", "Van-Minivans", "Hatchbacks", "Electrics", "Crossovers", "Convertibles", "Luxaries", "Wagons", "Coupes", "Sedans"]
-    .map((text, index) => <Button variant="contained" color="primary" className={classes.root} key={index}>Load {text}</Button>)}
-    {/* <Button variant="contained" color="secondary" className={classes.root}>Dump Car Data</Button>
-    <Button variant="contained" color="warning" className={classes.root}> Load SUVs</Button>
-    <Button variant="contained" color="warning" className={classes.root}> Load SUVs</Button> */}
+    {["Truck", "SUV", "Van-Minivan", "Hatchback", "Electric", "Crossover", "Convertible", "Luxury", "Wagon", "Coupe", "Sedan"]
+    .map((text, index) => <Button 
+        variant="contained" 
+        color="primary" 
+        className={classes.root} 
+        key={index}
+        onClick={() => updateType(text)}>
+            Load {text}
+        </Button>
+    )}
 
   </React.Fragment>
   
   );
 }
-
 export default CarDump;
-

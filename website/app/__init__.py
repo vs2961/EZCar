@@ -1,14 +1,12 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from sqlathanor import FlaskBaseModel, initialize_flask_sqlathanor
 import os
 
 app = Flask(__name__, instance_relative_config=True)
-# db_path = os.path.join(os.path.dirname("./__init__.py"), 'production.db')
-# db_uri = 'sqlite:///{}'.format(db_path)
-# print(db_uri)
-# app.config['SQLALCHEMY_DATABASE_URI'] = db_uri
 app.config.from_object("config.DevelopmentConfig")
-db = SQLAlchemy(app)
+db = SQLAlchemy(app, model_class=FlaskBaseModel)
+db = initialize_flask_sqlathanor(db)
 
 from .views import cars_blueprint
 

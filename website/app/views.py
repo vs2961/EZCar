@@ -10,6 +10,7 @@ cars_blueprint = Blueprint(
 )
 @cars_blueprint.route('/dump')
 def serve():
-    car = Car.query.all()
-    car_list = "{}".format(car)
-    return jsonify({'cars': car_list});
+    cars = Car.query.all()
+    # print(car.to_json())
+    carList = [car.serialize() for car in cars]
+    return jsonify(carList)

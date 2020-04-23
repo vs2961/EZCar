@@ -76,15 +76,6 @@ class Car(db.Model):
               on_serialize = None,
               on_deserialize = None,
               display_name = None)
-    market_price = db.Column(
-              db.Float, 
-              nullable=False, 
-              supports_json = True,
-              supports_yaml = True,
-              supports_dict = True,
-              on_serialize = None,
-              on_deserialize = None,
-              display_name = None)
     min_price = db.Column(
               db.Float, 
               nullable=False, 
@@ -95,6 +86,15 @@ class Car(db.Model):
               on_deserialize = None,
               display_name = None)
     max_price = db.Column(
+              db.Float, 
+              nullable=False, 
+              supports_json = True,
+              supports_yaml = True,
+              supports_dict = True,
+              on_serialize = None,
+              on_deserialize = None,
+              display_name = None)
+    market_price = db.Column(
               db.Float, 
               nullable=False, 
               supports_json = True,

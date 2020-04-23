@@ -12,7 +12,7 @@ function About() {
     return (
         <div >
             <h1>What's EZCar?</h1>
-            <Card className={"card"} style={{width: '36em', textAlign: 'center'}} border="primary">
+            <Card className={"card"} style={{width: '16em', textAlign: 'center'}} border="primary">
                 <Card.Img variant="top" src='car.png'></Card.Img>
                 <Card.Header style={{fontSize: "1.5em", fontWeight: "bolder"}}>Introduction</Card.Header>
                 <Card.Body>
