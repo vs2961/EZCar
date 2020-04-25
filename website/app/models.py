@@ -20,7 +20,6 @@ class Car(db.Model):
               on_serialize = None,
               on_deserialize = None,
               display_name = None)
-
     name = db.Column(
               db.String, 
               nullable=False, 
@@ -31,9 +30,10 @@ class Car(db.Model):
               on_serialize = None,
               on_deserialize = None,
               display_name = None)
-    rating = db.Column(
-              db.Float, 
-              nullable=True, 
+    is_electric = db.Column(
+              db.Boolean, 
+              nullable=False, 
+              unique=False, 
               supports_json = True,
               supports_yaml = True,
               supports_dict = True,
@@ -51,6 +51,24 @@ class Car(db.Model):
               display_name = None)
     horsepower = db.Column(
               db.Integer, 
+              nullable=False, 
+              supports_json = True,
+              supports_yaml = True,
+              supports_dict = True,
+              on_serialize = None,
+              on_deserialize = None,
+              display_name = None)
+    seats = db.Column(
+              db.Integer, 
+              nullable=False, 
+              supports_json = True,
+              supports_yaml = True,
+              supports_dict = True,
+              on_serialize = None,
+              on_deserialize = None,
+              display_name = None)
+    MSRP = db.Column(
+              db.Float, 
               nullable=False, 
               supports_json = True,
               supports_yaml = True,
@@ -95,38 +113,36 @@ class Car(db.Model):
               on_deserialize = None,
               display_name = None)
 
-    def __init__(self,type, name, rating, mpg, horsepower, min_price, max_price, market_price, image_link):
+    def __init__(self, type, name, is_electric, mpg, horsepower, seats, MSRP, market_price, min_price, max_price, image_link):
         self.type = type
         self.name = name
-        self.rating = rating
+        self.is_electric = is_electric
         self.mpg = mpg
         self.horsepower = horsepower
+        self.seats = seats
+        self.MSRP = MSRP
+        self.market_price = market_price
         self.min_price = min_price
         self.max_price = max_price
-        self.market_price = market_price
         self.image_link = image_link
 
     def serialize(self):
         return {
             "TYPE": self.type,
             "NAME": self.name,
-            "RATING": self.rating,
+            "IS ELECTRIC": self.is_electric,
             "MPG": self.mpg,
             "HORSEPOWER": self.horsepower, 
+            "SEATS": self.seats, 
+            "MSRP": self.MSRP, 
+            "MARKET PRICE": self.market_price, 
             "PRICE_RANGE": f"{self.min_price} - {self.max_price}",
             "IMAGE_LINK": self.image_link 
         }
 
     def __repr__(self):
-        return "ID #{}: TYPE: {}. NAME: {}. RATING: {}. MPG: {}. HORSEPOWER: {}. MIN_PRICE: {}. MAX_PRICE: {}. MARKET_PRICE: {}. IMAGE_LINK: {}".format(
-            self.id, 
-            self.type, 
-            self.name, 
-            self.rating, 
-            self.mpg, 
-            self.horsepower, 
-            self.min_price,
-            self.max_price,
-            self.market_price, 
-            self.image_link
-        )
+        return f"ID #{self.id}: TYPE: {self.type}. NAME: {self.name}. \
+                 IS_ELECTRIC: {self.is_electric}. MPG: {self.mpg}. \
+                 HORSEPOWER: {self.horsepower}. SEATS: {self.seats}. \
+                 MIN_PRICE: {self.min_price}. MAX_PRICE: {self.max_price}. \
+                 MARKET_PRICE: {self.market_price}. IMAGE_LINK: {self.image_link}"
