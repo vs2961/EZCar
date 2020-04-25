@@ -1,5 +1,4 @@
 import React, { useEffect, useState} from 'react';
-import '@rmwc/top-app-bar/styles';
 import {makeStyles} from '@material-ui/core/styles';
 import CarAppBar from './CarAppBar';
 import Button from '@material-ui/core/Button'
