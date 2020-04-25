@@ -7,7 +7,11 @@ function Welcome(props) {
  return (
    <>
     <CarAppBar/>
-    <CCard/>
+    <div>
+      <CCard/>
+      <CCard/>
+      <CCard/>
+    </div>
   </>
   );
 }
