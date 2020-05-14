@@ -17,7 +17,10 @@ const useStyles = makeStyles(theme => ({
 function NewCard(props) {
     const [name, setName] = useState("");
     const classes = useStyles();
-    const {func,text} = props;
+    const {val, func,text} = props;
+    const sendData = () => {
+        func(val);
+    }
     return (
         <div>
                 <Card variant="outlined">
@@ -32,7 +35,7 @@ function NewCard(props) {
                     </CardContent>
                     </CardActionArea>
                     <CardActions>
-                        <Button onClick={func}>Click Me!</Button>
+                        <Button onClick={sendData}>Click Me!</Button>
                     </CardActions>
                     </Card>
         </div>
