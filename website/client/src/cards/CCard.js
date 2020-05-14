@@ -8,11 +8,12 @@ import { createMuiTheme, makeStyles, ThemeProvider } from '@material-ui/core/sty
 import { CardHeader } from '@material-ui/core';
 import Divider from '@material-ui/core/Divider';
 import InfoIcon from '@material-ui/icons/Info';
+
 // makes the card used when leading users to the cars of their dreams
 
 const useStyles = makeStyles(theme => ({
     root : {
-        width: 500,
+        height: '100%'
         },
     header: {
         fontFamily: theme.font.header,
@@ -36,38 +37,42 @@ const useStyles = makeStyles(theme => ({
 function CustomCard() {
     const classes = useStyles();
     return (
-        <>
-        <Card 
-        classes={{
-            root: classes.root
-        }} 
-        variant="outlined">
+       <>
+            <Card 
+            classes={{
+                root: classes.root
+            }} 
+            variant="outlined">
 
-        <CardHeader 
-        
-        
-        className={classes.header}
-        title={<>
-            <Typography 
-            align='center' variant='h4' classes={{h4: classes.header}}>The Wallet Friendly
-            </Typography> 
+            <CardHeader 
+            
+            
+            className={classes.header}
+            title={<>
+                <Typography 
+                align='center' variant='h4' classes={{h4: classes.header}}>The Wallet Friendly
+                </Typography> 
 
-            <Typography align='center' classes={{subtitle1: classes.subtitle}} variant='subtitle1'>For those starting to hit the road
-            </Typography>
-            </>
-            }
-        />
-        <Divider/>
-            <CardContent>
-                <Typography align="center" variant="h2" classes={{h2: classes.price}}>Under $30,000</Typography>
-            </CardContent>
+                <Typography align='center' classes={{subtitle1: classes.subtitle}} variant='subtitle1'>For those starting to hit the road
+                </Typography>
+                </>
+                }
+            />
+            <Divider/>
+                <CardContent>
+                    <Typography align="center" variant="h2" classes={{h2: classes.price}}>Under $30,000</Typography>
+                    <Typography align="center" variant="h2" classes={{h2: classes.price}}>Under $30,000</Typography>
+                    <Typography align="center" variant="h2" classes={{h2: classes.price}}>Under $30,000</Typography>
+                    <Typography align="center" variant="h2" classes={{h2: classes.price}}>Under $30,000</Typography>
+                    
 
-            <CardActions>
-                <Button color="secondary" variant='outlined' size='large'> <InfoIcon/></Button>
-            </CardActions>
-        </Card>
+                </CardContent>
+
+                <CardActions>
+                    <Button color="secondary" variant='outlined' size='large'> <InfoIcon/></Button>
+                </CardActions>
+            </Card>
         </>
-        
     )
 }
 
