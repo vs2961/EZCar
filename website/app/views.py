@@ -8,7 +8,7 @@ cars_blueprint = Blueprint(
     'cars', __name__,
     template_folder="templates"
 )
-@cars_blueprint.route('/dump')
+@cars_blueprint.route('/dump', methods=["GET", "POST"])
 def serve():
     req_data = request.get_json()
     print(req_data)

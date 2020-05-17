@@ -10,9 +10,10 @@ class Welcome extends React.Component {
     constructor(props) {
         super(props);
         this.rounds = [
-            ["Newcomer", "Family Package", "Exclusive"],
-            ["Convertible", "SUV", "Sports"],
-            ["Less Than 3", "Less Than 5", "More Than 5"]
+            // {"Newcomer" : 20000, "Family Package": 45000, "Exclusive": 400000},
+            [["Price", "Newcomer", [0, 20000]], ["Price", "Family Package", [20001, 45000]], ["Price", "Exclusive", [45001, "unlimited"]]],
+            [["Type", "Convertible", 'convertible'] , ["Type", "SUV", 'suv'], ["Type", "Sports", 'sports']],
+            [["Seat", "Less Than 3", 3], ["Seat", "Less Than 5", 5], ["Seat", "More Than 5", [5, "unlimited"]]]
         ]
         this.state = {
             price: 0,
@@ -25,16 +26,13 @@ class Welcome extends React.Component {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ title: 'React POST Request Example' }),
-            Type : "SUV",
-            Price : 50000,
-            Seats : 4
         };
 
         this.updateChoices = this.updateChoices.bind(this);
         this.submitData = this.submitData.bind(this);
 
     }
-    
+
     updateChoices(val) {
         var updatedIndex;
         if (this.state.curIndex >= this.rounds.length - 1) updatedIndex = this.rounds.length - 1
@@ -45,10 +43,17 @@ class Welcome extends React.Component {
           curIndex: updatedIndex,
           curRound: this.rounds[updatedIndex]
         })
+
+        this.choices[val[0]] = val[2]
+        console.log(this.choices);
       }
 
     submitData = () => {
-        axios.get("/dump", this.choices).then(res => console.log(res.data))
+        axios.post("/dump", this.choices).then(res => console.log(res.data))
+    }
+
+    componentDidUpdate() {
+        console.log(this.state)
     }
 
 
@@ -60,7 +65,7 @@ class Welcome extends React.Component {
     <CarAppBar/>
     <Grid container>
     {this.state.curRound.map((item, index) => {
-            return <Grid item xs={4} key={index}> <NewCard val={item} func={this.updateChoices}text={item}/> </Grid>
+            return <Grid item xs={4} key={index}> <NewCard val={item} func={this.updateChoices}text={item[1]}/> </Grid>
         })}
     </Grid>
     <Button onClick={this.submitData}>Submit Data</Button>
