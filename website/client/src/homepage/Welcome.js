@@ -11,9 +11,9 @@ class Welcome extends React.Component {
         super(props);
         this.rounds = [
             // {"Newcomer" : 20000, "Family Package": 45000, "Exclusive": 400000},
-            [["Price", "Newcomer", [0, 20000]], ["Price", "Family Package", [20001, 45000]], ["Price", "Exclusive", [45001, "unlimited"]]],
-            [["Type", "Convertible", 'convertible'] , ["Type", "SUV", 'suv'], ["Type", "Sports", 'sports']],
-            [["Seat", "Less Than 3", 3], ["Seat", "Less Than 5", 5], ["Seat", "More Than 5", [5, "unlimited"]]]
+            [["Price", "Newcomer", [0, 20000]], ["Price", "Family Package", [20001, 45000]], ["Price", "Exclusive", [45001, Number.MAX_SAFE_INTEGER]]],
+            [["Type", "Convertible", 'convertible'], ["Type", "SUV", 'suv'], ["Type", "Sports", 'sports']],
+            [["Seats", "Less Than 3", [0,3]], ["Seats", "Less Than 5", [4,5]], ["Seat", "More Than 5", [5, "unlimited"]]]
         ]
         this.state = {
             price: 0,
