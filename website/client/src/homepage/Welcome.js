@@ -54,7 +54,7 @@ class Welcome extends React.Component {
     }
 
     componentDidUpdate() {
-        console.log(this.state)
+        axios.post("/available", this.choices).then(res => console.log(res.data))
     }
 
  render() { 
