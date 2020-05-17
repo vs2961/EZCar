@@ -10,14 +10,11 @@ class Welcome extends React.Component {
     constructor(props) {
         super(props);
         this.rounds = [
-            // {"Newcomer" : 20000, "Family Package": 45000, "Exclusive": 400000},
             [["Price", "Newcomer", [0, 20000]], ["Price", "Family Package", [20001, 45000]], ["Price", "Exclusive", [45001, Number.MAX_SAFE_INTEGER]]],
             [["Type", "Convertible", 'convertible'], ["Type", "SUV", 'suv'], ["Type", "Sports", 'sports']],
             [["Seats", "Less Than 3", [0,3]], ["Seats", "Less Than 5", [4,5]], ["Seats", "More Than 5", [5, "unlimited"]]]
         ]
         this.state = {
-            price: 0,
-            seats: 0,
             curRound: this.rounds[0],
             curIndex: 0
         }
@@ -25,7 +22,10 @@ class Welcome extends React.Component {
         this.choices = {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ title: 'React POST Request Example' }),
+            body: JSON.stringify({ title: 'User\'s Choices' }),
+            Price: null,
+            Type: null,
+            Seats: null
         };
 
         this.updateChoices = this.updateChoices.bind(this);
@@ -38,8 +38,6 @@ class Welcome extends React.Component {
         if (this.state.curIndex >= this.rounds.length - 1) updatedIndex = this.rounds.length - 1
         else updatedIndex = this.state.curIndex + 1
         this.setState({
-          price: 100,
-          seats: 10,
           curIndex: updatedIndex,
           curRound: this.rounds[updatedIndex]
         })
