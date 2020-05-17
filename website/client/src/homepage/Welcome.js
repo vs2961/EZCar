@@ -48,7 +48,7 @@ class Welcome extends React.Component {
 
   submitData = () => {
 
-  axios.get("https://localhost:5000/dump", this.choices).then(res => console.log(res.data))
+  axios.get("/dump", this.choices).then(res => console.log(res.data))
 }
   componentDidUpdate() {
     // console.log(this.state.curIndex);
@@ -67,6 +67,7 @@ class Welcome extends React.Component {
         })}
     </Grid>
     <Button onClick={this.submitData}>Submit Data</Button>
+    Here is what we found. . . 
   </>
    );
  }
