@@ -1,4 +1,4 @@
-from flask import Blueprint, send_from_directory, Flask, render_template, jsonify, request
+from flask import Blueprint, Flask, jsonify, request
 from .models import Car
 import time
 
