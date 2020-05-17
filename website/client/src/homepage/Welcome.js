@@ -56,9 +56,6 @@ class Welcome extends React.Component {
         console.log(this.state)
     }
 
-
-    
-
  render() { 
    return (
    <>
