@@ -4,6 +4,7 @@ import Grid from '@material-ui/core/Grid';
 import NewCard from '../cards/NewCard';
 import Button from '@material-ui/core/Button';
 import axios from 'axios';
+import { ThemeProvider } from '@material-ui/core';
 
 
 class Welcome extends React.Component {
@@ -25,7 +26,8 @@ class Welcome extends React.Component {
             body: JSON.stringify({ title: 'User\'s Choices' }),
             Price: null,
             Type: null,
-            Seats: null
+            Seats: null,
+            futureRound: this.rounds[1]
         };
 
         this.updateChoices = this.updateChoices.bind(this);
@@ -43,6 +45,7 @@ class Welcome extends React.Component {
         })
 
         this.choices[val[0]] = val[2]
+        this.choices['futureRound'] = this.rounds[updatedIndex]
         console.log(this.choices);
       }
 

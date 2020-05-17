@@ -1,6 +1,5 @@
 from flask import Blueprint, send_from_directory, Flask, render_template, jsonify, request
 from .models import Car
-import os
 import time
 
 flask_app = Flask(__name__)
