@@ -7,70 +7,73 @@ import axios from 'axios';
 
 
 class Welcome extends React.Component {
-  constructor(props) {
-    super(props);
-    this.rounds = [
-      ["Newcomer", "Family Package", "Exclusive"],
-      ["Convertible", "SUV", "Sports"],
-      ["Less Than 3", "Less Than 5", "More Than 5"]
-    ]
-    this.state = {
-      price: 0,
-      seats: 0,
-      curRound: this.rounds[0],
-      curIndex: 0
+    constructor(props) {
+        super(props);
+        this.rounds = [
+            ["Newcomer", "Family Package", "Exclusive"],
+            ["Convertible", "SUV", "Sports"],
+            ["Less Than 3", "Less Than 5", "More Than 5"]
+        ]
+        this.state = {
+            price: 0,
+            seats: 0,
+            curRound: this.rounds[0],
+            curIndex: 0
+        }
+
+        this.choices = {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ title: 'React POST Request Example' }),
+            Type : "SUV",
+            Price : 50000,
+            Seats : 4
+        };
+
+        this.updateChoices = this.updateChoices.bind(this);
+        this.submitData = this.submitData.bind(this);
+
     }
 
-    this.choices = {
-    method: 'GET',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ title: 'React POST Request Example' }),
-    Type : "SUV",
-    Price : 50000,
-    Seats : 4
-    };
-    
-    this.updateChoices = this.updateChoices.bind(this);
-    this.submitData = this.submitData.bind(this);
-  }
+    updateChoices(val) {
+        var updatedIndex;
+        if (this.state.curIndex >= this.rounds.length - 1) updatedIndex = this.rounds.length - 1
+        else updatedIndex = this.state.curIndex + 1
+        this.setState({
+            price: 100,
+            seats: 10,
+            curIndex: updatedIndex,
+            curRound: this.rounds[updatedIndex]
+        })
+    }
 
-  updateChoices(val) {
-    var updatedIndex;
-    if (this.state.curIndex >= this.rounds.length - 1) updatedIndex = this.rounds.length - 1
-    else updatedIndex = this.state.curIndex + 1
-    this.setState({
-      price: 100,
-      seats: 10,
-      curIndex: updatedIndex,
-      curRound: this.rounds[updatedIndex]
-    })
-  }
+    submitData = () => {
+        const url = 'http://localhost:5000/dump';
+        const options = {
+              method: 'GET',
+        };
+        fetch(url, options).then(response => console.log(response));
+    }
+    componentDidUpdate() {
+        // console.log(this.state.curIndex);
+        // console.log(this.state.curRound);
 
-  submitData = () => {
-
-  axios.get("https://localhost:5000/dump", this.choices).then(res => console.log(res.data))
-}
-  componentDidUpdate() {
-    // console.log(this.state.curIndex);
-    // console.log(this.state.curRound);
-
-  }
+    }
 
 
- render() { 
-   return (
-   <>
-    <CarAppBar/>
-    <Grid container>
-    {this.state.curRound.map((item, index) => {
-            return <Grid item xs={4} key={index}> <NewCard val={item} func={this.updateChoices}text={item}/> </Grid>
-        })}
-    </Grid>
-    <Button onClick={this.submitData}>Submit Data</Button>
-  </>
-   );
- }
+    render() {
+        return (
+            <>
+            <CarAppBar/>
+            <Grid container>
+            {this.state.curRound.map((item, index) => {
+                return <Grid item xs={4} key={index}> <NewCard val={item} func={this.updateChoices}text={item}/> </Grid>
+            })}
+            </Grid>
+            <Button onClick={this.submitData}>Submit Data</Button>
+            </>
+        );
+    }
 }
 
 export default Welcome;
-

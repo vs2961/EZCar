@@ -1,4 +1,4 @@
-from flask import Blueprint, send_from_directory, Flask, render_template, jsonify
+from flask import Blueprint, send_from_directory, Flask, render_template, jsonify, request
 from .models import Car
 import os
 import time
@@ -10,7 +10,10 @@ cars_blueprint = Blueprint(
 )
 @cars_blueprint.route('/dump')
 def serve():
+    req_data = request.get_json()
+    print(req_data)
     cars = Car.query.all()
-    # print(car.to_json())
+    # print(car.to_json()
     carList = [car.serialize() for car in cars]
     return jsonify(carList)
+
