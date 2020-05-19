@@ -10,16 +10,20 @@ import { ThemeProvider } from '@material-ui/core';
 class Welcome extends React.Component {
     constructor(props) {
         super(props);
+        // contains the "rounds" that the user will see. It's in format [roundType, option, [values]]
         this.rounds = [
             [["Price", "Newcomer", [0, 20000]], ["Price", "Family Package", [20001, 45000]], ["Price", "Exclusive", [45001, Number.MAX_SAFE_INTEGER]]],
             [["Type", "Convertible", 'convertible'], ["Type", "SUV", 'suv'], ["Type", "Sports", 'sports']],
             [["Seats", "Less Than 3", [0,3]], ["Seats", "Less Than 5", [4,5]], ["Seats", "More Than 5", [5, "unlimited"]]]
         ]
+        // the react states needed to handle UX. 
         this.state = {
             curRound: this.rounds[0],
-            curIndex: 0
+            curIndex: 0,
+            avails: [true, true, true]
         }
 
+        // JSON to be sent to backend for database filtering
         this.choices = {
             method: 'GET',
             headers: { 'Content-Type': 'application/json' },
@@ -30,11 +34,12 @@ class Welcome extends React.Component {
             futureRound: this.rounds[1]
         };
 
+        // binding class methods to be referenced with the proper 'this'
         this.updateChoices = this.updateChoices.bind(this);
         this.submitData = this.submitData.bind(this);
 
     }
-
+    // updates the rounds and makes sure to updates the JSON 
     updateChoices(val) {
         var updatedIndex;
         if (this.state.curIndex >= this.rounds.length - 1) updatedIndex = this.rounds.length - 1
@@ -48,14 +53,23 @@ class Welcome extends React.Component {
         this.choices['futureRound'] = this.rounds[updatedIndex]
         console.log(this.choices);
       }
-
+    // currently in debug mode. When user is done selecting their choices, the callback fxn submitData will be auto-called
     submitData = () => {
         axios.post("/dump", this.choices).then(res => console.log(res.data))
     }
-
+    // hanldes the  filtering on the front-end
     componentDidUpdate() {
-        axios.post("/available", this.choices).then(res => console.log(res.data))
+        axios.post("/available", this.choices).then(res => {
+            var newArray = []
+            for (var i = 0; i < res.data.length; i++) {
+                newArray[i] = res.data[i]
+            }
+            this.setState({
+                avails: newArray
+            })
+        })
     }
+
 
  render() { 
    return (
@@ -63,7 +77,10 @@ class Welcome extends React.Component {
     <CarAppBar/>
     <Grid container>
     {this.state.curRound.map((item, index) => {
-            return <Grid item xs={4} key={index}> <NewCard val={item} func={this.updateChoices}text={item[1]}/> </Grid>
+        {/* conditional rendering */}
+            if (this.state.avails[index]) {
+                return <Grid item xs={4} key={index}> <NewCard val={item} func={this.updateChoices}text={item[1]}/> </Grid>
+            }
         })}
     </Grid>
     <Button onClick={this.submitData}>Submit Data</Button>
