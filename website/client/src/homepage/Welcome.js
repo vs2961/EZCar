@@ -10,7 +10,7 @@ class Welcome extends React.Component {
   constructor(props) {
     super(props);
     this.rounds = [
-      ["Newcomer", "Family Package", "Exclusive"],
+      ["Newcomer", "Family", "Exclusive"],
       ["Convertible", "SUV", "Sports"],
       ["Less Than 3", "Less Than 5", "More Than 5"]
     ]
@@ -36,6 +36,7 @@ class Welcome extends React.Component {
 
   updateChoices(val) {
     var updatedIndex;
+    console.log(updatedIndex)
     if (this.state.curIndex >= this.rounds.length - 1) updatedIndex = this.rounds.length - 1
     else updatedIndex = this.state.curIndex + 1
     this.setState({
@@ -56,6 +57,10 @@ class Welcome extends React.Component {
 
   }
 
+  carImage(index) {
+    const carPics = [ ['newcomer.png', 'family.png', 'exclusive.png'], ['bronze.jpg','bronze.jpg','bronze.jpg'], ['bronze.jpg','bronze.jpg','bronze.jpg'] ]
+    return carPics[this.state.curIndex][index]
+  }
 
  render() { 
    return (
@@ -63,7 +68,13 @@ class Welcome extends React.Component {
     <CarAppBar/>
     <Grid container>
     {this.state.curRound.map((item, index) => {
-            return <Grid item xs={4} key={index}> <NewCard val={item} func={this.updateChoices}text={item}/> </Grid>
+            return (
+                <Grid item xs={4} key={index}>
+                <NewCard val={item}
+                         func={this.updateChoices}
+                         text={item}
+                         imgName = {this.carImage(index)}/>
+                </Grid>)
         })}
     </Grid>
     <Button onClick={this.submitData}>Submit Data</Button>
