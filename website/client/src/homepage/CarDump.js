@@ -17,16 +17,18 @@ function CarDump(props) {
   const classes = useStyles();
   const [carData, updateCarData] = useState([]);
   const [type, updateType] = useState("");
-
+  
   useEffect(() => {
-    fetch("/dump").then(response => response.json()).then(data => {updateCarData(data)}) 
-}, [])
-
+        fetch('/dump?args=' + type).then(response => response.json()).then(data => {updateCarData(data)}) 
+}, [type])
+  /*
     //  console.log(carData);
   var data = carData.filter((x) => x["TYPE"] == type.toLowerCase());
   var update = Object.keys(data).map((key) => [Number(key), data[key]]);
   // data contains object with cars, update contains array of that stuff
   console.log(update);
+ */
+ console.log(carData);
  return (
   <React.Fragment>
     <CarAppBar/>
