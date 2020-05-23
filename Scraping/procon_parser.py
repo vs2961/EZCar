@@ -79,5 +79,5 @@ for site in sites:
     print(f"Finished {site}")
     time.sleep(2)
 
-https://fdpq.syndication.kbb.com/kbb/?apikey=728bae10-a5ca-4171-83aa-245186228daa&kbbvehicleId=439968&zipcode=10282&vehicleListingType=new&pixallPrimaryId=hpzeIJIdFG59Mqut37P8i6kn&pixallSecondaryId=hpzeIJIdFG59Mqut37P8i6kn
+# https://fdpq.syndication.kbb.com/kbb/?apikey=728bae10-a5ca-4171-83aa-245186228daa&kbbvehicleId=439968&zipcode=10282&vehicleListingType=new&pixallPrimaryId=hpzeIJIdFG59Mqut37P8i6kn&pixallSecondaryId=hpzeIJIdFG59Mqut37P8i6kn
 
