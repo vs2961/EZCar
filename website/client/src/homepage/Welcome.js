@@ -7,7 +7,7 @@ import axios from 'axios';
 import { ThemeProvider } from '@material-ui/core';
 
 
-class Welcome extends React.Component {
+class Welcome extends React.PureComponent {
     constructor(props) {
         super(props);
         this.rounds = [
@@ -32,6 +32,7 @@ class Welcome extends React.Component {
 
         this.updateChoices = this.updateChoices.bind(this);
         this.submitData = this.submitData.bind(this);
+        this.carImage = this.carImage.bind(this);
     }
 
     updateChoices(val) {
@@ -76,13 +77,16 @@ class Welcome extends React.Component {
             <CarAppBar/>
             <Grid container>
             {this.state.curRound.map((item, index) => {
-                return (
-                    <Grid item xs={4} key={index}>
-                    <NewCard val={item}
-                    func={this.updateChoices}
-                    text={item[1]}
-                    imgName = {this.carImage(index)}/>
-                    </Grid>)
+                {/* conditional rendering */}
+                return this.state.avails[index] &&
+                           <Grid item xs={4} key={index}> 
+                                <NewCard val={item} 
+                                    func={this.updateChoices}
+                                    text={item[1]}
+                                    imgName={this.carImage(index)} 
+                                /> 
+                           </Grid>
+
             })}
             </Grid>
             <Button onClick={this.submitData}>Submit Data</Button>
