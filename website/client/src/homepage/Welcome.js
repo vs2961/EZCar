@@ -4,6 +4,7 @@ import Grid from '@material-ui/core/Grid';
 import NewCard from '../cards/NewCard';
 import Button from '@material-ui/core/Button';
 import axios from 'axios';
+import { ThemeProvider } from '@material-ui/core';
 
 
 class Welcome extends React.Component {
@@ -46,16 +47,41 @@ class Welcome extends React.Component {
       curRound: this.rounds[updatedIndex]
     })
   }
+        // binding class methods to be referenced with the proper 'this'
+        this.updateChoices = this.updateChoices.bind(this);
+        this.submitData = this.submitData.bind(this);
 
-  submitData = () => {
+    }
+    // updates the rounds and makes sure to updates the JSON 
+    updateChoices(val) {
+        var updatedIndex;
+        if (this.state.curIndex >= this.rounds.length - 1) updatedIndex = this.rounds.length - 1
+        else updatedIndex = this.state.curIndex + 1
+        this.setState({
+          curIndex: updatedIndex,
+          curRound: this.rounds[updatedIndex]
+        })
 
-  axios.get("https://localhost:5000/dump", this.choices).then(res => console.log(res.data))
-}
-  componentDidUpdate() {
-    // console.log(this.state.curIndex);
-    // console.log(this.state.curRound);
-
-  }
+        this.choices[val[0]] = val[2]
+        this.choices['futureRound'] = this.rounds[updatedIndex]
+        console.log(this.choices);
+      }
+    // currently in debug mode. When user is done selecting their choices, the callback fxn submitData will be auto-called
+    submitData = () => {
+        axios.post("/dump", this.choices).then(res => console.log(res.data))
+    }
+    // hanldes the  filtering on the front-end
+    componentDidUpdate() {
+        axios.post("/available", this.choices).then(res => {
+            var newArray = []
+            for (var i = 0; i < res.data.length; i++) {
+                newArray[i] = res.data[i]
+            }
+            this.setState({
+                avails: newArray
+            })
+        })
+    }
 
   carImage(index) {
     const carPics = [ ['newcomer.png', 'family.png', 'exclusive.png'], ['bronze.jpg','bronze.jpg','bronze.jpg'], ['bronze.jpg','bronze.jpg','bronze.jpg'] ]
@@ -78,10 +104,10 @@ class Welcome extends React.Component {
         })}
     </Grid>
     <Button onClick={this.submitData}>Submit Data</Button>
+    Here is what we found. . . 
   </>
    );
  }
 }
 
 export default Welcome;
-
