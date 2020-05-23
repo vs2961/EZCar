@@ -47,25 +47,6 @@ class Welcome extends React.Component {
       curRound: this.rounds[updatedIndex]
     })
   }
-        // binding class methods to be referenced with the proper 'this'
-        this.updateChoices = this.updateChoices.bind(this);
-        this.submitData = this.submitData.bind(this);
-
-    }
-    // updates the rounds and makes sure to updates the JSON 
-    updateChoices(val) {
-        var updatedIndex;
-        if (this.state.curIndex >= this.rounds.length - 1) updatedIndex = this.rounds.length - 1
-        else updatedIndex = this.state.curIndex + 1
-        this.setState({
-          curIndex: updatedIndex,
-          curRound: this.rounds[updatedIndex]
-        })
-
-        this.choices[val[0]] = val[2]
-        this.choices['futureRound'] = this.rounds[updatedIndex]
-        console.log(this.choices);
-      }
     // currently in debug mode. When user is done selecting their choices, the callback fxn submitData will be auto-called
     submitData = () => {
         axios.post("/dump", this.choices).then(res => console.log(res.data))
