@@ -9,41 +9,40 @@ import Typography from '@material-ui/core/Typography';
 import CardContent from '@material-ui/core/CardContent';
 
 const useStyles = makeStyles(theme => ({
-    root: {
-        height: "100%",
+    media: {
+        height: "91vh",
+        position: 'relative'
+    },
+    overlay: {
+        position: 'absolute',
+        bottom: '17px',
+        left: '10px',
+        color: 'white',
+        fontSize: '60px',
+        fontWeight: 'bold'
     }
 }))
 
 function NewCard(props) {
     const [name, setName] = useState("");
     const classes = useStyles();
-    const {val, func,text} = props;
+    const {val,func,text} = props;
     const sendData = () => {
         func(val);
     }
     return (
         <div>
                 <Card variant="outlined">
-                    <CardActionArea>
+                    <CardActionArea onClick = {sendData}>
                     <CardMedia
+                        className={classes.media}
                         component="img"
-                        height="100%"
-                        image="bronze.jpg"
+                        image = {props.imgName}
                     />
-                    <CardContent>
-                        <Typography>{text}</Typography>
-                    </CardContent>
+                    <Typography className={classes.overlay}> {text} </Typography>
                     </CardActionArea>
-                    <CardActions>
-                        <Button onClick={sendData}>Click Me!</Button>
-                    </CardActions>
-                    </Card>
+                </Card>
         </div>
-        /*
-        round.map((index, item) => {
-            <Grid item xs={4}> <NewCard onClick={this.updateChoices}text={item}/>
-        })
-        */
     )
 }
 
