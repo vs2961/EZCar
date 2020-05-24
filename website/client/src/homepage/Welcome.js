@@ -84,7 +84,6 @@ class Welcome extends React.Component {
         })}
     </Grid>
     <Button onClick={this.submitData}>Submit Data</Button>
-    Here is what we found. . . 
   </>
    );
  }
