@@ -4,7 +4,9 @@ import Grid from '@material-ui/core/Grid';
 import NewCard from '../cards/NewCard';
 import Button from '@material-ui/core/Button';
 import axios from 'axios';
-import { ThemeProvider } from '@material-ui/core';
+// import { ThemeProvider } from '@material-ui/core';
+import { Redirect } from 'react-router-dom';
+import history from '../routing/history';
 
 
 class Welcome extends React.PureComponent {
@@ -47,14 +49,6 @@ class Welcome extends React.PureComponent {
         this.choices[val[0]] = val[2]
         this.choices['futureRound'] = this.rounds[updatedIndex]
         console.log(this.choices);
-    }
-
-    // currently in debug mode. When user is done selecting their choices, the callback fxn submitData will be auto-called
-    submitData = () => {
-        axios.post("/dump", this.choices).then(res => console.log(res.data))
-    }
-    // hanldes the  filtering on the front-end
-    componentDidUpdate() {
         axios.post("/available", this.choices).then(res => {
             var newArray = []
             for (var i = 0; i < res.data.length; i++) {
@@ -65,6 +59,16 @@ class Welcome extends React.PureComponent {
             })
         })
     }
+
+    // currently in debug mode. When user is done selecting their choices, the callback fxn submitData will be auto-called
+    submitData = () => {
+        axios.post("/dump", this.choices).then(res => {
+        console.log("Clicked")
+        history.push({
+            pathname: '/results',
+            state: {data: res.data}
+        })
+    })}
 
     carImage(index) {
         const carPics = [ ['newcomer.png', 'family.png', 'exclusive.png'], ['bronze.jpg','bronze.jpg','bronze.jpg'], ['bronze.jpg','bronze.jpg','bronze.jpg'] ]
