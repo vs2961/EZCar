@@ -18,8 +18,17 @@ def serve():
         cars = cars.filter_by(type=req_data["Type"])
     if req_data["Seats"]:
         cars = cars.filter(Car.seats.between(req_data["Seats"][0], req_data["Seats"][1]))
-    carList = [car.serialize() for car in cars]
+    cars = sorted([car.serialize() for car in cars], key=lambda x: x["RATING"], reverse=True)
+    try:
+        empty_rating_ind = [x["RATING"] for x in cars].index(0.0)
+    except ValueError:
+        empty_rating_ind = cars.length - 1
+    carList = split(cars[0:empty_rating_ind], 3)
+    carList.append(cars[empty_rating_ind:])
     return jsonify(carList)
+
+def split(a, n):
+    return [a[i::n] for i in range(n)]
 
 @cars_blueprint.route('/available', methods=["POST"])
 def get_available():
@@ -51,6 +60,5 @@ def get_available():
             else:
                 booleanList.append(False)
 
-    print(booleanList)
     return jsonify(booleanList)
  
