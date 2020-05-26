@@ -4,9 +4,26 @@ import time
 
 flask_app = Flask(__name__)
 cars_blueprint = Blueprint(
-    'cars', __name__,
-    template_folder="templates"
-)
+        'cars', __name__,
+        template_folder="templates"
+        )
+@cars_blueprint.route('/dump_rating', methods=["POST"])
+def serve():
+    req_data = request.get_json()
+    cars = Car.query
+    if req_data["Price"]:
+        cars = cars.filter(Car.max_price <= req_data["Price"][1])\
+                .filter(Car.min_price >= req_data["Price"][0])
+    if req_data["Type"]:
+        cars = cars.filter_by(type=req_data["Type"])
+    if req_data["Seats"]:
+        cars = cars.filter(Car.seats.between(req_data["Seats"][0], req_data["Seats"][1]))
+    carList = [car.serialize() for car in cars]
+    return jsonify(carList)
+
+def split(a, n):
+    return [a[i::n] for i in range(n)]
+
 @cars_blueprint.route('/dump', methods=["POST"])
 def serve():
     req_data = request.get_json()
@@ -27,7 +44,7 @@ def get_available():
     cars = Car.query
     if req_data["Price"]:
         cars = cars.filter(Car.max_price <= req_data["Price"][1])\
-                   .filter(Car.min_price >= req_data["Price"][0])
+                .filter(Car.min_price >= req_data["Price"][0])
     if req_data["Type"]:
         cars = cars.filter_by(type=req_data["Type"])
     if req_data["Seats"]:
@@ -53,4 +70,4 @@ def get_available():
 
     print(booleanList)
     return jsonify(booleanList)
- 
+
