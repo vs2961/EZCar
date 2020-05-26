@@ -7,7 +7,7 @@ import {makeStyles} from '@material-ui/core/styles';
 
 const useStyles = makeStyles({
     title: {
-        paddingLeft: '1.5em',
+        paddingLeft: '1em',
         textAlign: 'center',
         fontWeight: 'bold'
     }
