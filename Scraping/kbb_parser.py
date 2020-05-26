@@ -79,7 +79,16 @@ def getCars(html, site, out):
             imagelink = "https:" + imagelink[1]['src']
         imagelink = "https:"+ imagelink[0]['src'].replace(",", "")
 
-        relations[p] = [carId, site, chosen_car, chosen_mpg, chosen_horsepower, chosen_seats, price, marketprice, price_range, imagelink]
+        c = requests.get(f"https://www.kbb.com/vehicles/hub/_expertreviews/?vehicleid={carId}&intent=buy-new").text
+
+        soup2 = BeautifulSoup(c, features="html.parser")
+
+        try:
+            rating = soup2.findAll("div", {"class": "expert-review-score"})[0].text
+        except IndexError:
+            rating = 'N/A'
+
+        relations[p] = [carId, site, chosen_car, rating, chosen_mpg, chosen_horsepower, chosen_seats, price, marketprice, price_range, imagelink]
 
         print(len(relations))
 
@@ -96,11 +105,10 @@ def getCars(html, site, out):
             print(val, relations[val])
 
 out = open("master.csv", "w")
-out.write("ID, Type, Car, MPG, Horsepower, Seats, MSRP, Market Price, Price Range, Image Link\n")
+out.write("ID, Type, Car, Rating, MPG, Horsepower, Seats, MSRP, Market Price, Price Range, Image Link\n")
 
 for site in sites:
     a = requests.get(f"https://www.kbb.com/{site}/").text
     getCars(a, site, out)
     print(f"Finished {site}")
     time.sleep(2)
-
