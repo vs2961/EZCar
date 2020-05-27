@@ -8,7 +8,7 @@ cars_blueprint = Blueprint(
         template_folder="templates"
         )
 @cars_blueprint.route('/dump_rating', methods=["POST"])
-def serve():
+def rating_dump():
     req_data = request.get_json()
     cars = Car.query
     if req_data["Price"]:

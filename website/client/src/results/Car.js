@@ -13,7 +13,7 @@ import clsx from 'clsx';
 // Component for a car card
 const useStyles = makeStyles(theme => ({
     root: {
-        maxWidth: 50,
+        
     },
     expand: {
         transform: 'rotate(0deg)',
@@ -34,10 +34,10 @@ const Car = (props) => {
     return (
         <div>
             <div>
-            <Card variant="outlined" classes={classes.root}>
+            <Card variant="outlined" className={classes.root}>
                 <CardActionArea>
                 {/* <CardMedia component="img" image="minimal.jpg"></CardMedia> */}
-                <Typography classes={classes.h6} color="primary" variant="h6">{props.name}</Typography>
+                <Typography className={classes.h6} color="primary" variant="h6">{props.name}</Typography>
                 </CardActionArea>
                 <CardActions>
                     <IconButton
@@ -54,7 +54,7 @@ const Car = (props) => {
                 {/* what the user sees after clickng on the expand more icon */}
                 <Collapse in={expanded} timeout="auto" unmountOnExit>
                     <CardContent>
-                        <Typography variant="h2" classes={classes.root}>Surprise!</Typography>
+                        <Typography variant="h2" className={classes.root}>Surprise!</Typography>
                     </CardContent>
                 </Collapse>
                 </Card>
