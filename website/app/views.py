@@ -25,7 +25,7 @@ def split(a, n):
     return [a[i::n] for i in range(n)]
 
 @cars_blueprint.route('/dump', methods=["POST"])
-def serve():
+def dump():
     req_data = request.get_json()
     cars = Car.query
     if req_data["Price"]:
@@ -39,7 +39,7 @@ def serve():
     try:
         empty_rating_ind = [x["RATING"] for x in cars].index(0.0)
     except ValueError:
-        empty_rating_ind = cars.length - 1
+        empty_rating_ind = len(cars) - 1
     carList = split(cars[0:empty_rating_ind], 3)
     carList.append(cars[empty_rating_ind:])
     return jsonify(carList)
