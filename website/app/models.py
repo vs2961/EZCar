@@ -40,6 +40,15 @@ class Car(db.Model):
               on_serialize = None,
               on_deserialize = None,
               display_name = None)
+    rating = db.Column(
+              db.Float, 
+              nullable=False, 
+              supports_json = True,
+              supports_yaml = True,
+              supports_dict = True,
+              on_serialize = None,
+              on_deserialize = None,
+              display_name = None)
     mpg = db.Column(
               db.Integer, 
               nullable=False, 
@@ -113,10 +122,11 @@ class Car(db.Model):
               on_deserialize = None,
               display_name = None)
 
-    def __init__(self, type, name, is_electric, mpg, horsepower, seats, MSRP, market_price, min_price, max_price, image_link):
+    def __init__(self, type, name, is_electric, rating, mpg, horsepower, seats, MSRP, market_price, min_price, max_price, image_link):
         self.type = type
         self.name = name
         self.is_electric = is_electric
+        self.rating = rating
         self.mpg = mpg
         self.horsepower = horsepower
         self.seats = seats
@@ -131,6 +141,7 @@ class Car(db.Model):
             "TYPE": self.type,
             "NAME": self.name,
             "IS ELECTRIC": self.is_electric,
+            "RATING" : self.rating,
             "MPG": self.mpg,
             "HORSEPOWER": self.horsepower, 
             "SEATS": self.seats, 
@@ -142,7 +153,7 @@ class Car(db.Model):
 
     def __repr__(self):
         return f"ID #{self.id}: TYPE: {self.type}. NAME: {self.name}. \
-                 IS_ELECTRIC: {self.is_electric}. MPG: {self.mpg}. \
+                 IS_ELECTRIC: {self.is_electric}. RATING: {self.rating}. MPG: {self.mpg}. \
                  HORSEPOWER: {self.horsepower}. SEATS: {self.seats}. \
                  MIN_PRICE: {self.min_price}. MAX_PRICE: {self.max_price}. \
                  MARKET_PRICE: {self.market_price}. IMAGE_LINK: {self.image_link}"
