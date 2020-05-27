@@ -5,7 +5,6 @@ import NewCard from '../cards/NewCard';
 import Button from '@material-ui/core/Button';
 import axios from 'axios';
 // import { ThemeProvider } from '@material-ui/core';
-import { Redirect } from 'react-router-dom';
 import history from '../routing/history';
 
 
