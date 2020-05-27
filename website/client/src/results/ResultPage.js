@@ -17,7 +17,7 @@ class ResultPage extends Component {
                 <Grid container>
                 {/* maps each car onto the page */}
                 {Object.entries(this.carData).map(([key, value]) => {
-                    return <Grid item xs={12} key={key}><Car name={value.NAME}/></Grid>
+                    return <Grid item xs={12} key={key}><Car name={value.NAME} data={value}/></Grid>
                 })}
                 </Grid>
             </div>

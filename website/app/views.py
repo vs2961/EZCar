@@ -7,8 +7,8 @@ cars_blueprint = Blueprint(
         'cars', __name__,
         template_folder="templates"
         )
-@cars_blueprint.route('/dump_rating', methods=["POST"])
-def rating_dump():
+@cars_blueprint.route('/dump', methods=["POST"])
+def serve():
     req_data = request.get_json()
     cars = Car.query
     if req_data["Price"]:
@@ -24,7 +24,7 @@ def rating_dump():
 def split(a, n):
     return [a[i::n] for i in range(n)]
 
-@cars_blueprint.route('/dump', methods=["POST"])
+@cars_blueprint.route('/dump_rating', methods=["POST"])
 def dump():
     req_data = request.get_json()
     cars = Car.query
