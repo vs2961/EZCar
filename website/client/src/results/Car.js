@@ -38,16 +38,15 @@ const Car = (props) => {
     // state that describes whether user clicked on the expand more
     const [expanded, setExpanded] = React.useState(false);
     const handleExpandClick = () => {setExpanded(!expanded)};
-    const whatever = (expand) => {if (!expand) {return <CardContent><Typography variant="h7">INSERT BADGE STUFF HERE!</Typography></CardContent>}}
+    const closeBadges = (expand) => {if (!expand) {return <CardContent><Typography variant="h7">INSERT BADGE STUFF HERE!</Typography></CardContent>}}
     return (
         <div>
             <div>
             <Card variant="outlined">
                 <CardActionArea>
-                {/* <CardMedia className={classes.media} component="img" image="minimal.jpg"></CardMedia> */}
                 <Typography className={classes.h6, classes.root} color="primary" variant="h6">{props.name}</Typography>
                 </CardActionArea>
-                {whatever(expanded)}
+                {closeBadges(expanded)}
                 <CardActions>
                     <IconButton
                         className={clsx(classes.expand, {
