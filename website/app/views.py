@@ -79,3 +79,7 @@ def get_available():
 
     return jsonify(booleanList)
 
+@cars_blueprint.route('/nlp', methods=["POST"])
+def nlp():
+    req_data = request.get_json()
+

@@ -121,8 +121,26 @@ class Car(db.Model):
               on_serialize = None,
               on_deserialize = None,
               display_name = None)
+    pros = db.Column(
+              db.String, 
+              nullable=True, 
+              supports_json = True,
+              supports_yaml = True,
+              supports_dict = True,
+              on_serialize = None,
+              on_deserialize = None,
+              display_name = None)
+    cons = db.Column(
+              db.String, 
+              nullable=True, 
+              supports_json = True,
+              supports_yaml = True,
+              supports_dict = True,
+              on_serialize = None,
+              on_deserialize = None,
+              display_name = None)
 
-    def __init__(self, type, name, is_electric, rating, mpg, horsepower, seats, MSRP, market_price, min_price, max_price, image_link):
+    def __init__(self, type, name, is_electric, rating, mpg, horsepower, seats, MSRP, market_price, min_price, max_price, image_link, cons, pros):
         self.type = type
         self.name = name
         self.is_electric = is_electric
@@ -135,6 +153,8 @@ class Car(db.Model):
         self.min_price = min_price
         self.max_price = max_price
         self.image_link = image_link
+        self.pros = pros
+        self.cons = cons
 
     def serialize(self):
         return {
