@@ -33,12 +33,11 @@ const useStyles = makeStyles(theme => ({
 }))
 
 const Car = (props) => { 
-    console.log(props.data)
     const classes = useStyles()
     // state that describes whether user clicked on the expand more
     const [expanded, setExpanded] = React.useState(false);
     const handleExpandClick = () => {setExpanded(!expanded)};
-    const closeBadges = (expand) => {if (!expand) {return <CardContent><Typography variant="h7">INSERT BADGE STUFF HERE!</Typography></CardContent>}}
+    const closeBadges = (expand) => {if (!expand) {return <CardContent><Typography variant="h6">INSERT BADGE STUFF HERE!</Typography></CardContent>}}
     return (
         <div>
             <div>
@@ -64,7 +63,7 @@ const Car = (props) => {
                     <CardContent>
                         <Typography variant="h2">Surprise!</Typography>
                         {Object.entries(props.data).map(([key, value]) => {
-                            if (!["IMAGE_LINK", "NAME"].includes(key)) return <Quality dataType={key} dataValue={value}/>
+                            if (!["IMAGE_LINK", "NAME"].includes(key)) return <Quality key={key} dataType={key} dataValue={value}/>
                         })}
                     </CardContent>
                 </Collapse>

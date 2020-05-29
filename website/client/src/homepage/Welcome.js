@@ -61,13 +61,18 @@ class Welcome extends React.PureComponent {
 
     // currently in debug mode. When user is done selecting their choices, the callback fxn submitData will be auto-called
     submitData = () => {
-        axios.post("/dump", this.choices).then(res => {
-        console.log("Clicked")
-        history.push({
-            pathname: '/results',
-            state: {data: res.data}
-        })
-    })}
+        const getGeneral = axios.post("/dump", this.choices)
+        const getRankings = axios.post("dump_rating", this.choices)
+        axios.all([getGeneral, getRankings]).then(axios.spread((...responses) => {
+            const general = responses[0].data
+            const ranked = responses[1].data
+            history.push({
+                pathname: '/results',
+                state: {data: general, rankings: ranked}
+            })
+        }))
+        
+    }
 
     carImage(index) {
         const carPics = [ ['newcomer.png', 'family.png', 'exclusive.png'], ['bronze.jpg','bronze.jpg','bronze.jpg'], ['bronze.jpg','bronze.jpg','bronze.jpg'] ]

@@ -45,7 +45,7 @@ def dump():
     return jsonify(carList)
 
 def split(a, n):
-    return [a[i::n] for i in range(n)]
+    return [a[i:i + len(a) // n] for i in range(n)]
 
 @cars_blueprint.route('/available', methods=["POST"])
 def get_available():
