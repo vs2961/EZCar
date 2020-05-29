@@ -21,9 +21,8 @@ def serve():
     carList = [car.serialize() for car in cars]
     return jsonify(carList)
 
-
-@cars_blueprint.route('/dump_rating', methods=["POST"])
-def dump():
+@cars_blueprint.route('/dump_by', methods=["POST"])
+def dump_rating():
     req_data = request.get_json()
     cars = Car.query
     if req_data["Price"]:
@@ -33,9 +32,9 @@ def dump():
         cars = cars.filter_by(type=req_data["Type"])
     if req_data["Seats"]:
         cars = cars.filter(Car.seats.between(req_data["Seats"][0], req_data["Seats"][1]))
-    cars = sorted([car.serialize() for car in cars], key=lambda x: x["RATING"], reverse=True)
+    cars = sorted([car.serialize() for car in cars], key=lambda x: x[req_data["sort_by"]], reverse=True)
     try:
-        empty_rating_ind = [x["RATING"] for x in cars].index(0.0)
+        empty_rating_ind = [x[req_data["sort_by"]] for x in cars].index(0.0)
     except ValueError:
         empty_rating_ind = len(cars) - 1
     carList = split(cars[0:empty_rating_ind], 3)
