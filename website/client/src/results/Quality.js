@@ -27,20 +27,33 @@ const theme = createMuiTheme({
     },
   });
 
+  const eletricTheme = createMuiTheme({
+      palette: {
+          primary: {
+            main: '#ec407a'
+          }
+      }
+  })
+
 const handleElectric = (isElectric) => {
-    if (isElectric) return true 
-    return false
+    if (isElectric == false) return 'secondary'
+    else if (isElectric) return "electric" 
+    else return
+}
+
+const decideTheme = (value) => {
+    if (value === "IS ELECTRIC") return eletricTheme
+    else return theme
 }
 
 const handleStatus = (ranking) => {
     if (ranking == 0) return 'yellow'
-    // else if 
 }
 const Quality = (props) => {
     const classes = useStyles()
     return (
-        <ThemeProvider theme={theme}>
-        <Chip color="primary" className={classes.root} size="medium" label={`${props.dataType}: ${props.dataValue}`}/>
+        <ThemeProvider theme={decideTheme(props.dataType)}>
+        <Chip color="primary" clickable className={classes.root} size="medium" label={`${props.dataType}: ${props.dataValue}`}/>
         </ThemeProvider>
     )
 }

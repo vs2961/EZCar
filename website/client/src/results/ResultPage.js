@@ -9,12 +9,8 @@ class ResultPage extends Component {
         // checks to see if user enters page without going through filtering
         if (typeof(this.props.location.state) === 'undefined') this.carData = "ERROR"
         else this.carData = this.props.location.state.data
-        console.log(this.carData)
     }
 
-    componentDidMount() {
-        console.log(this.props.location.state.rankings);
-    }
     render() {
         return (
             <div>

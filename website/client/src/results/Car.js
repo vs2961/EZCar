@@ -63,7 +63,9 @@ const Car = (props) => {
                     <CardContent>
                         <Typography variant="h2">Surprise!</Typography>
                         {Object.entries(props.data).map(([key, value]) => {
-                            if (!["IMAGE_LINK", "NAME"].includes(key)) return <Quality key={key} dataType={key} dataValue={value}/>
+                            var boogaLoo = undefined
+                            if (key === "IS ELECTRIC" && value) boogaLoo = true
+                            if (!["IMAGE_LINK", "NAME"].includes(key)) return <Quality isElectric={boogaLoo} key={key} dataType={key} dataValue={value}/>
                         })}
                     </CardContent>
                 </Collapse>

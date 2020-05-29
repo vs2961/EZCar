@@ -47,7 +47,6 @@ class Welcome extends React.PureComponent {
 
         this.choices[val[0]] = val[2]
         this.choices['futureRound'] = this.rounds[updatedIndex]
-        console.log(this.choices);
         axios.post("/available", this.choices).then(res => {
             var newArray = []
             for (var i = 0; i < res.data.length; i++) {
