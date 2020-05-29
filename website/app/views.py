@@ -21,8 +21,6 @@ def serve():
     carList = [car.serialize() for car in cars]
     return jsonify(carList)
 
-def split(a, n):
-    return [a[i::n] for i in range(n)]
 
 @cars_blueprint.route('/dump_rating', methods=["POST"])
 def dump():
@@ -45,7 +43,7 @@ def dump():
     return jsonify(carList)
 
 def split(a, n):
-    return [a[i:i + len(a) // n] for i in range(n)]
+    return [a[i * len(a) // n: i * len(a) // n + len(a) // n] for i in range(n)]
 
 @cars_blueprint.route('/available', methods=["POST"])
 def get_available():
