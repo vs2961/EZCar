@@ -12,8 +12,8 @@ def serve():
     req_data = request.get_json()
     cars = Car.query
     if req_data["Price"]:
-        cars = cars.filter(Car.max_price <= req_data["Price"][1])\
-                .filter(Car.min_price >= req_data["Price"][0])
+        cars = cars.filter(Car.MSRP <= req_data["Price"][1])\
+                .filter(Car.MSRP >= req_data["Price"][0])
     if req_data["Type"]:
         cars = cars.filter_by(type=req_data["Type"])
     if req_data["Seats"]:
@@ -26,8 +26,8 @@ def dump_rating():
     req_data = request.get_json()
     cars = Car.query
     if req_data["Price"]:
-        cars = cars.filter(Car.max_price <= req_data["Price"][1])\
-                   .filter(Car.min_price >= req_data["Price"][0])
+        cars = cars.filter(Car.MSRP <= req_data["Price"][1])\
+                   .filter(Car.MSRP >= req_data["Price"][0])
     if req_data["Type"]:
         cars = cars.filter_by(type=req_data["Type"])
     if req_data["Seats"]:
@@ -49,8 +49,8 @@ def get_available():
     req_data = request.get_json()
     cars = Car.query
     if req_data["Price"]:
-        cars = cars.filter(Car.max_price <= req_data["Price"][1])\
-                .filter(Car.min_price >= req_data["Price"][0])
+        cars = cars.filter(Car.MSRP <= req_data["Price"][1])\
+                .filter(Car.MSRP >= req_data["Price"][0])
     if req_data["Type"]:
         cars = cars.filter_by(type=req_data["Type"])
     if req_data["Seats"]:
@@ -63,8 +63,8 @@ def get_available():
             else:
                 booleanList.append(False)
         elif i[0] == "Price":
-            if (cars.filter(Car.max_price <= i[2][1])\
-                    .filter(Car.min_price >= i[2][0]).count() > 0):
+            if (cars.filter(Car.MSRP <= i[2][1])\
+                    .filter(Car.MSRP >= i[2][0]).count() > 0):
                 booleanList.append(True)
             else:
                 booleanList.append(False)
