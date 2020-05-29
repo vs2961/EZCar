@@ -12,6 +12,7 @@ const useStyles = makeStyles(theme => ({
     }
 }))
 
+// general theme for gold, silver, bronze. change primary and secondary value to choose the ranking color.
 const theme = createMuiTheme({
     palette: {
       primary: {
@@ -27,6 +28,7 @@ const theme = createMuiTheme({
     },
   });
 
+//   separate color for eletric. 
   const eletricTheme = createMuiTheme({
       palette: {
           primary: {
@@ -35,20 +37,12 @@ const theme = createMuiTheme({
       }
   })
 
-const handleElectric = (isElectric) => {
-    if (isElectric == false) return 'secondary'
-    else if (isElectric) return "electric" 
-    else return
-}
-
+// decides which palette to use.
 const decideTheme = (value) => {
     if (value === "IS ELECTRIC") return eletricTheme
     else return theme
 }
 
-const handleStatus = (ranking) => {
-    if (ranking == 0) return 'yellow'
-}
 const Quality = (props) => {
     const classes = useStyles()
     return (
