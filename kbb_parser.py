@@ -51,6 +51,8 @@ def getCars(html, site, out):
         except IndexError:
             continue
 
+        chosen_car = chosen_car.replace("\"", "")
+
         if chosen_horsepower == "0":
             bruh = chosen_car.replace(" ", "+") + "+HP"
             a = requests.get(f"https://www.google.com/search?q={bruh}/").text
