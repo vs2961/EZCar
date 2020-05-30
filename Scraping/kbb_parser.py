@@ -32,6 +32,7 @@ def getCars(html, site, out):
 
         price_range= soup.prettify()[int(car_price[p]) + 13:soup.prettify().find('"', int(car_price[p])+15)]
         price_range = price_range.replace(",", "")
+        price_range = price_range.replace("$", "")
 
         chosen_mpg = soup.prettify()[int(car_mpg[p])+14:soup.prettify().find('"', int(car_mpg[p])+16)]
 
@@ -111,4 +112,3 @@ for site in sites:
     a = requests.get(f"https://www.kbb.com/{site}/").text
     getCars(a, site, out)
     print(f"Finished {site}")
-    time.sleep(2)
