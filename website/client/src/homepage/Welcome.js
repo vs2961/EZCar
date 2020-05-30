@@ -12,7 +12,7 @@ class Welcome extends React.PureComponent {
     constructor(props) {
         super(props);
         this.rounds = [
-            [["Price", "Newcomer", [0, 20000]], ["Price", "Family Package", [20001, 45000]], ["Price", "Exclusive", [45001, Number.MAX_SAFE_INTEGER]]],
+            [["Price", "Newcomer", [0, 30000]], ["Price", "Family Package", [30001, 45000]], ["Price", "Exclusive", [45001, Number.MAX_SAFE_INTEGER]]],
             [["Type", "Convertible", 'convertible'], ["Type", "SUV", 'suv'], ["Type", "Sports", 'sports']],
             [["Seats", "Less Than 3", [0,3]], ["Seats", "Less Than 5", [4,5]], ["Seats", "More Than 5", [5, "unlimited"]]]
         ]
@@ -61,7 +61,7 @@ class Welcome extends React.PureComponent {
     // currently in debug mode. When user is done selecting their choices, the callback fxn submitData will be auto-called
     submitData = () => {
         const getGeneral = axios.post("/dump", this.choices)
-        const getRankings = axios.post("dump_rating", this.choices)
+        const getRankings = axios.post("dump", this.choices)
         axios.all([getGeneral, getRankings]).then(axios.spread((...responses) => {
             const general = responses[0].data
             const ranked = responses[1].data
@@ -78,7 +78,8 @@ class Welcome extends React.PureComponent {
         return carPics[this.state.curIndex][index]
     }
 
-    render() { 
+    render() {
+        console.log(this.choices)
         return (
             <>
             <CarAppBar/>
