@@ -157,3 +157,44 @@ class Car(db.Model):
                  HORSEPOWER: {self.horsepower}. SEATS: {self.seats}. \
                  MIN_PRICE: {self.min_price}. MAX_PRICE: {self.max_price}. \
                  MARKET_PRICE: {self.market_price}. IMAGE_LINK: {self.image_link}"
+
+class User(db.Model):
+    username = db.Column(
+              db.String, 
+              nullable=True, 
+              supports_json = True,
+              supports_yaml = True,
+              supports_dict = True,
+              on_serialize = None,
+              on_deserialize = None,
+              display_name = None)
+    password = db.Column(
+              db.String, 
+              nullable=True, 
+              supports_json = True,
+              supports_yaml = True,
+              supports_dict = True,
+              on_serialize = None,
+              on_deserialize = None,
+              display_name = None)
+    username = db.Column(
+              db.String, 
+              nullable=True, 
+              supports_json = True,
+              supports_yaml = True,
+              supports_dict = True,
+              on_serialize = None,
+              on_deserialize = None,
+              display_name = None)
+    
+    def __init__(self, username, password):
+        self.username = username
+        self.passowrd = password
+        self.id = ''.join(random.choices(string.ascii_uppercase + string.digits + string.ascii_lowercase, k=20))
+        
+    def isValid(self, username, password):
+        if username == self.username and password == self.password:
+            return self.id
+        return "0" * 20
+
+
