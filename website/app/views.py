@@ -21,6 +21,20 @@ def serve():
     carList = [car.serialize() for car in cars]
     return jsonify(carList)
 
+@cars_blueprint.route('/dump_sorted', methods=["POST"])
+def dump_sorted():
+    req_data = request.get_json()
+    cars = Car.query
+    if req_data["Price"]:
+        cars = cars.filter(Car.MSRP <= req_data["Price"][1])\
+                   .filter(Car.MSRP >= req_data["Price"][0])
+    if req_data["Type"]:
+        cars = cars.filter_by(type=req_data["Type"])
+    if req_data["Seats"]:
+        cars = cars.filter(Car.seats.between(req_data["Seats"][0], req_data["Seats"][1]))
+    cars = sorted([car.serialize() for car in cars], key=lambda x: x[req_data["sort_by"]], reverse=True)
+    return jsonify(cars)
+
 @cars_blueprint.route('/dump_by', methods=["POST"])
 def dump_rating():
     req_data = request.get_json()
