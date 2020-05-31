@@ -4,22 +4,26 @@ import time
 
 flask_app = Flask(__name__)
 cars_blueprint = Blueprint(
-        'cars', __name__,
-        template_folder="templates"
-        )
+    'cars', __name__,
+    template_folder="templates"
+)
+
+
 @cars_blueprint.route('/dump', methods=["POST"])
 def serve():
     req_data = request.get_json()
     cars = Car.query
     if req_data["Price"]:
         cars = cars.filter(Car.MSRP <= req_data["Price"][1])\
-                .filter(Car.MSRP >= req_data["Price"][0])
+            .filter(Car.MSRP >= req_data["Price"][0])
     if req_data["Type"]:
         cars = cars.filter_by(type=req_data["Type"])
     if req_data["Seats"]:
-        cars = cars.filter(Car.seats.between(req_data["Seats"][0], req_data["Seats"][1]))
+        cars = cars.filter(Car.seats.between(
+            req_data["Seats"][0], req_data["Seats"][1]))
     carList = [car.serialize() for car in cars]
     return jsonify(carList)
+
 
 @cars_blueprint.route('/dump_sorted', methods=["POST"])
 def dump_sorted():
@@ -31,9 +35,12 @@ def dump_sorted():
     if req_data["Type"]:
         cars = cars.filter_by(type=req_data["Type"])
     if req_data["Seats"]:
-        cars = cars.filter(Car.seats.between(req_data["Seats"][0], req_data["Seats"][1]))
-    cars = sorted([car.serialize() for car in cars], key=lambda x: x[req_data["sort_by"]], reverse=True)
+        cars = cars.filter(Car.seats.between(
+            req_data["Seats"][0], req_data["Seats"][1]))
+    cars = sorted([car.serialize() for car in cars],
+                  key=lambda x: x[req_data["sort_by"]], reverse=True)
     return jsonify(cars)
+
 
 @cars_blueprint.route('/dump_by', methods=["POST"])
 def dump_rating():
@@ -45,8 +52,10 @@ def dump_rating():
     if req_data["Type"]:
         cars = cars.filter_by(type=req_data["Type"])
     if req_data["Seats"]:
-        cars = cars.filter(Car.seats.between(req_data["Seats"][0], req_data["Seats"][1]))
-    cars = sorted([car.serialize() for car in cars], key=lambda x: x[req_data["sort_by"]], reverse=True)
+        cars = cars.filter(Car.seats.between(
+            req_data["Seats"][0], req_data["Seats"][1]))
+    cars = sorted([car.serialize() for car in cars],
+                  key=lambda x: x[req_data["sort_by"]], reverse=True)
     try:
         empty_rating_ind = [x[req_data["sort_by"]] for x in cars].index(0.0)
     except ValueError:
@@ -55,8 +64,10 @@ def dump_rating():
     carList.append(cars[empty_rating_ind:])
     return jsonify(carList)
 
+
 def split(a, n):
     return [a[i * len(a) // n: i * len(a) // n + len(a) // n] for i in range(n)]
+
 
 @cars_blueprint.route('/available', methods=["POST"])
 def get_available():
@@ -64,20 +75,21 @@ def get_available():
     cars = Car.query
     if req_data["Price"]:
         cars = cars.filter(Car.MSRP <= req_data["Price"][1])\
-                .filter(Car.MSRP >= req_data["Price"][0])
+            .filter(Car.MSRP >= req_data["Price"][0])
     if req_data["Type"]:
         cars = cars.filter_by(type=req_data["Type"])
     if req_data["Seats"]:
-        cars = cars.filter(Car.seats.between(req_data["Seats"][0], req_data["Seats"][1]))
+        cars = cars.filter(Car.seats.between(
+            req_data["Seats"][0], req_data["Seats"][1]))
     booleanList = []
     for i in req_data["futureRound"]:
         if i[0] == "Type":
-            if (cars.filter_by(type = i[2]).count() > 0):
+            if (cars.filter_by(type=i[2]).count() > 0):
                 booleanList.append(True)
             else:
                 booleanList.append(False)
         elif i[0] == "Price":
-            if (cars.filter(Car.MSRP <= i[2][1])\
+            if (cars.filter(Car.MSRP <= i[2][1])
                     .filter(Car.MSRP >= i[2][0]).count() > 0):
                 booleanList.append(True)
             else:
@@ -89,4 +101,3 @@ def get_available():
                 booleanList.append(False)
 
     return jsonify(booleanList)
-

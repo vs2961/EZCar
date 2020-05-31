@@ -28,7 +28,8 @@ class Welcome extends React.PureComponent {
             Price: null,
             Type: null,
             Seats: null,
-            futureRound: this.rounds[1]
+            futureRound: this.rounds[1],
+            sort_by: "MSRP"
         };
 
         this.updateChoices = this.updateChoices.bind(this);
@@ -61,7 +62,7 @@ class Welcome extends React.PureComponent {
     // currently in debug mode. When user is done selecting their choices, the callback fxn submitData will be auto-called
     submitData = () => {
         const getGeneral = axios.post("/dump", this.choices)
-        const getRankings = axios.post("dump", this.choices)
+        const getRankings = axios.post("/dump_sorted", this.choices)
         axios.all([getGeneral, getRankings]).then(axios.spread((...responses) => {
             const general = responses[0].data
             const ranked = responses[1].data
@@ -79,7 +80,6 @@ class Welcome extends React.PureComponent {
     }
 
     render() {
-        console.log(this.choices)
         return (
             <>
             <CarAppBar/>
@@ -100,6 +100,7 @@ class Welcome extends React.PureComponent {
             <Button onClick={this.submitData}>Submit Data</Button>
             Here is what we found. . . 
             </>
+
         );
     }
 }
