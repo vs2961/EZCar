@@ -20,6 +20,7 @@ function CarRoutes() {
                 </Route>
                 <Route path={"/cars"} component={CarDump} exact/>
                 <Route path="/results" exact component={ResultPage}/>
+                <Route path="/" component={Welcome}/>
             </Switch>
         </Router>
     )

@@ -69,14 +69,12 @@ function MaterialInfoDrawer() {
     )
     return (
         <div>
-            <React.Fragment key={Math.random()}>
             <IconButton edge='start' onClick={toggleDrawer("left", true)} className={classes.root}>
                 <MenuIcon/>
             </IconButton> 
             <Drawer anchor={"left"} open={state["left"]} onClose={toggleDrawer("left", false)}>
                 {topics("left")}
             </Drawer>
-            </React.Fragment>
         </div>
     )
 }

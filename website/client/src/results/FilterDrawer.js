@@ -61,12 +61,20 @@ const FilterDrawer = (props) => {
 		);
 	};
 
+	const submitFilters = () => {
+		return (
+		handleDrawerClose(),
+		console.log(filter),
+		props.func(filter)
+		)
+	}
+
 	const handleFilter = (event) => {
 		setFilter(event.target.value);
 	};
 	const topics = (anchor) => (
 		<div role={"presentation"} className={classes.root}>
-			<IconButton onClick={handleDrawerClose}>
+			<IconButton onClick={submitFilters}>
 				<CheckIcon />
 			</IconButton>
 			{/* Just maps out the topics, making listitems for each one */}
@@ -80,9 +88,9 @@ const FilterDrawer = (props) => {
 						marks={filterRange}
 					/>,
 					<Select value={filter} onChange={handleFilter}>
-						<MenuItem value={"MSRP"}>Price</MenuItem>
-						<MenuItem value={"RATING"}>Rating</MenuItem>
-						<MenuItem value={"MPG"}>Efficiency</MenuItem>
+						<MenuItem value="MSRP">Price</MenuItem>
+						<MenuItem value="RATING">Rating</MenuItem>
+						<MenuItem value="MPG">Efficiency</MenuItem>
 					</Select>,
 				].map((text, index) => (
 					<>
@@ -101,14 +109,12 @@ const FilterDrawer = (props) => {
 	);
 	return (
 		<div>
-			<React.Fragment key={Math.random()}>
 				<IconButton edge="end" onClick={handleDrawerOpen}>
 					<SearchIcon />
 				</IconButton>
 				<Drawer variant="persistent" anchor={"right"} open={open}>
 					{topics("right")}
 				</Drawer>
-			</React.Fragment>
 		</div>
 	);
 };

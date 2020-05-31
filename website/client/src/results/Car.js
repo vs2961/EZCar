@@ -65,6 +65,12 @@ const priceRange = (minValue, maxValue) => {
 	];
 };
 
+const formatter = new Intl.NumberFormat('en-US', {
+	style: 'currency',
+	currency: 'USD',
+	minimumFractionDigits: 2
+  })
+  
 const Car = (props) => {
 	const classes = useStyles();
 	const sliderClass = sliderStyles();
@@ -92,7 +98,7 @@ const Car = (props) => {
 						{/* <CardMedia className={classes.media} component="img" src="image" image={props.data.IMAGE_LINK}></CardMedia> */}
 					</CardActionArea>
 					<CardActions>
-						MSRP: {props.data.MSRP}
+						<Typography variant="h4">{formatter.format(props.data.MSRP)}</Typography>
 						<IconButton
 							className={clsx(classes.expand, {
 								[classes.expandOpen]: expanded,
