@@ -1,6 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
 import os
 from app import db
+from app import user_db
 
 class Car(db.Model):
     id = db.Column(
@@ -158,8 +159,17 @@ class Car(db.Model):
                  MIN_PRICE: {self.min_price}. MAX_PRICE: {self.max_price}. \
                  MARKET_PRICE: {self.market_price}. IMAGE_LINK: {self.image_link}"
 
-class User(db.Model):
-    username = db.Column(
+class User(user_db.Model):
+    id = db.Column(
+              db.Integer, 
+              primary_key=True, 
+              supports_json = True,
+              supports_yaml = True,
+              supports_dict = True,
+              on_serialize = None,
+              on_deserialize = None,
+              display_name = None)
+    username = user_db.Column(
               db.String, 
               nullable=True, 
               supports_json = True,
@@ -168,16 +178,7 @@ class User(db.Model):
               on_serialize = None,
               on_deserialize = None,
               display_name = None)
-    password = db.Column(
-              db.String, 
-              nullable=True, 
-              supports_json = True,
-              supports_yaml = True,
-              supports_dict = True,
-              on_serialize = None,
-              on_deserialize = None,
-              display_name = None)
-    username = db.Column(
+    password = user_db.Column(
               db.String, 
               nullable=True, 
               supports_json = True,
@@ -189,12 +190,9 @@ class User(db.Model):
     
     def __init__(self, username, password):
         self.username = username
-        self.passowrd = password
-        self.id = ''.join(random.choices(string.ascii_uppercase + string.digits + string.ascii_lowercase, k=20))
+        self.password = password
         
     def isValid(self, username, password):
         if username == self.username and password == self.password:
             return self.id
         return "0" * 20
-
-
