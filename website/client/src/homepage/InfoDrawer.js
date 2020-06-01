@@ -52,13 +52,13 @@ function MaterialInfoDrawer() {
             {['Introduction (DEBUG)', 'Profile', 'Cars', 'About'].map((text, index) => (
                 <>
                 <ListItem button key={index}>
-                    <NavLink to={routes[index]} >
-                    <ListItemAvatar>
-                    <Avatar>
+                    <NavLink key={index} to={routes[index]} >
+                    <ListItemAvatar key={index}>
+                    <Avatar key={index}>
                         {icons[index]}
                     </Avatar>
                     </ListItemAvatar>
-                    <ListItemText primary={text} ></ListItemText>
+                    <ListItemText key={index}primary={text} ></ListItemText>
                     </NavLink>
                 </ListItem>
                 <Divider />
@@ -69,14 +69,12 @@ function MaterialInfoDrawer() {
     )
     return (
         <div>
-            <>
             <IconButton edge='start' onClick={toggleDrawer("left", true)} className={classes.root}>
                 <MenuIcon/>
             </IconButton> 
             <Drawer anchor={"left"} open={state["left"]} onClose={toggleDrawer("left", false)}>
                 {topics("left")}
             </Drawer>
-            </>
         </div>
     )
 }
