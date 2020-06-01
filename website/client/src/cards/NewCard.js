@@ -1,12 +1,9 @@
-import React, {useState} from 'react'
+import React from 'react'
 import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import { createMuiTheme, makeStyles, ThemeProvider } from '@material-ui/core/styles';
-import { CardHeader, Button, Grid } from '@material-ui/core';
-import CardActionArea from '@material-ui/core/CardActionArea';
+import {makeStyles} from '@material-ui/core/styles';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
-import CardContent from '@material-ui/core/CardContent';
+import CardActionArea from '@material-ui/core/CardActionArea'
 
 const useStyles = makeStyles(theme => ({
     media: {
@@ -24,7 +21,6 @@ const useStyles = makeStyles(theme => ({
 }))
 
 function NewCard(props) {
-    const [name, setName] = useState("");
     const classes = useStyles();
     const {val,func,text} = props;
     const sendData = () => {
