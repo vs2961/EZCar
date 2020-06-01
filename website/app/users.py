@@ -13,9 +13,9 @@ def serve():
     req_data = request.get_json()
     if users.filter_by(username=req_data["username"]).count > 0:
         if users.filter_by(username=req_data["username"]).all[0].password == req_data["password"]:
-            return users.filter_by(username=req_data["username"]).all[0].id
-        return "Invalid password"
-    return "Invalid user"
+            return jsonify({"id":users.filter_by(username=req_data["username"]).all[0].id})
+        return jsonify({"id": "Invalid password"})
+    return jsonify({"id": "Invalid user"})
 
 
 
@@ -25,10 +25,10 @@ def signup():
     req_data = request.get_json()
     users = User.query
     if users.filter_by(username=req_data["username"]).count > 0:
-        return "Invalid username."
+        return jsonify({status:"Invalid username."})
     user = new User(req_data["username"], req_data["password"])
     user_db.session.add(user)
     user_db.session.commit()
-    return "Added user"
+    return jsonify({"status": "Added user"})
 
 
