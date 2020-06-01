@@ -13,5 +13,7 @@ user_db = SQLAlchemy(app, model_class=FlaskBaseModel)
 user_db = initialize_flask_sqlathanor(user_db)
 
 from .views import cars_blueprint
+from .users import users_blueprint
 
 app.register_blueprint(cars_blueprint)
+app.register_blueprint(users_blueprint)

@@ -26,9 +26,11 @@ def signup():
     users = User.query
     if users.filter_by(username=req_data["username"]).count > 0:
         return jsonify({status:"Invalid username."})
-    user = new User(req_data["username"], req_data["password"])
+    user = User(req_data["username"], req_data["password"])
     user_db.session.add(user)
     user_db.session.commit()
     return jsonify({"status": "Added user"})
 
-
+@users_blueprint.route('/add_car', methods=["POST"])
+def add_car():
+    pass
