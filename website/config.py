@@ -5,11 +5,11 @@ import os
 
 class BaseConfig(object):
     DEBUG = False
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///production.db'
     SQLALCHEMY_TRACK_MODIFICATIONS = True
 
 
 class DevelopmentConfig(BaseConfig):
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///production.db'
     DEBUG = True
 
 

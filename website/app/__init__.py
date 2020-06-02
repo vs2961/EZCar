@@ -8,6 +8,9 @@ app.config.from_object("config.DevelopmentConfig")
 db = SQLAlchemy(app, model_class=FlaskBaseModel)
 db = initialize_flask_sqlathanor(db)
 
+
 from .views import cars_blueprint
+from .users import users_blueprint
 
 app.register_blueprint(cars_blueprint)
+app.register_blueprint(users_blueprint)
