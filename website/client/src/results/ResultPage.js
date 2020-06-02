@@ -18,6 +18,7 @@ class ResultPage extends React.PureComponent {
 			this.sortedRatings = this.props.location.state.sortedRatings;
 			this.sortedMpg = this.props.location.state.sortedMpg;
 		}
+		console.log(this.sortedPrices);
 
 		this.state = {
 			currentFilter: this.sortedPrices,
@@ -28,6 +29,7 @@ class ResultPage extends React.PureComponent {
 
 		this.updateFilter = this.updateFilter.bind(this);
 		this.addCar = this.addCar.bind(this);
+	
 		this.choices = {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
@@ -49,14 +51,16 @@ class ResultPage extends React.PureComponent {
 			upperPrice: maxPrice,
 		});
 	};
-
+	componetDidMount() {
+		axios.post("/get_cars", {user_id: "1"}).then(res => console.log(res.data))
+	}
 	addCar = (val) => {
 		const cookies = new Cookies()
 		console.log(cookies.get('id'));
 		axios.post("/add_car", {
 			user_id: cookies.get('id'),
 			car_id: val
-		})
+		}).then(res => console.log(res.data))
 	}
 	render() {
 		if (typeof this.props.location.state === "undefined") return <p>404</p>;

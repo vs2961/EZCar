@@ -97,7 +97,7 @@ const Car = (props) => {
 					</CardActionArea>
 					<CardActions>
 						<Typography variant="h4">{formatter.format(props.data.MSRP)}</Typography>
-						<IconButton value={props.name} onClick={submitData} disabled={false}>Compare Me!</IconButton>
+						<IconButton value={props.data.ID} onClick={submitData} disabled={false}>Compare Me!</IconButton>
 						<IconButton
 							className={clsx(classes.expand, {
 								[classes.expandOpen]: expanded,
