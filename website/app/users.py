@@ -23,7 +23,7 @@ def signup():
     req_data = request.get_json()
     users = User.query
     if users.filter_by(username=req_data["username"]).count > 0:
-        return jsonify({status:"Invalid username."})
+        return jsonify({"status":"Invalid username."})
     user = User(req_data["username"], req_data["password"])
     user_db.session.add(user)
     user_db.session.commit()

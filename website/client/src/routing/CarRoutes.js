@@ -7,6 +7,7 @@ import CarAppBar from "../homepage/CarAppBar";
 import CarDump from "../homepage/CarDump";
 import ResultPage from '../results/ResultPage'
 import history from './history'
+import Login from '../users/Login'
 // Describes the routes of the website. 
 function CarRoutes() {
     return(
@@ -20,6 +21,7 @@ function CarRoutes() {
                 </Route>
                 <Route path={"/cars"} component={CarDump} exact/>
                 <Route path="/results" exact component={ResultPage}/>
+                <Route path="login" exact component={Login}/>
                 <Route path="/" component={Welcome}/>
             </Switch>
         </Router>

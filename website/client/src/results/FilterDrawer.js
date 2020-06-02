@@ -57,7 +57,7 @@ const FilterDrawer = (props) => {
 
 	const submitFilters = () => {
 		return (
-			handleDrawerClose(), props.priceFunc(finalValue), props.func(filter)
+			handleDrawerClose(), props.func(filter, finalValue)
 		);
 	};
 
