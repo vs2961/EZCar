@@ -39,7 +39,8 @@ def add_car():
     add_car = cars.get(req_data["car_id"])
     my_user = users.get(req_data["user_id"])
     if add_car not in my_user.cars.rstrip(",").split(",") and my_user.cars.split(",").length < 4:
-        my_user.update({User.cars: my_user.cars + add_car + ","})
+        db.session.query(User).get(req_data["user_id"]).\
+                    update({User.cars: my_user.cars + add_car + ","})
         return jsonify({"status": True})
     return jsonify({"status": False})
 
@@ -62,5 +63,6 @@ def del_cars():
     my_user = users.get(req_data["user_id"])
     cars_list = my_user.cars.rstrip(",").split(",")
     cars_list.remove(req_data["car_id"])
-    my_user.update({User.cars: cars_list.join(",") + ","})
+    db.session.query(User).get(req_data["user_id"]).\
+            update({User.cars: cars_list.join(",") + ","})
     return jsonify({"status": True})
