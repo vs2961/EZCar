@@ -9,34 +9,29 @@ import { Cookies } from 'react-cookie'
 import history from "../routing/history";
 
 class Welcome extends React.PureComponent {
-	constructor(props) {	
+	constructor(props) {
 		const cookie = new Cookies()
 		console.log(cookie.get("id"));
 		super(props);
 		this.rounds = [
-			[
 				["Price", "Newcomer", [0, 30000]],
 				["Price", "Family Package", [30001, 45000]],
 				["Price", "Exclusive", [45001, Number.MAX_SAFE_INTEGER]],
-			],
-			[
+
 				["Type", "Convertible", "convertible"],
 				["Type", "SUV", "suv"],
 				["Type", "Sports", "sports"],
-			],
-			[
+
 				["Seats", "Less Than 3", [0, 3]],
 				["Seats", "Less Than 5", [4, 5]],
 				["Seats", "More Than 5", [5, "unlimited"]],
-			],
 		];
 		this.state = {
-			curRound: this.rounds[0],
 			curIndex: 0,
-            avails: [true, true, true],
+            avails: [true, true, true, true, true, true, true, true, true],
             currentFilter: "MSRP"
         };
-        
+
 		this.choices = {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
@@ -60,8 +55,7 @@ class Welcome extends React.PureComponent {
 			updatedIndex = this.rounds.length - 1;
 		else updatedIndex = this.state.curIndex + 1;
 		this.setState({
-			curIndex: updatedIndex,
-			curRound: this.rounds[updatedIndex],
+			curIndex: updatedIndex
 		});
 
 		this.choices[val[0]] = val[2];
@@ -111,11 +105,11 @@ class Welcome extends React.PureComponent {
 
 	carImage(index) {
 		const carPics = [
-			["newcomer.png", "family.png", "exclusive.png"],
-			["bronze.jpg", "bronze.jpg", "bronze.jpg"],
-			["bronze.jpg", "bronze.jpg", "bronze.jpg"],
+			"newcomer.png", "family.png", "exclusive.png",
+			"convertible.png", "suv.png", "sports.png",
+			"bronze.jpg", "bronze.jpg", "bronze.jpg"
 		];
-		return carPics[this.state.curIndex][index];
+		return carPics[index];
 	}
 
 	render() {
@@ -123,10 +117,7 @@ class Welcome extends React.PureComponent {
 			<>
 				<CarAppBar />
 				<Grid container>
-					{this.state.curRound.map((item, index) => {
-						{
-							/* conditional rendering */
-						}
+					{this.rounds.map((item, index) => {
 						return (
 							this.state.avails[index] && (
 								<Grid item xs={4} key={index}>

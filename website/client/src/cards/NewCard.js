@@ -4,19 +4,31 @@ import {makeStyles} from '@material-ui/core/styles';
 import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import CardActionArea from '@material-ui/core/CardActionArea'
+import Button from "@material-ui/core/Button";
+import InfoIcon from "@material-ui/icons/Info";
 
 const useStyles = makeStyles(theme => ({
     media: {
-        height: "91vh",
+        height: "29vh",
         position: 'relative'
     },
-    overlay: {
+    textOverlay: {
         position: 'absolute',
+        lineHeight: '48px',
         bottom: '17px',
         left: '10px',
         color: 'white',
         fontSize: '60px',
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+    },
+    container: {
+        position: 'relative'
+    },
+    buttonOverlay: {
+        position: 'absolute',
+        bottom: '10px',
+        right: '3px',
+        color: 'white',
     }
 }))
 
@@ -27,19 +39,23 @@ function NewCard(props) {
         func(val);
     }
     return (
-        <div>
-                <Card variant="outlined">
-                    <CardActionArea onClick = {sendData}>
-                    <CardMedia
-                        className={classes.media}
-                        component="img"
-                        image = {props.imgName}
-                    />
-                    <Typography className={classes.overlay}> {text} </Typography>
-                    </CardActionArea>
-                </Card>
-        </div>
-    )
+      <div>
+              <Card variant="outlined">
+                  <div className={classes.container}>
+                      <CardActionArea onClick = {sendData}>
+                      <CardMedia
+                          className={classes.media}
+                          component="img"
+                          image = {props.imgName}
+                      />
+                      <Typography className={classes.textOverlay}> {text} </Typography>
+                      </CardActionArea>
+                      <Button className={classes.buttonOverlay} fontSize = "large" startIcon={<InfoIcon />}/>
+                  </div>
+              </Card>
+
+      </div>
+  )
 }
 
 export default NewCard
