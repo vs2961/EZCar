@@ -14,7 +14,7 @@ def serve():
     users = User.query
     if users.filter_by(username=req_data["username"]).count() > 0:
         if users.filter_by(username=req_data["username"]).first().password == req_data["password"]:
-            return jsonify({"id":users.filter_by(username=req_data["username"]).first().id})
+            return jsonify({"id":users.filter_by(username=req_data["username"]).first().id, "username":req_data["username"]})
         return jsonify({"id": "Invalid password"})
     return jsonify({"id": "Invalid user"})
 
