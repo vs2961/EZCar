@@ -4,11 +4,14 @@ import Grid from "@material-ui/core/Grid";
 import NewCard from "../cards/NewCard";
 import Button from "@material-ui/core/Button";
 import axios from "axios";
+import { Cookies } from 'react-cookie'
 // import { ThemeProvider } from '@material-ui/core';
 import history from "../routing/history";
 
 class Welcome extends React.PureComponent {
-	constructor(props) {
+	constructor(props) {	
+		const cookie = new Cookies()
+		console.log(cookie.get("id"));
 		super(props);
 		this.rounds = [
 			[
@@ -35,7 +38,7 @@ class Welcome extends React.PureComponent {
         };
         
 		this.choices = {
-			method: "GET",
+			method: "POST",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify({ title: "User's Choices" }),
 			Price: null,

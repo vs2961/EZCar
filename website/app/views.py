@@ -73,6 +73,7 @@ def split(a, n):
 def get_available():
     req_data = request.get_json()
     cars = Car.query
+    print("cars", cars)
     if req_data["Price"]:
         cars = cars.filter(Car.MSRP <= req_data["Price"][1])\
             .filter(Car.MSRP >= req_data["Price"][0])

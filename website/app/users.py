@@ -1,6 +1,5 @@
 from flask import Blueprint, Flask, jsonify, request
 from .models import User
-from app import user_db
 from app import db
 
 flask_app = Flask(__name__)
@@ -12,9 +11,10 @@ users_blueprint = Blueprint(
 @users_blueprint.route('/login', methods=["POST"])
 def serve():
     req_data = request.get_json()
-    if users.filter_by(username=req_data["username"]).count > 0:
-        if users.filter_by(username=req_data["username"]).all[0].password == req_data["password"]:
-            return jsonify({"id":users.filter_by(username=req_data["username"]).all[0].id})
+    users = User.query
+    if users.filter_by(username=req_data["username"]).count() > 0:
+        if users.filter_by(username=req_data["username"]).first().password == req_data["password"]:
+            return jsonify({"id":users.filter_by(username=req_data["username"]).first().id})
         return jsonify({"id": "Invalid password"})
     return jsonify({"id": "Invalid user"})
 
@@ -22,11 +22,12 @@ def serve():
 def signup():
     req_data = request.get_json()
     users = User.query
-    if users.filter_by(username=req_data["username"]).count > 0:
+    if users.filter_by(username=req_data["username"]).count() > 0:
         return jsonify({"status":"Invalid username."})
     user = User(req_data["username"], req_data["password"])
-    user_db.session.add(user)
-    user_db.session.commit()
+    db.session.add(user)
+    db.session.commit()
+    db.session.close()
     return jsonify({"status": "Added user"})
 
 @users_blueprint.route('/add_car', methods=["POST"])

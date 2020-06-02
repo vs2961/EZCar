@@ -7,7 +7,6 @@ import {
 	Drawer,
 	ListItemAvatar,
 	Avatar,
-	Chip,
 } from "@material-ui/core";
 import { withStyles, makeStyles } from "@material-ui/core/styles";
 import SearchIcon from "@material-ui/icons/Search";

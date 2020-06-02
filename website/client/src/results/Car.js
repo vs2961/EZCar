@@ -42,15 +42,7 @@ const sliderStyles = makeStyles((theme) => ({
 		maxWidth: 500,
 	},
 }));
-// const determineRankings = (carData, ratingRankings) => {
-//     const ranks = []
-//     // Object.entries(carData).map(([key, value]) =>
-//     if (carData.RATING > ratingRankings[0][ratingRankings[0].length - 1].RATING) ranks.push("gold")
-//     else if (carData.RATING > ratingRankings[1][ratingRankings[1].length - 1].RATING) ranks.push("silver")
-//     else if (carData.RATING > ratingRankings[2][ratingRankings[2].length - 1].RATING) ranks.push("bronze")
-//     else if (carData.RATING > ratingRankings[3][ratingRankings[3].length - 1].RATING) ranks.push("unknown")
-//     return ranks
-// }
+
 
 const priceRange = (minValue, maxValue) => {
 	return [
@@ -76,12 +68,17 @@ const Car = (props) => {
 	const sliderClass = sliderStyles();
 	// state that describes whether user clicked on the expand more
 	const [expanded, setExpanded] = React.useState(false);
+	const [compareDisabled, toggleDisabled] = React.useState(false)
 	const handleExpandClick = () => {
 		setExpanded(!expanded);
 	};
 	const marketPrice = props.data.PRICE_RANGE.split(" ");
 	const lowerBound = parseInt(marketPrice[0]);
 	const upperBound = parseInt(marketPrice[2]);
+
+	const submitData = (e) => {
+		props.func(e.currentTarget.value)
+	}
 	return (
 		<div>
 			<div>
@@ -99,6 +96,7 @@ const Car = (props) => {
 					</CardActionArea>
 					<CardActions>
 						<Typography variant="h4">{formatter.format(props.data.MSRP)}</Typography>
+						<IconButton value={props.name} onClick={submitData} disabled={false}>Compare Me!</IconButton>
 						<IconButton
 							className={clsx(classes.expand, {
 								[classes.expandOpen]: expanded,
@@ -106,6 +104,7 @@ const Car = (props) => {
 							onClick={handleExpandClick}
 							aria-expanded={expanded}
 							aria-label="show more"
+							edge="end"
 						>
 							<ExpandMoreIcon />
 						</IconButton>
