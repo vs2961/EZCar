@@ -36,7 +36,7 @@ def add_car():
     users = User.query
     cars = Car.query
     my_user = users.get(req_data["user_id"])
-    if add_car not in my_user.cars.rstrip(",").split(",") and len(my_user.cars.split(",")) < 4:
+    if req_data["car_id"] not in my_user.cars.rstrip(",").split(",") and len(my_user.cars.split(",")) < 4:
         db.session.query(User).filter_by(id=req_data["user_id"]).\
                     update({User.cars: my_user.cars + req_data["car_id"] + ","})
         db.session.commit()
