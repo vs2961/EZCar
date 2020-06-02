@@ -52,8 +52,13 @@ def get_cars():
         cars_list[ind] = cars.get(car)
     return jsonify(cars_list)
 
-#@users_blueprint.route('/del_car', methods=["POST"])
-#
-#    req_data = request.get_json()
-#    users = User.query
-
+@users_blueprint.route('/del_car', methods=["POST"])
+def del_cars():
+    req_data = request.get_json()
+    users = User.query
+    cars = Car.query
+    my_user = users.get(req_data["id"])
+    cars_list = my_user.cars.rstrip(",").split(",")
+    cars_list.remove(req_data["car_id"])
+    my_user.update({User.cars: cars_list.join(",") + ","})
+    return jsonify({"status": True})
