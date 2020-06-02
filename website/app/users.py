@@ -36,7 +36,7 @@ def add_car():
     users = User.query
     cars = Car.query
     add_car = cars.get(req_data["car_id"])
-    my_user = users.get(req_data["id"])
+    my_user = users.get(req_data["user_id"])
     if add_car not in my_user.cars.rstrip(",").split(",") and my_user.cars.split(",").length < 4:
         my_user.update({User.cars: my_user.cars + add_car + ","})
         return jsonify({"status": True})
@@ -47,7 +47,7 @@ def get_cars():
     req_data = request.get_json()
     users = User.query
     cars = Car.query
-    my_user = users.get(req_data["id"])
+    my_user = users.get(req_data["user_id"])
     cars_list = my_user.cars.rstrip(",").split(",")
     for ind, car in enumerate(cars_list):
         cars_list[ind] = cars.get(car)
@@ -58,7 +58,7 @@ def del_cars():
     req_data = request.get_json()
     users = User.query
     cars = Car.query
-    my_user = users.get(req_data["id"])
+    my_user = users.get(req_data["user_id"])
     cars_list = my_user.cars.rstrip(",").split(",")
     cars_list.remove(req_data["car_id"])
     my_user.update({User.cars: cars_list.join(",") + ","})
