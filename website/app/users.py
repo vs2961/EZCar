@@ -56,5 +56,4 @@ def get_cars():
 #
 #    req_data = request.get_json()
 #    users = User.query
-    c
 
