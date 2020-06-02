@@ -138,6 +138,7 @@ class Car(db.Model):
 
     def serialize(self):
         return {
+            "ID": self.id,
             "TYPE": self.type,
             "NAME": self.name,
             "IS ELECTRIC": self.is_electric,
