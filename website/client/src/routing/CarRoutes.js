@@ -22,7 +22,10 @@ function CarRoutes() {
 					<About />
 				</Route>
 				<Route path={"/cars"} component={CarDump} exact />
-				<Route path={"/login"} component={Login} exact />
+				<Route path={"/login"} exact>
+					<CarAppBar/>
+					<Login/>
+				</Route> />
 				<Route path={"/register"} component={Register} exact />
 				<Route path="/results" exact component={ResultPage} />
 				<Route path="/profile" exact component={Profile} />

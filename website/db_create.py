@@ -1,5 +1,5 @@
 from app import db
-from app.models import Car
+from app.models import Car, User
 
 db.create_all()
 

@@ -2,8 +2,9 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Cookies } from "react-cookie";
 import history from "../routing/history";
-import { useCookies } from 'react-cookie'
+import { useCookies } from "react-cookie";
 import axios from "axios";
+import { Link } from "react-router-dom";
 import {
 	FormControl,
 	InputLabel,
@@ -11,6 +12,7 @@ import {
 	FormHelperText,
 	Grid,
 	Button,
+	Typography,
 } from "@material-ui/core";
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -20,7 +22,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Login = (props) => {
 	const classes = useStyles();
-	const [cookies, setCookie] = useCookies(['username', 'id']);
+	const [cookies, setCookie] = useCookies(["username", "id"]);
 	const [password, setPassword] = React.useState("");
 	const [username, setUsername] = React.useState("");
 
@@ -37,20 +39,17 @@ const Login = (props) => {
 			.then(
 				(res) => (
 					console.log(res.data),
-					setCookie('id', res.data.id, { path: "/" }),
-					setCookie('username', res.data.username, { path: "/" })
-				))
-			// ).then(
-		// history.push({
-		// 	pathname: "/",
-		// 	state: {hasLoggedIn: true}
-		// }))
+					setCookie("id", res.data.id, { path: "/" }),
+					setCookie("username", res.data.username, { path: "/" })
+				)
+			);
 	};
 	console.log(cookies);
 	if (typeof cookies.id != "undefined")
 		return <p>You have already logged in.</p>;
 	return (
-		<form>
+		<>
+			<Typography variant="h2">Login!</Typography>
 			<Grid container>
 				<Grid item xs={12}>
 					<FormControl>
@@ -84,12 +83,20 @@ const Login = (props) => {
 				</Grid>
 
 				<Grid item xs={12}>
-					<Button onClick={handleSubmit} disabled={!verifyForm()}>
+					<Button
+						component={Link}
+						to={{
+							pathname: "/about",
+							state: { hi: "hi" },
+						}}
+						onClick={handleSubmit}
+						disabled={!verifyForm()}
+					>
 						Submit!
 					</Button>
 				</Grid>
 			</Grid>
-		</form>
+		</>
 	);
 };
 

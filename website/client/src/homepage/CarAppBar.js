@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import AppBar from "@material-ui/core/AppBar";
 import ToolBar from "@material-ui/core/Toolbar";
 import InfoDrawer from "./InfoDrawer";
@@ -59,6 +59,9 @@ const LogOut = (removeCookie, user) => {
 };
 
 function CarAppBar(props) {
+	useEffect(() => {
+		console.log(props)
+	}, [])
 	const classes = useStyles()
 	const [cookies, setCookie, removeCookie] = useCookies(['username', 'id'])
 	const [loggedIn, logUser] = React.useState(

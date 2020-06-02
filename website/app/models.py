@@ -1,7 +1,6 @@
 from flask_sqlalchemy import SQLAlchemy
 import os
 from app import db
-from app import user_db
 
 class Car(db.Model):
     id = db.Column(
@@ -159,7 +158,7 @@ class Car(db.Model):
                  MIN_PRICE: {self.min_price}. MAX_PRICE: {self.max_price}. \
                  MARKET_PRICE: {self.market_price}. IMAGE_LINK: {self.image_link}"
 
-class User(user_db.Model):
+class User(db.Model):
     id = db.Column(
               db.Integer, 
               primary_key=True, 
@@ -169,7 +168,7 @@ class User(user_db.Model):
               on_serialize = None,
               on_deserialize = None,
               display_name = None)
-    username = user_db.Column(
+    username = db.Column(
               db.String, 
               nullable=True, 
               supports_json = True,
@@ -178,7 +177,7 @@ class User(user_db.Model):
               on_serialize = None,
               on_deserialize = None,
               display_name = None)
-    password = user_db.Column(
+    password = db.Column(
               db.String, 
               nullable=True, 
               supports_json = True,
@@ -187,7 +186,7 @@ class User(user_db.Model):
               on_serialize = None,
               on_deserialize = None,
               display_name = None)
-    cars = user_db.Column(
+    cars = db.Column(
               db.String, 
               nullable=True, 
               supports_json = True,
@@ -201,6 +200,7 @@ class User(user_db.Model):
     def __init__(self, username, password):
         self.username = username
         self.password = password
+        self.cars = ""
         
     def isValid(self, username, password):
         if username == self.username and password == self.password:

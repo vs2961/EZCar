@@ -52,8 +52,9 @@ class ResultPage extends React.PureComponent {
 
 	addCar = (val) => {
 		const cookies = new Cookies()
+		console.log(cookies.get('id'));
 		axios.post("/add_car", {
-			id: cookies.get('id'),
+			user_id: cookies.get('id'),
 			car_id: val
 		})
 	}
