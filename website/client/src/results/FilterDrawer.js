@@ -29,10 +29,22 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
+const priceLabel = makeStyles(theme => ({
+	root: {
+		width: '90vw',
+		maxWidth: 300
+	},
+	valueLabel: {
+		background: 'transparent',
+		color: 'red'
+	}
+}))
+
 const FilterDrawer = (props) => {
 	const classes = useStyles();
+	const sliderClasses = priceLabel();
 	const [filter, setFilter] = React.useState("MSRP");
-	const [finalValue, setFinal] = React.useState(0);
+	const [finalValue, setFinal] = React.useState(1);
 	const [open, setOpen] = React.useState(false);
 	// looks to see whether the user presses certain keys (mainly for UX)
 	const handleDrawerOpen = () => {
@@ -50,7 +62,7 @@ const FilterDrawer = (props) => {
 		},
 		{
 			value: props.maxAvailPrice,
-			label: `MIN VALUE: ${props.maxAvailPrice}`,
+			label: `MAX VALUE: ${props.maxAvailPrice}`,
 		},
 	];
 
@@ -64,18 +76,18 @@ const FilterDrawer = (props) => {
 		setFilter(event.target.value);
 	};
 
-	const PriceLabel = withStyles({
-		root: {
-			margin: "4vw",
-			maxWidth: 500,
-		},
-		valueLabel: {
-			background: "transparent",
-			color: "red",
-		},
-	})(Slider);
+	// const PriceLabel = withStyles({
+	// 	root: {
+	// 		margin: "4vw",
+	// 		maxWidth: 500,
+	// 	},
+	// 	valueLabel: {
+	// 		background: "transparent",
+	// 		color: "red",
+	// 	},
+	// })(Slider);
 
-	const handlePriceChange = (event, newValue) => {
+	const handleChange = (event, newValue) => {
 		setFinal(newValue);
 	};
 	const topics = (anchor) => (
@@ -86,13 +98,15 @@ const FilterDrawer = (props) => {
 			{/* Just maps out the topics, making listitems for each one */}
 			<List>
 				{[
-					<PriceLabel
+					<Slider
+						className={sliderClasses.root}
 						min={0}
 						max={props.maxAvailPrice}
 						marks={filterRange}
 						valueLabelDisplay="auto"
-						onChange={handlePriceChange}
+						onChange={handleChange}
 						value={finalValue}
+						defaultValue={30000}
 						valueLabelFormat={(val) => formatter.format(val)}
 					/>,
 					<Select value={filter} onChange={handleFilter}>

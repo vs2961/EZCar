@@ -77,6 +77,7 @@ const Car = (props) => {
 	const upperBound = parseInt(marketPrice[2]);
 
 	const submitData = (e) => {
+		console.log("PRESSED")
 		props.func(e.currentTarget.value)
 	}
 	return (

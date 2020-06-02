@@ -1,5 +1,5 @@
 from flask import Blueprint, Flask, jsonify, request
-from .models import User
+from .models import User, Car
 from app import db
 
 flask_app = Flask(__name__)
@@ -33,6 +33,7 @@ def signup():
 @users_blueprint.route('/add_car', methods=["POST"])
 def add_car():
     req_data = request.get_json()
+    print(req_data)
     users = User.query
     cars = Car.query
     add_car = cars.get(req_data["id"])

@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Register = (props) => {
-	const [cookies, setCookies] = useCookies(['name'])
+	const [cookies, setCookie] = useCookies(['username', 'id']);
 	const classes = useStyles();
 	const [password, setPassword] = React.useState("");
 	const [username, setUsername] = React.useState("");
@@ -33,7 +33,7 @@ const Register = (props) => {
             password: password
         }).then(res => console.log(res.data))
 	};
-
+	if (typeof cookies.username != 'undefined') return <p>You must log out first before entering this page</p>
 	return (
 		<form>
 			<Grid container>

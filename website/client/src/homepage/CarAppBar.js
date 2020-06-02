@@ -11,7 +11,7 @@ import {
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
 import clsx from "clsx";
-import { Cookies } from "react-cookie";
+import { useCookies } from "react-cookie";
 import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
@@ -51,19 +51,24 @@ const redirectToReg = React.forwardRef((props, ref) => (
 	<Link ref={ref} to="/register" {...props} />
 ));
 
-
+const LogOut = (removeCookie, user) => {
+	console.log("HI");
+	removeCookie("id");
+	removeCookie("username");
+	user(false);
+};
 
 function CarAppBar(props) {
-	const classes = useStyles();
-	const cookies = new Cookies();
-	const [loggedOut, setLog] = React.useState(cookies.get('id') == 'undefined')
-	const LogOut = () => {
-		cookies.remove('id')
-		setLog(true)
-	}
-	console.log(cookies.get('id'))
+	const classes = useStyles()
+	const [cookies, setCookie, removeCookie] = useCookies(['username', 'id'])
+	const [loggedIn, logUser] = React.useState(
+		typeof cookies.id != "undefined"
+	);
+	console.log("COOKIE USERNAME IS ", cookies.username)
+	console.log(loggedIn);
+
 	const loadLoginInfo = () => {
-		if (typeof cookies.get("id") == "undefined")
+		if (!loggedIn)
 			return (
 				<ThemeProvider theme={buttonTheme}>
 					<Button
@@ -88,7 +93,7 @@ function CarAppBar(props) {
 					<Button
 						className={classes.logButton}
 						color="primary"
-						onClick={LogOut}
+						onClick={() => LogOut(removeCookie, logUser)}
 					>
 						Logout
 					</Button>

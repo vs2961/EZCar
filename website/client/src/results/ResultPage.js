@@ -5,6 +5,8 @@ import Grid from "@material-ui/core/Grid";
 import FilterDrawer from "./FilterDrawer";
 import { Button } from "@material-ui/core";
 import { Cookies } from 'react-cookie'
+import axios from 'axios'
+
 class ResultPage extends React.PureComponent {
 	constructor(props) {
 		super(props);
@@ -25,7 +27,7 @@ class ResultPage extends React.PureComponent {
 		};
 
 		this.updateFilter = this.updateFilter.bind(this);
-		// this.addCar = this.addCar.bind(this);
+		this.addCar = this.addCar.bind(this);
 		this.choices = {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
@@ -39,16 +41,22 @@ class ResultPage extends React.PureComponent {
 			RATING: this.sortedRatings,
 			MPG: this.sortedMpg,
 		};
+		console.log(chosenFilter);
 		const choosen = values[chosenFilter];
+		console.log(choosen);
 		this.setState({
 			currentFilter: choosen,
 			upperPrice: maxPrice,
 		});
 	};
 
-	// addCar =  (val) => {
-	// 	axios.post()
-	// }
+	addCar = (val) => {
+		const cookies = new Cookies()
+		axios.post("/add_car", {
+			id: cookies.get('id'),
+			car_id: val
+		})
+	}
 	render() {
 		if (typeof this.props.location.state === "undefined") return <p>404</p>;
 		return (
