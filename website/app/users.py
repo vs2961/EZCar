@@ -33,11 +33,10 @@ def signup():
 @users_blueprint.route('/add_car', methods=["POST"])
 def add_car():
     req_data = request.get_json()
-    print(req_data)
     users = User.query
     cars = Car.query
-    add_car = cars.get(req_data["id"])
-    my_user = users.get(req_data["car_id"])
+    add_car = cars.get(req_data["car_id"])
+    my_user = users.get(req_data["id"])
     if add_car not in my_user.cars.rstrip(",").split(",") and my_user.cars.split(",").length < 4:
         my_user.update({User.cars: my_user.cars + add_car + ","})
         return jsonify({"status": True})
