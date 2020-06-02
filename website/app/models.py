@@ -139,6 +139,7 @@ class Car(db.Model):
 
     def serialize(self):
         return {
+            "ID": self.id
             "TYPE": self.type,
             "NAME": self.name,
             "IS ELECTRIC": self.is_electric,
@@ -187,16 +188,7 @@ class User(user_db.Model):
               on_serialize = None,
               on_deserialize = None,
               display_name = None)
-    cars = user_db.Column(
-              db.String, 
-              nullable=True, 
-              supports_json = True,
-              supports_yaml = True,
-              supports_dict = True,
-              on_serialize = None,
-              on_deserialize = None,
-              display_name = None)
-
+    
     def __init__(self, username, password):
         self.username = username
         self.password = password
