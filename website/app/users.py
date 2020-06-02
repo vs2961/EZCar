@@ -39,6 +39,7 @@ def add_car():
     if add_car not in my_user.cars.rstrip(",").split(",") and len(my_user.cars.split(",")) < 4:
         db.session.query(User).filter_by(id=req_data["user_id"]).\
                     update({User.cars: my_user.cars + req_data["car_id"] + ","})
+        db.session.commit()
         return jsonify({"status": True})
     return jsonify({"status": False})
 
@@ -51,6 +52,7 @@ def get_cars():
     cars_list = my_user.cars.rstrip(",").split(",")
     for ind, car in enumerate(cars_list):
         cars_list[ind] = cars.get(car)
+    cars_list = [car.serialize() for car in cars_list]
     return jsonify(cars_list)
 
 @users_blueprint.route('/del_car', methods=["POST"])
@@ -63,4 +65,5 @@ def del_cars():
     cars_list.remove(req_data["car_id"])
     db.session.query(User).filter_by(id=req_data["user_id"]).\
             update({User.cars: cars_list.join(",") + ","})
+    db.session.commit()
     return jsonify({"status": True})
