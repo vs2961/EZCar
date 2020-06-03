@@ -107,7 +107,7 @@ class Welcome extends React.PureComponent {
 		const carPics = [
 			"newcomer.png", "family.png", "exclusive.png",
 			"convertible.png", "suv.png", "sports.png",
-			"bronze.jpg", "bronze.jpg", "bronze.jpg"
+			"lessThan3.png", "lessThan5.png", "moreThan5.png"
 		];
 		return carPics[index];
 	}
