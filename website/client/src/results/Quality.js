@@ -64,6 +64,11 @@ const decideTheme = (value) => {
     else return theme
 }
 
+// const market = (value, p) => {
+    //if (value === "MARKET PRICE" & p.dataValue === 0) return "N/A"
+     // else return p.dataValue
+//}
+
 const Quality = (props) => {
     const classes = useStyles()
     var dataKey = props.dataType
