@@ -66,10 +66,12 @@ const decideTheme = (value) => {
 
 const Quality = (props) => {
     const classes = useStyles()
+    console.log(props)
     var dataKey = props.dataType
+    // const chipValue = (props.dataValue == 0) ? "N/A" : props.dataValue;
     return (
         <ThemeProvider theme={decideTheme(props.dataType)}>
-        <Chip color="primary" clickable className={classes.root} size="medium" icon={possibleValues[dataKey]}label={`${dataKey}: ${props.dataValue}`}/>
+        <Chip color="primary" clickable className={classes.root} size="medium" icon={possibleValues[dataKey]}label={`${dataKey}: ${"Hi"}`}/>
         </ThemeProvider>
     )
 }
