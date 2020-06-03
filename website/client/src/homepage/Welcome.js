@@ -4,7 +4,7 @@ import Grid from "@material-ui/core/Grid";
 import NewCard from "../cards/NewCard";
 import Button from "@material-ui/core/Button";
 import axios from "axios";
-import { Cookies } from 'react-cookie'
+import { Cookies } from "react-cookie";
 // import { ThemeProvider } from '@material-ui/core';
 import history from "../routing/history";
 
@@ -28,19 +28,29 @@ class Welcome extends React.PureComponent {
 		];
 		this.state = {
 			curIndex: 0,
-            avails: [true, true, true, true, true, true, true, true, true],
-            currentFilter: "MSRP"
-        };
+			avails: {
+				Newcomer: true,
+				"Family Package": true,
+				Exclusive: true,
+				Convertible: true,
+				SUV: true,
+				Sports: true,
+				"Less Than 3": true,
+				"Less Than 5": true,
+				"More Than 5": true,
+			},
+			currentFilter: "MSRP",
+		};
 
 		this.choices = {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify({ title: "User's Choices" }),
-			Price: null,
-			Type: null,
-			Seats: null,
+			Price: [],
+			Type: [],
+			Seats: [],
 			futureRound: this.rounds[1],
-			sort_by: this.state.currentFilter
+			sort_by: this.state.currentFilter,
 		};
 
 		this.updateChoices = this.updateChoices.bind(this);
@@ -50,38 +60,23 @@ class Welcome extends React.PureComponent {
 	}
 
 	updateChoices(val) {
-		var updatedIndex;
-		if (this.state.curIndex >= this.rounds.length - 1)
-			updatedIndex = this.rounds.length - 1;
-		else updatedIndex = this.state.curIndex + 1;
-		this.setState({
-			curIndex: updatedIndex
-		});
-
-		this.choices[val[0]] = val[2];
-		this.choices["futureRound"] = this.rounds[updatedIndex];
-		axios.post("/available", this.choices).then((res) => {
-			var newArray = [];
-			for (var i = 0; i < res.data.length; i++) {
-				newArray[i] = res.data[i];
-			}
-			this.setState({
-				avails: newArray,
-			});
-		});
+		console.log(val);
+		if (!this.choices[val[0]].includes(val[2])) this.choices[val[0]].push(val[2])
+		else (this.choices[val[0]] = this.choices[val[0]].filter(item => item != val[2]))
+		console.log(this.choices);
 	}
 	generateRankings = (filter) => {
-        const obj1 = {sort_by: filter}
-        return {...this.choices, ...obj1}
+		const obj1 = { sort_by: filter };
+		return { ...this.choices, ...obj1 };
 	};
 
 	// currently in debug mode. When user is done selecting their choices, the callback fxn submitData will be auto-called
 	submitData = () => {
-        const getPrices = axios.post("/dump_sorted", this.generateRankings("MSRP"));
+		const getPrices = axios.post("/dump_sorted", this.generateRankings("MSRP"));
 		const getRatings = axios.post(
 			"/dump_sorted",
 			this.generateRankings("RATING")
-        );
+		);
 		const getEfficencies = axios.post(
 			"/dump_sorted",
 			this.generateRankings("MPG")
@@ -90,7 +85,7 @@ class Welcome extends React.PureComponent {
 			axios.spread((...responses) => {
 				const prices = responses[0].data;
 				const ratings = responses[1].data;
-                const efficiencies = responses[2].data;
+				const efficiencies = responses[2].data;
 				history.push({
 					pathname: "/results",
 					state: {
@@ -119,7 +114,7 @@ class Welcome extends React.PureComponent {
 				<Grid container>
 					{this.rounds.map((item, index) => {
 						return (
-							this.state.avails[index] && (
+							this.state.avails[item[1]] && (
 								<Grid item xs={4} key={index}>
 									<NewCard
 										val={item}

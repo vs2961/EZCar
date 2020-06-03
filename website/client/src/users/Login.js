@@ -36,15 +36,19 @@ const Login = (props) => {
 				username: username,
 				password: password,
 			})
-			.then(
-				(res) => (
-					console.log(res.data),
-					setCookie("id", res.data.id, { path: "/" }),
-					setCookie("username", res.data.username, { path: "/" })
-				)
-			);
+			.then((res) => {
+				console.log(res.data);
+				if (res.data.id === "Invalid user" || res.data.id === "Invalid password") alert("Invalid Credentials")
+				else {
+					setCookie("id", res.data.id, {path: "/"})
+					setCookie("username", res.data.username, {path: "/"})
+					history.push({
+						pathname: "/",
+						state: {isLoggedIn: true}
+					})
+				}
+			})
 	};
-	console.log(cookies);
 	if (typeof cookies.id != "undefined")
 		return <p>You have already logged in.</p>;
 	return (
@@ -83,15 +87,7 @@ const Login = (props) => {
 				</Grid>
 
 				<Grid item xs={12}>
-					<Button
-						component={Link}
-						to={{
-							pathname: "/about",
-							state: { hi: "hi" },
-						}}
-						onClick={handleSubmit}
-						disabled={!verifyForm()}
-					>
+					<Button onClick={handleSubmit} disabled={!verifyForm()}>
 						Submit!
 					</Button>
 				</Grid>

@@ -52,23 +52,17 @@ const redirectToReg = React.forwardRef((props, ref) => (
 ));
 
 const LogOut = (removeCookie, user) => {
-	console.log("HI");
 	removeCookie("id");
 	removeCookie("username");
 	user(false);
 };
 
 function CarAppBar(props) {
-	useEffect(() => {
-		console.log(props)
-	}, [])
 	const classes = useStyles()
 	const [cookies, setCookie, removeCookie] = useCookies(['username', 'id'])
 	const [loggedIn, logUser] = React.useState(
 		typeof cookies.id != "undefined"
 	);
-	console.log("COOKIE USERNAME IS ", cookies.username)
-	console.log(loggedIn);
 
 	const loadLoginInfo = () => {
 		if (!loggedIn)
