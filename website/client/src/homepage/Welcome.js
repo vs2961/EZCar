@@ -10,24 +10,23 @@ import history from "../routing/history";
 
 class Welcome extends React.PureComponent {
 	constructor(props) {
-		const cookie = new Cookies();
+		const cookie = new Cookies()
 		console.log(cookie.get("id"));
 		super(props);
 		this.rounds = [
-			["Price", "Newcomer", [0, 30000]],
-			["Price", "Family Package", [30001, 45000]],
-			["Price", "Exclusive", [45001, Number.MAX_SAFE_INTEGER]],
+				["Price", "Newcomer", [0, 30000]],
+				["Price", "Family Package", [30001, 45000]],
+				["Price", "Exclusive", [45001, Number.MAX_SAFE_INTEGER]],
 
-			["Type", "Convertible", "convertible"],
-			["Type", "SUV", "suv"],
-			["Type", "Sports", "sports"],
+				["Type", "Convertible", "convertible"],
+				["Type", "SUV", "suv"],
+				["Type", "Sports", "sports"],
 
-			["Seats", "Less Than 3", [0, 3]],
-			["Seats", "Less Than 5", [4, 5]],
-			["Seats", "More Than 5", [5, "unlimited"]],
+				["Seats", "Less Than 3", [0, 3]],
+				["Seats", "Less Than 5", [4, 5]],
+				["Seats", "More Than 5", [5, "unlimited"]],
 		];
 		this.state = {
-			curRound: this.rounds[0],
 			curIndex: 0,
 			avails: {
 				Newcomer: true,
@@ -101,17 +100,11 @@ class Welcome extends React.PureComponent {
 
 	carImage(index) {
 		const carPics = [
-			"newcomer.png",
-			"family.png",
-			"exclusive.png",
-			"convertible.png",
-			"suv.png",
-			"sports.png",
-			"lessThan3.png",
-			"lessThan5.png",
-			"moreThan5.png",
+			"newcomer.png", "family.png", "exclusive.png",
+			"convertible.png", "suv.png", "sports.png",
+			"lessThan3.png", "lessThan5.png", "moreThan5.png"
 		];
-		return carPics[this.state.curIndex][index];
+		return carPics[index];
 	}
 
 	render() {
@@ -119,10 +112,7 @@ class Welcome extends React.PureComponent {
 			<>
 				<CarAppBar />
 				<Grid container>
-					{this.state.curRound.map((item, index) => {
-						{
-							/* conditional rendering */
-						}
+					{this.rounds.map((item, index) => {
 						return (
 							this.state.avails[item[1]] && (
 								<Grid item xs={4} key={index}>

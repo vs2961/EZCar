@@ -51,8 +51,8 @@ class ResultPage extends React.PureComponent {
 			upperPrice: maxPrice,
 		});
 	};
-	componetDidMount() {
-		axios.post("/get_cars", {user_id: "1"}).then(res => console.log(res.data))
+	componentDidMount() {
+		axios.post("/get_cars", {user_id: "2"}).then(res => console.log(res.data))
 	}
 	addCar = (val) => {
 		const cookies = new Cookies()

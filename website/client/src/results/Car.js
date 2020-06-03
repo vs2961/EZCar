@@ -92,8 +92,8 @@ const Car = (props) => {
 						>
 							{props.name}
 						</Typography>
-						<PowerIcon />
-						{/* <CardMedia className={classes.media} component="img" src="image" image={props.data.IMAGE_LINK}></CardMedia> */}
+                        {props.data["IS ELECTRIC"] && <PowerIcon />}
+						{<CardMedia className={classes.media} component="img" src="image" image={props.data.IMAGE_LINK}></CardMedia>}
 					</CardActionArea>
 					<CardActions>
 						<Typography variant="h4">{formatter.format(props.data.MSRP)}</Typography>

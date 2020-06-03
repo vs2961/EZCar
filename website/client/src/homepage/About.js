@@ -16,6 +16,10 @@ function About() {
     Info buttons are scattered throughout the website, where you can always get clarification on any jargon or quality that will help 
     you understand the car world!`
     
+    const who = `This application was created by Victor Siu, Michael Nath, Eric Kim, and Kristoff Misquitta for the 2019-2020 Google Mentorship Program.`
+
+        const get_started = `Click on the orange tab on the top left, and start navigating our website!`
+
     console.log("Hi");
     return (
         <div >
@@ -25,13 +29,18 @@ function About() {
                     <IntroCard title={"What is this?"} text={what}/>
                 </Grid>
                 <Grid item xs={4}>
-                    <IntroCard title={"Get Started"}/>
+                    <IntroCard title={"Get Started"} text={get_started}/>
                 </Grid>
                 <Grid item xs={4}>
-                    <IntroCard title={"Background Info"}/>
+                    <IntroCard title={"Background Info"} text={who}/>
                 </Grid>
                 <Grid item xs={4}>
                     <IntroCard title={"How?"} text={how}/>
+                </Grid>
+                <Grid item xs={4}>
+                    <iframe width="100%" height="100%"
+                        src="https://www.youtube.com/embed/tgbNymZ7vqY">
+                    </iframe>
                 </Grid>
             </Grid>
         </div>
