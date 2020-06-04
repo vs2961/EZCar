@@ -20,7 +20,7 @@ class Welcome extends React.PureComponent {
 
 				["Type", "Convertible", "convertible"],
 				["Type", "SUV", "suv"],
-				["Type", "Sports", "sports"],
+				["Type", "Sports", "coupe"],
 
 				["Seats", "Less Than 3", [0, 3]],
 				["Seats", "Less Than 5", [4, 5]],
