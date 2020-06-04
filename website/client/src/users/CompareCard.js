@@ -31,10 +31,11 @@ const useStyles = makeStyles(theme => ({
 }))
 
 const myStyle = {
-    backgroundColor: '#14bca8'
+    backgroundColor: '#ffebee',
 }
 const myStyle2 = {
-    fontWeight: '500'
+    fontWeight: '800',
+    color: '#ff0026'
 }
 
 
@@ -52,12 +53,13 @@ const CompareCard = (props) => {
             <CardContent>
                 <Typography variant="h4">{props.data.NAME}</Typography>
                 {Object.entries(props.data).map(([key, value]) => {
-                    console.log(key)
-                    if (key != "IMAGE_LINK" && key != "ID" && key != "NAME") return <Typography>{key}:{value}</Typography>
+                    console.log(key, value)
+                    if (key != "IMAGE_LINK" && key != "ID" && key != "NAME") return <Typography>{key}:{" " + value.toString()}</Typography>
+
                 })}
             </CardContent>
             <CardActions className={classes.media}>
-                <Button value={props.data.ID}onClick={() => submitChange(props)} style = {myStyle} color = 'primary'><Typography style={myStyle2}>Remove</Typography></Button>
+                <Button value={props.data.ID}onClick={() => submitChange(props)} style = {myStyle}><Typography variant = 'h3' style={myStyle2}>X</Typography></Button>
             </CardActions>
         </Card>
     )
