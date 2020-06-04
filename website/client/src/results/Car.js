@@ -140,7 +140,7 @@ const Car = (props) => {
 		<div>
 			<div style = {myStyle}>
 				<Card variant="outlined">
-					<CardActionArea>
+					<CardContent>
 						<Typography
 							className={clsx(classes.h6, classes.root)}
 							color="primary"
@@ -176,7 +176,7 @@ const Car = (props) => {
 								</Typography>
 							</Grid>
 						</Grid>
-					</CardActionArea>
+					</CardContent>
 					<CardActions style = {myStyle4}>
 						<IconButton
 							value={props.data.ID}

@@ -57,8 +57,8 @@ const FilterDrawer = (props) => {
 	const icons = [<AttachMoneyIcon />, <Icon>filter_alt</Icon>];
 	const filterRange = [
 		{
-			value: 0,
-			label: `MIN VALUE: 0`,
+			value: props.minAvailPrice,
+			label: `MIN VALUE: ${props.minAvailPrice}`,
 		},
 		{
 			value: props.maxAvailPrice,
