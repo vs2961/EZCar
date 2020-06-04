@@ -57,11 +57,7 @@ function NewCard(props) {
   )
 }
 
-<<<<<<< HEAD
 function createAlert(id) {
-=======
-function createModal(id) {
->>>>>>> master
     const body = infoText(id)
     alert(body)
 }
