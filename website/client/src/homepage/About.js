@@ -26,21 +26,19 @@ function About() {
             <h1>Welcome!</h1>
             <Grid container spacing={3}>
                 <Grid item xs={4}>
-                    <IntroCard title={"What is this?"} text={what}/>
+                    <IntroCard title={"Our Story"} text={what}/>
                 </Grid>
                 <Grid item xs={4}>
-                    <IntroCard title={"Get Started"} text={get_started}/>
+                    <IntroCard title={"How-to Guide"} text={get_started}/>
                 </Grid>
                 <Grid item xs={4}>
-                    <IntroCard title={"Background Info"} text={who}/>
+                    <IntroCard title={"Team"} text={who}/>
                 </Grid>
                 <Grid item xs={4}>
-                    <IntroCard title={"How?"} text={how}/>
+                    <IntroCard title={"Tutorials"} text={how}/>
                 </Grid>
                 <Grid item xs={4}>
-                    <iframe width="100%" height="100%"
-                        src="https://www.youtube.com/embed/tgbNymZ7vqY">
-                    </iframe>
+
                 </Grid>
             </Grid>
         </div>
