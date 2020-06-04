@@ -30,7 +30,6 @@ def dump_sorted():
     req_data = request.get_json()
     cars = Car.query
     big_cars = []
-    print()
     if req_data["Price"]:
         for price in req_data["Price"]:
             mini_cars = cars.filter(Car.MSRP <= price[1])\
@@ -49,21 +48,19 @@ def dump_sorted():
     if req_data["Seats"]:
         if len(big_cars) == 0:
             for seat in req_data["Seats"]:
-                print("hee")
                 mini_cars = cars.filter(Car.seats.between(
                     seat[0], seat[1]))
         else:
             for i in range(len(big_cars)):
                 for seat in req_data["Seats"]:
                     big_cars[i] = big_cars[i].filter(Car.seats.between(seat[0], seat[1]))
-    print(big_cars)
     final_list = []
     for car in big_cars:
         for k in car.all():
             final_list.append(k)
     cars = sorted([car.serialize() for car in final_list],
                   key=lambda x: x[req_data["sort_by"]], reverse=True)
-    return jsonify(cars)
+    return jsonify(split(cars, 3))
 
 
 @cars_blueprint.route('/dump_by', methods=["POST"])
@@ -97,7 +94,6 @@ def split(a, n):
 def get_available():
     req_data = request.get_json()
     cars = Car.query
-    print("cars", cars)
     if req_data["Price"]:
         cars = cars.filter(Car.MSRP <= req_data["Price"][1])\
             .filter(Car.MSRP >= req_data["Price"][0])
