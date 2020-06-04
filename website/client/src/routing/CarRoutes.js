@@ -26,9 +26,15 @@ function CarRoutes() {
 					<CarAppBar/>
 					<Login/>
 				</Route> />
-				<Route path={"/register"} component={Register} exact />
+				<Route path={"/register"} exact >
+					<CarAppBar/>
+                    <Register/>
+                </Route>
 				<Route path="/results" exact component={ResultPage} />
-				<Route path="/profile" exact component={Profile} />
+				<Route path="/profile" exact>
+					<CarAppBar/>
+					<Profile/>
+				</Route>
 				<Route path="/" component={Welcome}>
 					<Redirect to="/" />
 				</Route>

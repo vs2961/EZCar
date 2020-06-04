@@ -7,6 +7,7 @@ import InfoIcon from '@material-ui/icons/Info';
 import IconButton from '@material-ui/core/IconButton'
 import {makeStyles} from '@material-ui/core/styles';
 import {List, ListItem, ListItemText, Divider, Drawer, ListItemAvatar, Avatar} from '@material-ui/core'
+import { useCookies } from "react-cookie";
 import MenuIcon from '@material-ui/icons/Menu';
 
 const useStyles = makeStyles(
@@ -42,6 +43,7 @@ function MaterialInfoDrawer() {
 
     const routes = ["/", "/profile", "/cars", "/about"]
     const icons = [<BugReportIcon/>, <AccountCircleIcon/>, <DriveEtaIcon/>, <InfoIcon/>]
+    const [cookies, setCookie, removeCookie] = useCookies(['username', 'id']);
 
     const topics = (anchor) => (
         <div role={"presentation"}
@@ -49,17 +51,17 @@ function MaterialInfoDrawer() {
         onKeyDown={toggleDrawer(anchor, false)}>
             {/* Just maps out the topics, making listitems for each one */}
             <List>
-            {['Introduction (DEBUG)', 'Profile', 'Cars', 'About'].map((text, index) => (
+            {['Introduction', 'Profile', 'Cars', 'About'].map((text, index) => (
                 <>
                 <ListItem button key={index}>
-                    <NavLink key={index} to={routes[index]} >
+                    {text == 'Profile' && typeof cookies.id == "undefined" ? null : <NavLink key={index} to={routes[index]} >
                     <ListItemAvatar key={index}>
                     <Avatar key={index}>
                         {icons[index]}
                     </Avatar>
                     </ListItemAvatar>
                     <ListItemText key={index}primary={text} ></ListItemText>
-                    </NavLink>
+                    </NavLink>}
                 </ListItem>
                 <Divider />
                 </>

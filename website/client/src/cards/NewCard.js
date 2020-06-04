@@ -50,14 +50,18 @@ function NewCard(props) {
                       />
                       <Typography className={classes.textOverlay}> {text} </Typography>
                       </CardActionArea>
-                      <Button className={classes.buttonOverlay} onClick={() => createModal(props.id)} fontSize = "large" startIcon={<InfoIcon />}/>
+                      <Button className={classes.buttonOverlay} onClick={() => createAlert(props.id)} fontSize = "large" startIcon={<InfoIcon />}/>
                 </div>
               </Card>
       </div>
   )
 }
 
+<<<<<<< HEAD
+function createAlert(id) {
+=======
 function createModal(id) {
+>>>>>>> master
     const body = infoText(id)
     alert(body)
 }
