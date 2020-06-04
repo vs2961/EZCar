@@ -33,7 +33,7 @@ const useStyles = makeStyles(theme => ({
         margin: "-10px 0px 0px -180px"
 	},
     cropped: {
-        height: "23vh",
+        height: "20vh",
         overflow: "hidden",
         border: "5px solid white",
     },

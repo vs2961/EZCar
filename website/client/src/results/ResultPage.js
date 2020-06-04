@@ -109,9 +109,9 @@ class ResultPage extends React.PureComponent {
 			<div>
 				<CarAppBar />
 				<h1>Here Is What We Found</h1>
-				<IconButton onClick = {this.scrollToTop} style = {this.floatingButton} >
+				{this.state.is_visible && <IconButton onClick = {this.scrollToTop} style = {this.floatingButton} >
 					<img src="arrowup.png" style={{width:'40px'}}/>
-				</IconButton>
+				</IconButton> }
 				<FilterDrawer
 					func={this.updateFilter}
 					maxAvailPrice={this.sortedPrices[0].MSRP}
