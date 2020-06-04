@@ -41,8 +41,8 @@ function NewCard(props) {
     return (
       <div>
               <Card variant="outlined">
-                  <div className={classes.container}>
-                      <CardActionArea onClick = {sendData}>
+              <div className={classes.container}>
+                      <CardActionArea className={classes.container} onClick = {sendData}>
                       <CardMedia
                           className={classes.media}
                           component="img"
@@ -51,14 +51,17 @@ function NewCard(props) {
                       <Typography className={classes.textOverlay}> {text} </Typography>
                       </CardActionArea>
                       <Button className={classes.buttonOverlay} onClick={() => createAlert(props.id)} fontSize = "large" startIcon={<InfoIcon />}/>
-                  </div>
+                </div>
               </Card>
-
       </div>
   )
 }
 
+<<<<<<< HEAD
 function createAlert(id) {
+=======
+function createModal(id) {
+>>>>>>> master
     const body = infoText(id)
     alert(body)
 }
