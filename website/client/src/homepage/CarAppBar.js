@@ -13,12 +13,13 @@ import Grid from "@material-ui/core/Grid";
 import clsx from "clsx";
 import { useCookies } from "react-cookie";
 import { Link } from "react-router-dom";
+import history from "../routing/history";
 
 const useStyles = makeStyles((theme) => ({
 	title: {
-		paddingLeft: "1em",
-		textAlign: "center",
 		fontWeight: "bold",
+        textAlign: "left",
+        marginLeft: "1em",
 	},
 	root: {
 		flexGrow: 1,
@@ -30,6 +31,9 @@ const useStyles = makeStyles((theme) => ({
 		margin: "0px 50px 0px 0px",
 		fontWeight: "bold",
 	},
+    Button: {
+        color: "white",
+    }
 }));
 
 const buttonTheme = createMuiTheme({
@@ -98,6 +102,12 @@ function CarAppBar(props) {
 			);
 		}
 	};
+    
+    const redirect = () => {
+        history.push({
+            pathname: "/",
+        })
+    }
 
 	{
 		/* App Bar will contain mainly background stuff, and the drawer */
@@ -108,12 +118,14 @@ function CarAppBar(props) {
 				<InfoDrawer className={classes.menuButton} />
 				<Grid container>
 					<Grid item xs={12}>
-						<Typography
-							variant="h5"
-							className={clsx(classes.title, classes.menuButton)}
-						>
-							EZCar
-						</Typography>
+                        <Link to="/" className={classes.Button} style={{ textDecoration: 'none' }}>
+                            <Typography
+                                variant="h5"
+                                className={clsx(classes.title, classes.menuButton)}
+                            >
+                                EZCar
+                            </Typography>
+                        </Link>
 					</Grid>
 				</Grid>
 				{loadLoginInfo()}
