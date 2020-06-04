@@ -67,8 +67,13 @@ def dump_sorted():
         for k in car.all():
             if k not in final_list:
                 final_list.append(k)
-    cars = sorted([car.serialize() for car in final_list],
-                  key=lambda x: x[req_data["sort_by"]], reverse=True)
+    if req_data["sort_by"] == "MSRP":
+        cars = sorted([car.serialize() for car in final_list],
+                    key=lambda x: x[req_data["sort_by"]])
+    else:
+        cars = sorted([car.serialize() for car in final_list],
+                    key=lambda x: x[req_data["sort_by"]], reverse=True)
+        
     return jsonify(split(cars, 3))
 
 
