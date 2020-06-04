@@ -113,9 +113,11 @@ const Car = (props) => {
 		const oogaRating = badge.rating;
 		const oogaMpg = badge.mpg;
 		if (typeof oogaPrice != "undefined") finalImages.push(prices[oogaPrice]);
+		else finalImages.push("trashbadge.png")
 		if (typeof oogaRating != "undefined") finalImages.push(ratings[oogaRating]);
+		else finalImages.push("trashbadge.png")
 		if (typeof oogaMpg != "undefined") finalImages.push(mpg[oogaMpg]);
-		console.log(finalImages);
+		else finalImages.push("trashbadge.png")
 		return finalImages;
 	};
 	return (
