@@ -5,6 +5,11 @@ import history from "../routing/history";
 import { useCookies } from "react-cookie";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import VisibilityIcon from '@material-ui/icons/Visibility';
+import IconButton from "@material-ui/core/IconButton";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
+import Alert from '@material-ui/lab/Alert';
 import {
 	FormControl,
 	InputLabel,
@@ -13,6 +18,7 @@ import {
 	Grid,
 	Button,
 	Typography,
+	Snackbar
 } from "@material-ui/core";
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -25,11 +31,15 @@ const Login = (props) => {
 	const [cookies, setCookie] = useCookies(["username", "id"]);
 	const [password, setPassword] = React.useState("");
 	const [username, setUsername] = React.useState("");
-
+	const [showPassword, setVisibility] = React.useState(false);
+	const [open, setOpen] = React.useState(false);
 	const verifyForm = () => {
 		return password.length > 1 && username.length > 0;
 	};
 
+	const toggleVisibility = () => {
+		setVisibility(!showPassword)
+	}
 	const handleSubmit = () => {
 		axios
 			.post("/login", {
@@ -38,7 +48,7 @@ const Login = (props) => {
 			})
 			.then((res) => {
 				console.log(res.data);
-				if (res.data.id === "Invalid user" || res.data.id === "Invalid password") alert("Invalid Credentials")
+				if (res.data.id === "Invalid user" || res.data.id === "Invalid password") setOpen(true)
 				else {
 					setCookie("id", res.data.id, {path: "/"})
 					setCookie("username", res.data.username, {path: "/"})
@@ -53,6 +63,7 @@ const Login = (props) => {
 		return <p>You have already logged in.</p>;
 	return (
 		<>
+			{<Snackbar open={open} anchorOrigin = {{vertical: 'top', horizontal: 'center'}} ><Alert severity="error">This is an error alert — check it out!</Alert></Snackbar>}
 			<h1>Login</h1>
 			<Grid container>
 				<Grid item xs={12}>
@@ -71,6 +82,7 @@ const Login = (props) => {
 					</FormControl>
 				</Grid>
 				<Grid item xs={12}>
+					<div>
 					<FormControl>
 						<InputLabel htmlFor="my-input">Password</InputLabel>
 						<Input
@@ -79,11 +91,17 @@ const Login = (props) => {
 							valueid="pass-input"
 							aria-describedby="my-helper-text"
 							className={classes.root}
-						/>
+							type = {showPassword ? 'text' : 'password'}
+							endAdornment = {
+								<InputAdornment> <IconButton onClick = {toggleVisibility}> {!showPassword ? <VisibilityIcon/> : <VisibilityOffIcon/>} </IconButton></InputAdornment>
+							} />
+
+
 						<FormHelperText id="my-helper-text">
 							minimum length must be 8
 						</FormHelperText>
 					</FormControl>
+					</div>
 				</Grid>
 
 				<Grid item xs={12}>

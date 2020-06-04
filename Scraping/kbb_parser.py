@@ -52,8 +52,8 @@ def getCars(html, site, out):
             continue
 
         if chosen_horsepower == "0":
-            bruh = chosen_car.replace(" ", "+") + "+HP"
-            a = requests.get(f"https://www.google.com/search?q={bruh}/").text
+            hp1 = chosen_car.replace(" ", "+") + "+HP"
+            a = requests.get(f"https://www.google.com/search?q={hp1}/").text
             soup3 = BeautifulSoup(a, features="html.parser")
             try:
                 chosen_horsepower = soup3.findAll("div", {"class":"BNeawe iBp4i AP7Wnd"})[0].text[0:3]
