@@ -94,9 +94,9 @@ const Car = (props) => {
 		console.log(badge);
 		const finalImages = [];
 		const prices = {
-			0: "pricegold.png",
+			0: "pricebronze.png",
 			1: "pricesilver.png",
-			2: "pricebronze.png",
+			2: "pricegold.png",
 		};
 
 		const ratings = {
