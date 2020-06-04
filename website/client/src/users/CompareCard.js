@@ -30,6 +30,13 @@ const useStyles = makeStyles(theme => ({
 	},
 }))
 
+const myStyle = {
+    backgroundColor: '#14bca8'
+}
+const myStyle2 = {
+    fontWeight: '500'
+}
+
 
 const CompareCard = (props) => {
     const classes = useStyles()
@@ -50,7 +57,7 @@ const CompareCard = (props) => {
                 })}
             </CardContent>
             <CardActions className={classes.media}>
-                <Button value={props.data.ID}onClick={() => submitChange(props)}>Remove this car</Button>
+                <Button value={props.data.ID}onClick={() => submitChange(props)} style = {myStyle} color = 'primary'><Typography style={myStyle2}>Remove</Typography></Button>
             </CardActions>
         </Card>
     )
