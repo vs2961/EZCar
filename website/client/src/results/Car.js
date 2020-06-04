@@ -137,6 +137,7 @@ const Car = (props) => {
     	alignItems: 'center',
     	justifyContent: 'center'
 	}
+
 	return (
 		<div>
 			<div style = {myStyle}>
@@ -146,6 +147,7 @@ const Car = (props) => {
 							className={clsx(classes.h6, classes.root)}
 							color="primary"
 							variant="h6"
+								style = {{fontSize: "50"}}
 						>
 							{props.name}
 						</Typography>
@@ -170,8 +172,8 @@ const Car = (props) => {
 								)
 							})}
 
-							<Grid item xs={4} style={myStyle2}>
-								<Typography variant="h4" className={classes.msrp}>
+							<Grid item xs={4} style={{paddingLeft:"80px"}}>
+								<Typography variant="h3" className={classes.msrp} style={{color: '#00c853',fontWeight: "800", textAlign:'center'}}>
 									{formatter.format(props.data.MSRP)}
 								</Typography>
 							</Grid>
