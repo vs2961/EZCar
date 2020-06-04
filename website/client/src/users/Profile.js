@@ -22,14 +22,22 @@ class Profile extends React.Component{
         axios.post("/del_car", {car_id: val, user_id: cookies.get("id")}).then(res => console.log(res)).then(document.location.reload());
     }
 
-    render(){
-        console.log(this.state.myCars)
-        return (<Grid container>{
-            Object.entries(this.state.myCars).map( ([key,value]) => {
-                return <Grid item xs={12 / this.state.myCars.length}><CompareCard func={this.deleteCar} data={value}/></Grid>
-
-        })
-        }</Grid>)
+    render() {
+        const toReturn = 
+            this.state.myCars.length != 0 ? 
+            <Grid container>{
+                Object.entries(this.state.myCars).map( ([key,value]) => {
+                    return <Grid item xs={12 / this.state.myCars.length}><CompareCard func={this.deleteCar} data={value}/></Grid>
+                })
+            }
+            </Grid>
+            : <>
+                <h1>No cars found</h1>
+                <img src="nocars.jpg"/>
+                <h4>Head over to the Introduction to get started!</h4>
+              </>
+            
+        return (toReturn)
     }
 }
 
