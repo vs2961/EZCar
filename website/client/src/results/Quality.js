@@ -98,7 +98,7 @@ const Quality = (props) => {
     const classes = useStyles()
     console.log(props)
     var dataKey = props.dataType
-    var dataValue = (props.dataValue == 0 ? "?" : props.dataValue)
+    var dataValue = (props.dataValue === 0 || props.dataValue === -1 ? "?" : props.dataValue)
     // const chipValue = (props.dataValue == 0) ? "N/A" : props.dataValue;
     return (
         <ThemeProvider theme={decideTheme(props.dataType, props.rank)}>

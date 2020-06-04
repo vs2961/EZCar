@@ -7,6 +7,7 @@ import axios from "axios";
 import { Cookies } from "react-cookie";
 // import { ThemeProvider } from '@material-ui/core';
 import history from "../routing/history";
+import Alert from '@material-ui/lab/Alert';
 
 class Welcome extends React.PureComponent {
 	constructor(props) {

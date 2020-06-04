@@ -11,7 +11,7 @@ const useStyles = makeStyles(theme => ({
     },
 
     media: {
-        maxHeight: 200
+        maxHeight: 500
     }
 }))
 
@@ -23,9 +23,10 @@ export default function IntroCard(props) {
     return (
        <Card className={classes.root}>
             <CardHeader
-        title={<Typography variant="h3">{props.title}</Typography>}
+        title={<Typography variant="h4" style = {{fontWeight: '800'}}>{props.title}</Typography>}
             />
             <CardActionArea>
+            {props.imageSource && <img src = {props.imageSource} style = {{maxHeight: '270px'}}></img>}
             <CardContent>
                 <Typography>{props.text}</Typography>
             </CardContent>
