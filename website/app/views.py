@@ -29,53 +29,17 @@ def serve():
 def dump_sorted():
     req_data = request.get_json()
     cars = Car.query
+    sort = False
     big_cars = []
     if req_data["Price"]:
+        sort = True
         for price in req_data["Price"]:
             mini_cars = cars.filter(Car.MSRP <= price[1])\
                     .filter(Car.MSRP >= price[0])
             big_cars.append(mini_cars)
+
     if req_data["Type"]:
-        if len(big_cars) == 0:
-            for car_type in req_data["Type"]:
-                mini_cars = cars.filter_by(type=car_type)
-                big_cars.append(mini_cars)
-        else:
-            for i in range(len(big_cars)):
-                for car_type in req_data["Type"]:
-                    big_cars[i] = big_cars[i].filter_by(type=car_type)
-
-    if req_data["Seats"]:
-        if len(big_cars) == 0:
-            for seat in req_data["Seats"]:
-                mini_cars = cars.filter(Car.seats.between(
-                    seat[0], seat[1]))
-        else:
-            for i in range(len(big_cars)):
-                for seat in req_data["Seats"]:
-                    big_cars[i] = big_cars[i].filter(Car.seats.between(seat[0], seat[1]))
-    final_list = []
-    for car in big_cars:
-        for k in car.all():
-            final_list.append(k)
-    cars = sorted([car.serialize() for car in final_list],
-                  key=lambda x: x[req_data["sort_by"]], reverse=True)
-    return jsonify(split(cars, 3))
-
-
-@cars_blueprint.route('/dump_by', methods=["POST"])
-def dump_rating():
-    req_data = request.get_json()
-    cars = Car.query
-    big_cars = []
-    if req_data["Price"]:
-        for price in req_data["Price"]:
-            mini_cars = cars.filter(Car.MSRP <= price[1])\
-                    .filter(Car.MSRP >= price[0])
-            big_cars.append(mini_cars)
-    print("AFTER PRICE: ")
-    print(big_cars)
-    if req_data["Type"]:
+        sort = True
         if len(big_cars) == 0:
             for car_type in req_data["Type"]:
                 mini_cars = cars.filter_by(type=car_type)
@@ -89,10 +53,12 @@ def dump_rating():
             big_cars = poses.copy()
 
     if req_data["Seats"]:
+        sort = True
         if len(big_cars) == 0:
             for seat in req_data["Seats"]:
                 mini_cars = cars.filter(Car.seats.between(
                     seat[0], seat[1]))
+                big_cars.append(mini_cars)
         else:
             poses = []
             for i in range(len(big_cars)):
@@ -100,14 +66,77 @@ def dump_rating():
                     pos = big_cars[i].filter(Car.seats.between(seat[0], seat[1]))
                     poses.append(pos)
             big_cars = poses.copy()
-    print(len(big_cars))
-    final_list = []
-    for car in big_cars:
-        for k in car.all():
-            if k not in final_list:
-                final_list.append(k)
-    cars = sorted([car.serialize() for car in final_list],
-                  key=lambda x: x[req_data["sort_by"]], reverse=True)
+    if sort:
+        final_list = []
+        for car in big_cars:
+            for k in car.all():
+                if k not in final_list:
+                    final_list.append(k)
+        if req_data["sort_by"] == "MSRP":
+            cars = sorted([car.serialize() for car in final_list],
+                        key=lambda x: x[req_data["sort_by"]])
+        else:
+            cars = sorted([car.serialize() for car in final_list],
+                        key=lambda x: x[req_data["sort_by"]], reverse=True)
+    else:
+        cars = sorted([car.serialize() for car in cars.all()],
+                    key=lambda x: x[req_data["sort_by"]], reverse=True)
+            
+    return jsonify(split(cars, 3))
+
+
+@cars_blueprint.route('/dump_by', methods=["POST"])
+def dump_rating():
+    req_data = request.get_json()
+    cars = Car.query
+    big_cars = []
+    sort = False
+    if req_data["Price"]:
+        sort = True
+        for price in req_data["Price"]:
+            mini_cars = cars.filter(Car.MSRP <= price[1])\
+                    .filter(Car.MSRP >= price[0])
+            big_cars.append(mini_cars)
+ 
+    if req_data["Type"]:
+        sort = True
+        if len(big_cars) == 0:
+            for car_type in req_data["Type"]:
+                mini_cars = cars.filter_by(type=car_type)
+                big_cars.append(mini_cars)
+        else:
+            poses = []
+            for i in range(len(big_cars)):
+                for car_type in req_data["Type"]:
+                    pos = big_cars[i].filter_by(type=car_type)
+                    poses.append(pos)
+            big_cars = poses.copy()
+
+    if req_data["Seats"]:
+        sort = True
+        if len(big_cars) == 0:
+            for seat in req_data["Seats"]:
+                mini_cars = cars.filter(Car.seats.between(
+                    seat[0], seat[1]))
+                big_cars.append(mini_cars)
+        else:
+            poses = []
+            for i in range(len(big_cars)):
+                for seat in req_data["Seats"]:
+                    pos = big_cars[i].filter(Car.seats.between(seat[0], seat[1]))
+                    poses.append(pos)
+            big_cars = poses.copy()
+    if sort:
+        final_list = []
+        for car in big_cars:
+            for k in car.all():
+                if k not in final_list:
+                    final_list.append(k)
+        cars = sorted([car.serialize() for car in final_list],
+                      key=lambda x: x[req_data["sort_by"]], reverse=True)
+    else:
+        cars = sorted([car.serialize() for car in cars.all()],
+                      key=lambda x: x[req_data["sort_by"]], reverse=True)
 
     return jsonify(cars)
 

@@ -11,6 +11,10 @@ import {
 	Grid,
 	Button,
 } from "@material-ui/core";
+import InputAdornment from "@material-ui/core/InputAdornment";
+import IconButton from "@material-ui/core/IconButton";
+import VisibilityIcon from "@material-ui/icons/Visibility";
+import VisibilityOffIcon from '@material-ui/icons/VisibilityOff';
 const useStyles = makeStyles((theme) => ({
 	root: {
 		width: "500px",
@@ -22,6 +26,10 @@ const Register = (props) => {
 	const classes = useStyles();
 	const [password, setPassword] = React.useState("");
 	const [username, setUsername] = React.useState("");
+	const [showPassword, setVisibility] = React.useState(false);
+	const toggleVisibility = () => {
+		setVisibility(!showPassword)
+	}
 
 	const verifyForm = () => {
 		return password.length > 1 && username.length > 0;
@@ -64,6 +72,10 @@ const Register = (props) => {
 							valueid="pass-input"
 							aria-describedby="my-helper-text"
 							className={classes.root}
+							type = {showPassword ? 'text' : 'password'}
+							endAdornment = {
+								<InputAdornment> <IconButton onClick = {toggleVisibility}> {!showPassword ? <VisibilityIcon/> : <VisibilityOffIcon/>} </IconButton></InputAdornment>
+							}
 						/>
 						<FormHelperText id="my-helper-text">
 							minimum length must be 8

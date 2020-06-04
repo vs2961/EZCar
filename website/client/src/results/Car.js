@@ -43,7 +43,12 @@ const useStyles = makeStyles((theme) => ({
 		maxWidth: 100,
 		margin: 10,
 		marginTop: 30
-	}
+	},
+    cropped: {
+        height: "23vh",
+        overflow: "hidden",
+        boreder: "5px solid white",
+    }
 }));
 
 const sliderStyles = makeStyles((theme) => ({
@@ -140,7 +145,7 @@ const Car = (props) => {
 		<div>
 			<div style = {myStyle}>
 				<Card variant="outlined">
-					<CardActionArea>
+					<CardContent>
 						<Typography
 							className={clsx(classes.h6, classes.root)}
 							color="primary"
@@ -153,6 +158,7 @@ const Car = (props) => {
 						<Grid container>
 							<Grid item xs={4}>
 								{
+                                    <div className={classes.cropped}>
 									<CardMedia
 										className={classes.media}
 										component="img"
@@ -160,6 +166,7 @@ const Car = (props) => {
 										image={props.data.IMAGE_LINK}
 										style = {myStyle2}
 									></CardMedia>
+                                    </div>
 								}
 							</Grid>
 							{loadBadges(props.bValues).map((item, index) => {
@@ -176,7 +183,7 @@ const Car = (props) => {
 								</Typography>
 							</Grid>
 						</Grid>
-					</CardActionArea>
+					</CardContent>
 					<CardActions style = {myStyle4}>
 						<IconButton
 							value={props.data.ID}
@@ -215,7 +222,7 @@ const Car = (props) => {
 							{Object.entries(props.data).map(([key, value]) => {
 								var electric = undefined;
 								if (key === "IS ELECTRIC" && value) electric = true;
-								if (!["IMAGE_LINK", "NAME"].includes(key))
+								if (!["IMAGE_LINK", "NAME", "ID", "PRICE_RANGE"].includes(key))
 									return (
 										<Quality
 											isElectric={electric}

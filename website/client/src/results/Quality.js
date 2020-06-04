@@ -45,6 +45,29 @@ const theme = createMuiTheme({
           }
       }
   })
+  const goldTheme = createMuiTheme({
+      palette: {
+          primary: {
+            main: '#CFB53B'
+          }
+      }
+  })
+
+  const silverTheme = createMuiTheme({
+      palette: {
+          primary: {
+            main: '#D3D3D3'
+          }
+      }
+  })
+
+  const bronzeTheme = createMuiTheme({
+      palette: {
+          primary: {
+            main: '#ff9800'
+          }
+      }
+  })
 
   const possibleValues = {
     'HORSEPOWER': <PowerSettingsNewIcon/>,
@@ -59,9 +82,11 @@ const theme = createMuiTheme({
   }
 
 // decides which palette to use.
-const decideTheme = (value) => {
+const decideTheme = (value, rank) => {
     if (value === "IS ELECTRIC") return eletricTheme
-    else return theme
+    else if (rank === 0) return theme
+    else if (rank === 1) return silverTheme
+    else if (rank === 2) return bronzeTheme
 }
 
 // const market = (value, p) => {
@@ -73,10 +98,11 @@ const Quality = (props) => {
     const classes = useStyles()
     console.log(props)
     var dataKey = props.dataType
+    var dataValue = (props.dataValue === 0 || props.dataValue === -1 ? "?" : props.dataValue)
     // const chipValue = (props.dataValue == 0) ? "N/A" : props.dataValue;
     return (
-        <ThemeProvider theme={decideTheme(props.dataType)}>
-        <Chip color="primary" clickable className={classes.root} size="medium" icon={possibleValues[dataKey]}label={`${dataKey}: ${props.dataValue}`}/>
+        <ThemeProvider theme={decideTheme(props.dataType, props.rank)}>
+        <Chip color="primary" clickable className={classes.root} size="medium" icon={possibleValues[dataKey]}label={`${dataKey}: ${dataValue}`}/>
         </ThemeProvider>
     )
 }

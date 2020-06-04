@@ -41,8 +41,8 @@ function MaterialInfoDrawer() {
           setState({ ...state, [anchor]: open });
     } 
 
-    const routes = ["/", "/profile", "/cars", "/about"]
-    const icons = [<BugReportIcon/>, <AccountCircleIcon/>, <DriveEtaIcon/>, <InfoIcon/>]
+    const routes = ["/", "/profile", "/about"]
+    const icons = [<DriveEtaIcon/>, <AccountCircleIcon/>, <InfoIcon/>]
     const [cookies, setCookie, removeCookie] = useCookies(['username', 'id']);
 
     const topics = (anchor) => (
@@ -51,7 +51,7 @@ function MaterialInfoDrawer() {
         onKeyDown={toggleDrawer(anchor, false)}>
             {/* Just maps out the topics, making listitems for each one */}
             <List>
-            {['Introduction', 'Profile', 'Cars', 'About'].map((text, index) => (
+            {['Introduction', 'Profile', 'About'].map((text, index) => (
                 <>
                 <ListItem button key={index}>
                     {text == 'Profile' && typeof cookies.id == "undefined" ? null : <NavLink key={index} to={routes[index]} >
