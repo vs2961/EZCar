@@ -54,9 +54,9 @@ const CompareCard = (props) => {
     }
     return (
         <Card variant="outlined" className={classes.root}>
-            <CardActionArea>
+            <CardContent>
             {<CardMedia className={classes.media} component="img" src="image" image={props.data.IMAGE_LINK}></CardMedia>}
-            </CardActionArea>
+            </CardContent>
             <CardContent>
                 <Typography variant="h4">{props.data.NAME}</Typography>
                 {Object.entries(props.data).map(([key, value]) => {
