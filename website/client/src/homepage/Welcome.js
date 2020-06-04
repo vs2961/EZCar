@@ -28,6 +28,7 @@ class Welcome extends React.PureComponent {
 				["Seats", "More Than 5", [5, "unlimited"]],
 		];
 		this.state = {
+			selection: [],
 			curIndex: 0,
 			avails: {
 				Newcomer: true,
@@ -62,6 +63,13 @@ class Welcome extends React.PureComponent {
 
 	updateChoices(val) {
 		console.log(val);
+		if (!this.state.selection.includes(val[1])){
+			this.setState({selection: this.state.selection.concat(val[1])})
+		}
+		else{
+			this.setState({selection: this.state.selection.filter(x => x != val[1])})
+		}
+
 		if (!this.choices[val[0]].includes(val[2])) this.choices[val[0]].push(val[2])
 		else (this.choices[val[0]] = this.choices[val[0]].filter(item => item != val[2]))
 		console.log(this.choices);
@@ -121,6 +129,7 @@ class Welcome extends React.PureComponent {
 	}
 
 	render() {
+		console.log(this.state.selection);
 		return (
 			<>
 				<CarAppBar />

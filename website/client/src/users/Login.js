@@ -67,7 +67,7 @@ const Login = (props) => {
 		return <p>You have already logged in.</p>;
 	return (
 		<>
-			{<Snackbar open={open} anchorOrigin = {{vertical: 'top', horizontal: 'center'}} ><Alert severity="error">{`${errorMessage}. Please try again.`}
+			{<Snackbar open={open} autoHideDuration='3000' onClose={() => setOpen(false)} anchorOrigin = {{vertical: 'top', horizontal: 'center'}} ><Alert severity="error">{`${errorMessage}. Please try again.`}
 		</Alert></Snackbar>}
 			<h1>Login</h1>
 			<Grid container>
