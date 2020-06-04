@@ -27,7 +27,7 @@ class Profile extends React.Component{
             this.state.myCars.length != 0 ? 
             <Grid container>{
                 Object.entries(this.state.myCars).map( ([key,value]) => {
-                    return <Grid item xs={12 / this.state.myCars.length}><CompareCard func={this.deleteCar} data={value}/></Grid>
+                    return <Grid item xs={12 / this.state.myCars.length}><CompareCard func={this.deleteCar} data={value} cars={this.state.myCars}/></Grid>
                 })
             }
             </Grid>

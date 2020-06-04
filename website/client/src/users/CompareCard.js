@@ -13,8 +13,9 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Slider from "@material-ui/core/Slider";
 import PowerIcon from "@material-ui/icons/Power";
 import CardHeader from '@material-ui/core/CardHeader'
-import Button from '@material-ui/core/Button'
-import axios from 'axios'
+import Button from '@material-ui/core/Button';
+import axios from 'axios';
+import Quality from '../results/Quality';
 
 
 const useStyles = makeStyles(theme => ({
@@ -41,9 +42,15 @@ const myStyle2 = {
 
 const CompareCard = (props) => {
     const classes = useStyles()
-    console.log(props.data["ID"])
     const submitChange = (val) => {
         props.func(val.data["ID"])
+    }
+    const getRank = (val, filter, isBack) => {
+        var arr = props.cars.map((x) => parseFloat(x[filter])).sort((a, b) => a - b)
+        if (isBack) {
+            arr = arr.reverse()
+        }
+        return  arr.indexOf(val);
     }
     return (
         <Card variant="outlined" className={classes.root}>
@@ -53,13 +60,21 @@ const CompareCard = (props) => {
             <CardContent>
                 <Typography variant="h4">{props.data.NAME}</Typography>
                 {Object.entries(props.data).map(([key, value]) => {
-                    console.log(key, value)
-                    if (key != "IMAGE_LINK" && key != "ID" && key != "NAME") return <Typography>{key}:{" " + value.toString()}</Typography>
-
+                    if (key === "TYPE" || key === "IS ELECTRIC") {
+                        return <Quality dataType={key} dataValue={value.toString()} rank={1}/>
+                    }
+                    else if (key === "HORSEPOWER" || key === "SEATS" || key === "MPG" || key === "RATING") {
+                        return <Quality dataType={key} dataValue={value.toString()}/>
+                    }
+                    else if (key != "IMAGE_LINK" && key != "ID" && key != "NAME" && key != "PRICE_RANGE") {
+                        return <Quality dataType={key} dataValue={value.toString()}/>
+                    }
                 })}
             </CardContent>
             <CardActions className={classes.media}>
-                <Button value={props.data.ID}onClick={() => submitChange(props)} style = {myStyle}><Typography variant = 'h3' style={myStyle2}>X</Typography></Button>
+                <Button value={props.data.ID} onClick={() => submitChange(props)} style = {myStyle}>
+                    <Typography variant = 'h3' style={myStyle2}>X</Typography>
+                </Button>
             </CardActions>
         </Card>
     )
