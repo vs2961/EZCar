@@ -21,6 +21,7 @@ def serve():
     if req_data["Seats"]:
         cars = cars.filter(Car.seats.between(
             req_data["Seats"][0], req_data["Seats"][1]))
+    
     carList = [car.serialize() for car in cars]
     return jsonify(carList)
 
@@ -30,6 +31,17 @@ def dump_sorted():
     req_data = request.get_json()
     cars = Car.query
     big_cars = []
+    if not req_data["Price"] and not req_data["Type"] and not req_data["Seats"]:
+        print("BOOOOOOOOOGAAAAAAA")
+        mega_cars = cars.all()
+        if req_data["sort_by"] == "MSRP":
+            cars = sorted([car.serialize() for car in mega_cars],
+                    key=lambda x: x[req_data["sort_by"]])
+        else:
+            cars = sorted([car.serialize() for car in mega_cars],
+                    key=lambda x: x[req_data["sort_by"]], reverse=True)
+        return jsonify(split(cars, 3))
+        
     if req_data["Price"]:
         for price in req_data["Price"]:
             mini_cars = cars.filter(Car.MSRP <= price[1])\
@@ -67,8 +79,13 @@ def dump_sorted():
         for k in car.all():
             if k not in final_list:
                 final_list.append(k)
-    cars = sorted([car.serialize() for car in final_list],
-                  key=lambda x: x[req_data["sort_by"]], reverse=True)
+    if req_data["sort_by"] == "MSRP":
+        cars = sorted([car.serialize() for car in final_list],
+                    key=lambda x: x[req_data["sort_by"]])
+    else:
+        cars = sorted([car.serialize() for car in final_list],
+                    key=lambda x: x[req_data["sort_by"]], reverse=True)
+        
     return jsonify(split(cars, 3))
 
 
@@ -77,6 +94,22 @@ def dump_rating():
     req_data = request.get_json()
     cars = Car.query
     big_cars = []
+    if not req_data["Price"] and not req_data["Type"] and not req_data["Seats"]:
+        print("BOOOOOOOOOGAAAAAAA")
+        mega_cars = cars.all()
+        if req_data["sort_by"] == "MSRP":
+            cars = sorted([car.serialize() for car in mega_cars],
+                    key=lambda x: x[req_data["sort_by"]])
+        else:
+            cars = sorted([car.serialize() for car in mega_cars],
+                    key=lambda x: x[req_data["sort_by"]], reverse=True)
+        return jsonify(cars)
+
+    if not req_data["Price"] and not req_data["Type"] and not req_data["Seats"]:
+        print("BOOOOOOOOOGAAAAAAA")
+        mega_cars = cars.all()
+        carList = [car.serialize() for car in mega_cars]
+        return (jsonify(carList))
     if req_data["Price"]:
         for price in req_data["Price"]:
             mini_cars = cars.filter(Car.MSRP <= price[1])\
@@ -114,9 +147,12 @@ def dump_rating():
         for k in car.all():
             if k not in final_list:
                 final_list.append(k)
-    cars = sorted([car.serialize() for car in final_list],
-                  key=lambda x: x[req_data["sort_by"]], reverse=True)
-
+    if req_data["sort_by"] == "MSRP":
+        cars = sorted([car.serialize() for car in final_list],
+                    key=lambda x: x[req_data["sort_by"]])
+    else:
+        cars = sorted([car.serialize() for car in final_list],
+                    key=lambda x: x[req_data["sort_by"]], reverse=True)
     return jsonify(cars)
 
 
