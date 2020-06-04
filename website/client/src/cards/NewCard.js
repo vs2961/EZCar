@@ -50,12 +50,40 @@ function NewCard(props) {
                       />
                       <Typography className={classes.textOverlay}> {text} </Typography>
                       </CardActionArea>
-                      <Button className={classes.buttonOverlay} fontSize = "large" startIcon={<InfoIcon />}/>
+                      <Button className={classes.buttonOverlay} onClick={() => createAlert(props.id)} fontSize = "large" startIcon={<InfoIcon />}/>
                   </div>
               </Card>
 
       </div>
   )
+}
+
+function createAlert(id) {
+    const body = infoText(id)
+    alert(body)
+}
+
+function infoText(id) {
+    switch (id) {
+        case 0:
+            return "High School & College students, newly married couple"
+        case 1:
+            return "Typical household with 4 to 6 people, couple with newborn child"
+        case 2:
+            return "Avid luxury car fans, CEOs"
+        case 3:
+            return "Best of both worlds; sports cars and sedans; roof can be retracted to provide a open-air experience"
+        case 4:
+            return "A hefty and solid car that seats 4-6 people; Smoother driving; Spacious"
+        case 5:
+            return "A sleek, low profile car that seats 2-4 people; Easy to drive; Cost effective"
+        case 6:
+            return "Seats 1 or 2 people"
+        case 7:
+            return "Seats 3 or 4 people"
+        case 8:
+            return "Seats more than 5 people"
+    }
 }
 
 export default NewCard

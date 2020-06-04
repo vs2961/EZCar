@@ -85,7 +85,7 @@ class Welcome extends React.PureComponent {
 		const sPrices = axios.post("dump_by", this.generateRankings("MSRP"))
 		const sRatings = axios.post("dump_by", this.generateRankings("RATING"))
 		const sEfficiencies = axios.post("dump_by", this.generateRankings("MPG"))
-	
+
 		axios.all([badgePrices, badgeRatings, badgeEfficiencies, sPrices, sRatings, sEfficiencies]).then(
 			axios.spread((...responses) => {
 
@@ -129,6 +129,7 @@ class Welcome extends React.PureComponent {
 							this.state.avails[item[1]] && (
 								<Grid item xs={4} key={index}>
 									<NewCard
+										id={index}
 										val={item}
 										func={this.updateChoices}
 										text={item[1]}
