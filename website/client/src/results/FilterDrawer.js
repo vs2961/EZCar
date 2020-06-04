@@ -91,8 +91,9 @@ const FilterDrawer = (props) => {
 			{/* Just maps out the topics, making listitems for each one */}
 
 			<List>
+                <h2>Price Slider</h2>
 				<Input disabled={true} value={formatter.format(finalValue)}></Input>
-				<ListItem>
+                    <ListItem>
 					<ListItemText>
 						<Slider
 							className={sliderClasses.root}
@@ -105,6 +106,7 @@ const FilterDrawer = (props) => {
 						/>
 					</ListItemText>
 				</ListItem>
+                <h2>Sort By</h2>
 				<Select value={filter} onChange={handleFilter}>
 					<MenuItem value="MSRP">Price</MenuItem>
 					<MenuItem value="RATING">Rating</MenuItem>

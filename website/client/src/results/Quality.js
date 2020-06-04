@@ -64,7 +64,7 @@ const theme = createMuiTheme({
   const bronzeTheme = createMuiTheme({
       palette: {
           primary: {
-            main: '#CD7F32'
+            main: '#ff9800'
           }
       }
   })
@@ -84,7 +84,7 @@ const theme = createMuiTheme({
 // decides which palette to use.
 const decideTheme = (value, rank) => {
     if (value === "IS ELECTRIC") return eletricTheme
-    else if (rank === 0) return goldTheme
+    else if (rank === 0) return theme
     else if (rank === 1) return silverTheme
     else if (rank === 2) return bronzeTheme
 }

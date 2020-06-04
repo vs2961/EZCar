@@ -215,7 +215,7 @@ const Car = (props) => {
 							{Object.entries(props.data).map(([key, value]) => {
 								var electric = undefined;
 								if (key === "IS ELECTRIC" && value) electric = true;
-								if (!["IMAGE_LINK", "NAME"].includes(key))
+								if (!["IMAGE_LINK", "NAME", "ID", "PRICE_RANGE"].includes(key))
 									return (
 										<Quality
 											isElectric={electric}

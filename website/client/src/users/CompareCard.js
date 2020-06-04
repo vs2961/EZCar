@@ -61,13 +61,13 @@ const CompareCard = (props) => {
                 <Typography variant="h4">{props.data.NAME}</Typography>
                 {Object.entries(props.data).map(([key, value]) => {
                     if (key === "TYPE" || key === "IS ELECTRIC") {
-                        return <Quality dataType={key} dataValue={value.toString()} rank={1}/>
+                        return <Quality dataType={key} dataValue={value.toString()} rank={-1}/>
                     }
                     else if (key === "HORSEPOWER" || key === "SEATS" || key === "MPG" || key === "RATING") {
-                        return <Quality dataType={key} dataValue={value.toString()}/>
+                        return <Quality dataType={key} dataValue={value.toString()} rank={getRank(value, key, true)}/>
                     }
                     else if (key != "IMAGE_LINK" && key != "ID" && key != "NAME" && key != "PRICE_RANGE") {
-                        return <Quality dataType={key} dataValue={value.toString()}/>
+                        return <Quality dataType={key} dataValue={value.toString()} rank={getRank(value, key, false)}/>
                     }
                 })}
             </CardContent>
