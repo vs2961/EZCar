@@ -86,12 +86,10 @@ const Car = (props) => {
 	const upperBound = parseInt(marketPrice[2]);
 
 	const submitData = (e) => {
-		console.log("PRESSED");
 		props.func(e.currentTarget.value);
 	};
 
 	const loadBadges = (badge) => {
-		console.log(badge);
 		const finalImages = [];
 		const prices = {
 			0: "pricebronze.png",

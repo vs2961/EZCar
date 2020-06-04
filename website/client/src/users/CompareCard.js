@@ -33,9 +33,9 @@ const useStyles = makeStyles(theme => ({
 
 const CompareCard = (props) => {
     const classes = useStyles()
-    console.log(props.data)
+    console.log(props.data["ID"])
     const submitChange = (val) => {
-        props.func(val.currentTarget.value)
+        props.func(val.data["ID"])
     }
     return (
         <Card variant="outlined" className={classes.root}>
@@ -49,8 +49,8 @@ const CompareCard = (props) => {
                     if (key != "IMAGE_LINK" && key != "ID" && key != "NAME") return <Typography>{key}:{value}</Typography>
                 })}
             </CardContent>
-            <CardActions>
-                <Button value={props.data.ID}onClick={submitChange(props)}>HJELLLOO</Button>
+            <CardActions className={classes.media}>
+                <Button value={props.data.ID}onClick={() => submitChange(props)}>Remove this car</Button>
             </CardActions>
         </Card>
     )

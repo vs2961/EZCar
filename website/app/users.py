@@ -36,7 +36,8 @@ def add_car():
     users = User.query
     cars = Car.query
     my_user = users.get(req_data["user_id"])
-    if req_data["car_id"] not in my_user.cars.rstrip(",").split(",") and len(my_user.cars.split(",")) < 4:
+    print(my_user.cars)
+    if str(req_data["car_id"]) not in my_user.cars.strip(",").split(",") and len(my_user.cars.strip(",").split(",")) < 3:
         db.session.query(User).filter_by(id=req_data["user_id"]).\
                     update({User.cars: my_user.cars + req_data["car_id"] + ","})
         db.session.commit()
@@ -49,7 +50,7 @@ def get_cars():
     users = User.query
     cars = Car.query
     my_user = users.get(req_data["user_id"])
-    cars_list = my_user.cars.rstrip(",").split(",")
+    cars_list = my_user.cars.strip(",").split(",")
     for ind, car in enumerate(cars_list):
         cars_list[ind] = cars.get(car)
     cars_list = [car.serialize() for car in cars_list]
@@ -61,9 +62,9 @@ def del_cars():
     users = User.query
     cars = Car.query
     my_user = users.get(req_data["user_id"])
-    cars_list = my_user.cars.rstrip(",").split(",")
-    cars_list.remove(req_data["car_id"])
+    cars_list = my_user.cars.strip(",").split(",")
+    cars_list.remove(str(req_data["car_id"]))
     db.session.query(User).filter_by(id=req_data["user_id"]).\
-            update({User.cars: cars_list.join(",") + ","})
+            update({User.cars: ",".join(cars_list) + ","})
     db.session.commit()
     return jsonify({"status": True})
