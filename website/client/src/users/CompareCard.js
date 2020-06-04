@@ -28,7 +28,16 @@ const useStyles = makeStyles(theme => ({
         marginRight: "auto",
         width: "50%",
 		maxWidth: 300,
+        overflow: "hidden",
+        border: "-50px solid white",
+        margin: "-10px 0px 0px -180px"
 	},
+    cropped: {
+        height: "23vh",
+        overflow: "hidden",
+        border: "5px solid white",
+    },
+
 }))
 
 const myStyle = {
@@ -54,9 +63,11 @@ const CompareCard = (props) => {
     }
     return (
         <Card variant="outlined" className={classes.root}>
+            <div className={classes.cropped}>
             <CardContent>
             {<CardMedia className={classes.media} component="img" src="image" image={props.data.IMAGE_LINK}></CardMedia>}
             </CardContent>
+            </div>
             <CardContent>
                 <Typography variant="h4">{props.data.NAME}</Typography>
                 {Object.entries(props.data).map(([key, value]) => {
