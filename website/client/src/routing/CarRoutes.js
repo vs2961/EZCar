@@ -21,7 +21,7 @@ function CarRoutes() {
 					<CarAppBar />
 					<About />
 				</Route>
-				<Route path={"/cars"} component={CarDump} exact />
+
 				<Route path={"/login"} exact>
 					<CarAppBar/>
 					<Login/>

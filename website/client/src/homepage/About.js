@@ -3,12 +3,7 @@ import "../styles/about.css";
 import Grid from '@material-ui/core/Grid'
 import IntroCard from './IntroCard'
 function About() {
-    const what = `
-        Look, we get it. Buying cars is a hassle. Car salesperson aren't good people! 
-    They're going to scam you to buy at whatever price they're coaxing you at! 
-    But today, my fellow car enthusiast, it all changes. With EZCar, you are going to 
-    have a honest experience in finding the car for you. Don't worry! We'll obviously help you in the entire process. 
-    Just create an account and get started!`
+    const what = "More than 3 in 5 Americans believe that they are exploited when shopping at car dealerships. They seek a \“more transparent pricing process\” as well as more \“flexibility and speed.\” We get it: buying cars is a hassle. That\’s why we created EZCar: your personal car dealer. We start with the specs that matter to you––gas mileage, seating, price––and serve up the best rides. Simple, streamlined, EZ!"
 
     const how = `Our application is for the modern world. No one likes to get bogged down with a ton of text. 
     Images and icons are the new thing! We've made the car search  a whole lot friendlier and interactive.
@@ -25,21 +20,20 @@ function About() {
         <div >
             <h1>Welcome!</h1>
             <Grid container spacing={3}>
-                <Grid item xs={4}>
+                <Grid item xs={6}>
                     <IntroCard title={"Our Story"} text={what}/>
                 </Grid>
-                <Grid item xs={4}>
-                    <IntroCard title={"How-to Guide"} text={get_started}/>
-                </Grid>
-                <Grid item xs={4}>
-                    <IntroCard title={"Team"} text={who}/>
-                </Grid>
-                <Grid item xs={4}>
-                    <IntroCard title={"Tutorials"} text={how}/>
-                </Grid>
-                <Grid item xs={4}>
+                <Grid item xs={6}>
+                    <IntroCard title={"Tutorials"} hasImage = {true} imageSource = {"tutorial1.gif"}/>
 
                 </Grid>
+                <Grid item xs={6}>
+                    <IntroCard title={"Code Used"} text={get_started}/>
+                </Grid>
+                <Grid item xs={6}>
+                    <IntroCard title={"Team"} text={who}/>
+                </Grid>
+
             </Grid>
         </div>
     )
