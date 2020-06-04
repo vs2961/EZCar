@@ -50,7 +50,6 @@ class Welcome extends React.PureComponent {
 			Price: [],
 			Type: [],
 			Seats: [],
-			futureRound: this.rounds[1],
 			sort_by: this.state.currentFilter,
 		};
 
