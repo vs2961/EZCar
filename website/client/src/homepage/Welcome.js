@@ -72,26 +72,38 @@ class Welcome extends React.PureComponent {
 
 	// currently in debug mode. When user is done selecting their choices, the callback fxn submitData will be auto-called
 	submitData = () => {
-		const getPrices = axios.post("/dump_sorted", this.generateRankings("MSRP"));
-		const getRatings = axios.post(
+		const badgePrices = axios.post("/dump_sorted", this.generateRankings("MSRP"));
+		const badgeRatings = axios.post(
 			"/dump_sorted",
 			this.generateRankings("RATING")
 		);
-		const getEfficencies = axios.post(
+		const badgeEfficiencies = axios.post(
 			"/dump_sorted",
 			this.generateRankings("MPG")
 		);
-		axios.all([getPrices, getRatings, getEfficencies]).then(
+
+		const sPrices = axios.post("dump_by", this.generateRankings("MSRP"))
+		const sRatings = axios.post("dump_by", this.generateRankings("RATING"))
+		const sEfficiencies = axios.post("dump_by", this.generateRankings("MPG"))
+	
+		axios.all([badgePrices, badgeRatings, badgeEfficiencies, sPrices, sRatings, sEfficiencies]).then(
 			axios.spread((...responses) => {
-				const prices = responses[0].data;
-				const ratings = responses[1].data;
-				const efficiencies = responses[2].data;
+
+				const bPrices = responses[0].data;
+				const bRatings = responses[1].data;
+				const bEfficiencies = responses[2].data;
+				const regPrices = responses[3].data;
+				const regRatings = responses[4].data;
+				const regMpg = responses[5].data;
 				history.push({
 					pathname: "/results",
 					state: {
-						sortedPrices: prices,
-						sortedRatings: ratings,
-						sortedMpg: efficiencies,
+						badgePrices: bPrices,
+						badgeRatings: bRatings,
+						badgeMpg: bEfficiencies,
+						sortedPrices: regPrices,
+						sortedRatings: regRatings,
+						sortedMpg: regMpg
 					},
 				});
 			})
@@ -128,7 +140,6 @@ class Welcome extends React.PureComponent {
 					})}
 				</Grid>
 				<Button onClick={this.submitData}>Submit Data</Button>
-				Here is what we found. . .
 			</>
 		);
 	}

@@ -67,23 +67,38 @@ def dump_sorted():
 def dump_rating():
     req_data = request.get_json()
     cars = Car.query
+    big_cars = []
     if req_data["Price"]:
-        cars = cars.filter(Car.MSRP <= req_data["Price"][1])\
-                   .filter(Car.MSRP >= req_data["Price"][0])
+        for price in req_data["Price"]:
+            mini_cars = cars.filter(Car.MSRP <= price[1])\
+                    .filter(Car.MSRP >= price[0])
+            big_cars.append(mini_cars)
     if req_data["Type"]:
-        cars = cars.filter_by(type=req_data["Type"])
+        if len(big_cars) == 0:
+            for car_type in req_data["Type"]:
+                mini_cars = cars.filter_by(type=car_type)
+                big_cars.append(mini_cars)
+        else:
+            for i in range(len(big_cars)):
+                for car_type in req_data["Type"]:
+                    big_cars[i] = big_cars[i].filter_by(type=car_type)
+
     if req_data["Seats"]:
-        cars = cars.filter(Car.seats.between(
-            req_data["Seats"][0], req_data["Seats"][1]))
-    cars = sorted([car.serialize() for car in cars],
+        if len(big_cars) == 0:
+            for seat in req_data["Seats"]:
+                mini_cars = cars.filter(Car.seats.between(
+                    seat[0], seat[1]))
+        else:
+            for i in range(len(big_cars)):
+                for seat in req_data["Seats"]:
+                    big_cars[i] = big_cars[i].filter(Car.seats.between(seat[0], seat[1]))
+    final_list = []
+    for car in big_cars:
+        for k in car.all():
+            final_list.append(k)
+    cars = sorted([car.serialize() for car in final_list],
                   key=lambda x: x[req_data["sort_by"]], reverse=True)
-    try:
-        empty_rating_ind = [x[req_data["sort_by"]] for x in cars].index(0.0)
-    except ValueError:
-        empty_rating_ind = len(cars) - 1
-    carList = split(cars[0:empty_rating_ind], 3)
-    carList.append(cars[empty_rating_ind:])
-    return jsonify(carList)
+    return jsonify(cars)
 
 
 def split(a, n):

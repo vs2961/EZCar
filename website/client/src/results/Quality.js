@@ -76,7 +76,7 @@ const Quality = (props) => {
     // const chipValue = (props.dataValue == 0) ? "N/A" : props.dataValue;
     return (
         <ThemeProvider theme={decideTheme(props.dataType)}>
-        <Chip color="primary" clickable className={classes.root} size="medium" icon={possibleValues[dataKey]}label={`${dataKey}: ${"Hi"}`}/>
+        <Chip color="primary" clickable className={classes.root} size="medium" icon={possibleValues[dataKey]}label={`${dataKey}: ${props.dataValue}`}/>
         </ThemeProvider>
     )
 }

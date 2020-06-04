@@ -8,6 +8,7 @@ class Profile extends React.Component{
     constructor (props){
         super(props)
         this.state = {myCars: []}
+        this.deleteCar = this.deleteCar.bind(this)
     }
     componentDidMount(){
         const cookies = new Cookies()
@@ -15,11 +16,16 @@ class Profile extends React.Component{
         axios.post("/get_cars", {user_id:cookies.get("id")}).then(res =>
             this.setState({myCars: res.data}))
     }
+
+    submitChange = (val) => {
+        console.log(val.currentTarget.value);
+        axios.post("/del_car", {car_id: val.currentTarget.value}).then(res => console.log(res))
+    }
     render(){
         console.log(this.state.myCars)
         return (<Grid container>{
             Object.entries(this.state.myCars).map( ([key,value]) => {
-                return <Grid item xs={4}><CompareCard data={value}/></Grid>
+                return <Grid item xs={12 / this.state.myCars.length}><CompareCard func={this.deleteCar} data={value}/></Grid>
 
         })
         }</Grid>)

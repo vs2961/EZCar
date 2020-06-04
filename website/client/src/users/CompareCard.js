@@ -13,13 +13,20 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Slider from "@material-ui/core/Slider";
 import PowerIcon from "@material-ui/icons/Power";
 import CardHeader from '@material-ui/core/CardHeader'
+import Button from '@material-ui/core/Button'
+import axios from 'axios'
+
 
 const useStyles = makeStyles(theme => ({
     root: {
-        height: "150vh"
+        height: "100vh"
     },
     media: {
-		// maxWidth: 300,
+        display: "block",
+        marginLeft: "auto",
+        marginRight: "auto",
+        width: "50%",
+		maxWidth: 300,
 	},
 }))
 
@@ -27,6 +34,9 @@ const useStyles = makeStyles(theme => ({
 const CompareCard = (props) => {
     const classes = useStyles()
     console.log(props.data)
+    const submitChange = (val) => {
+        props.func(val.currentTarget.value)
+    }
     return (
         <Card variant="outlined" className={classes.root}>
             <CardActionArea>
@@ -39,6 +49,9 @@ const CompareCard = (props) => {
                     if (key != "IMAGE_LINK" && key != "ID" && key != "NAME") return <Typography>{key}:{value}</Typography>
                 })}
             </CardContent>
+            <CardActions>
+                <Button value={props.data.ID}onClick={submitChange(props)}>HJELLLOO</Button>
+            </CardActions>
         </Card>
     )
 }
