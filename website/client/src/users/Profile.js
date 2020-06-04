@@ -12,7 +12,6 @@ class Profile extends React.Component{
         console.log(cookies.get("id"))
         axios.post("/get_cars", {user_id:cookies.get("id")}).then(res =>
             this.setState({myCars: res.data}))
-
     }
     render(){
         console.log(this.state.myCars)
