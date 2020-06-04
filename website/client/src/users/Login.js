@@ -53,7 +53,7 @@ const Login = (props) => {
 		return <p>You have already logged in.</p>;
 	return (
 		<>
-			<Typography variant="h2">Login!</Typography>
+			<h1>Login</h1>
 			<Grid container>
 				<Grid item xs={12}>
 					<FormControl>

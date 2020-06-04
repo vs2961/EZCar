@@ -32,9 +32,12 @@ const Register = (props) => {
             username: username,
             password: password
         }).then(res => console.log(res.data))
+		history.push({pathname: "/login"});
+
 	};
 	if (typeof cookies.username != 'undefined') return <p>You must log out first before entering this page</p>
 	return (
+		<><h1>Register</h1>
 		<form>
 			<Grid container>
 				<Grid item xs={12}>
@@ -79,6 +82,7 @@ const Register = (props) => {
 				</Grid>
 			</Grid>
 		</form>
+		</>
 	);
 };
 
