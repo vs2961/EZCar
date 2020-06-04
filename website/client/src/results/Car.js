@@ -120,9 +120,26 @@ const Car = (props) => {
 		else finalImages.push("trashbadge.png")
 		return finalImages;
 	};
+
+	const myStyle = {
+		padding: "10px",
+		paddingLeft: "50px",
+		paddingRight: "50px"
+	}
+	const myStyle2 = {
+		paddingLeft: "50px"
+	}
+	const myStyle3 = {
+		paddingLeft: "40px"
+	}
+	const myStyle4 = {
+		display: 'flex',
+    	alignItems: 'center',
+    	justifyContent: 'center'
+	}
 	return (
 		<div>
-			<div>
+			<div style = {myStyle}>
 				<Card variant="outlined">
 					<CardActionArea>
 						<Typography
@@ -141,29 +158,31 @@ const Car = (props) => {
 										component="img"
 										src="image"
 										image={props.data.IMAGE_LINK}
+										style = {myStyle2}
 									></CardMedia>
 								}
 							</Grid>
 							{loadBadges(props.bValues).map((item, index) => {
 								return (
-								<Grid key={index} item={1}>
+								<Grid key={index} item={1} style={myStyle3}>
 									<CardMedia className={classes.badges} component="img" src="image" image={item}></CardMedia>
 								</Grid>
 								)
 							})}
 
-							<Grid item xs={4}>
+							<Grid item xs={4} style={myStyle2}>
 								<Typography variant="h4" className={classes.msrp}>
 									{formatter.format(props.data.MSRP)}
 								</Typography>
 							</Grid>
 						</Grid>
 					</CardActionArea>
-					<CardActions>
+					<CardActions style = {myStyle4}>
 						<IconButton
 							value={props.data.ID}
 							onClick={submitData}
 							disabled={false}
+
 						>
 							Compare Me!
 						</IconButton>
