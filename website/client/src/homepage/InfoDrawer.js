@@ -41,8 +41,8 @@ function MaterialInfoDrawer() {
           setState({ ...state, [anchor]: open });
     } 
 
-    const routes = ["/", "/profile", "/cars", "/about"]
-    const icons = [<BugReportIcon/>, <AccountCircleIcon/>, <DriveEtaIcon/>, <InfoIcon/>]
+    const routes = ["/", "/profile", "/about"]
+    const icons = [<DriveEtaIcon/>, <AccountCircleIcon/>, <InfoIcon/>]
     const [cookies, setCookie, removeCookie] = useCookies(['username', 'id']);
 
     const topics = (anchor) => (
