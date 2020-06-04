@@ -23,7 +23,7 @@ class ResultPage extends React.PureComponent {
 			this.sortedRatings = this.props.location.state.sortedRatings;
 			this.sortedMpg = this.props.location.state.sortedMpg;
 		}
-		console.log(this.badgePrices);
+		console.log(this.sortedPrices);
 
 		this.state = {
 			currentFilter: this.sortedPrices,
@@ -120,6 +120,7 @@ class ResultPage extends React.PureComponent {
 				<Grid container>
 					{/* maps each car onto the page */}
 					{Object.entries(this.state.currentFilter).map(([key, value]) => {
+                        console.log(value);
 						var badges = {};
 						var foundPrice = false;
 						for (var i = 0; i < this.badgePrices.length && !foundPrice; i++) {
