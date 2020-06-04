@@ -13,7 +13,7 @@ function About() {
     
     const who = `This application was created by Victor Siu, Michael Nath, Eric Kim, and Kristoff Misquitta for the 2019-2020 Google Mentorship Program.`
 
-        const get_started = `Click on the orange tab on the top left, and start navigating our website!`
+        const get_started = `EZCar uses Python (Beautiful Soup), SQL, React, etc.`
 
     console.log("Hi");
     return (

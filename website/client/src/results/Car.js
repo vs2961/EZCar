@@ -97,9 +97,9 @@ const Car = (props) => {
 	const loadBadges = (badge) => {
 		const finalImages = [];
 		const prices = {
-			0: "pricebronze.png",
+			2: "pricebronze.png",
 			1: "pricesilver.png",
-			2: "pricegold.png",
+			0: "pricegold.png",
 		};
 
 		const ratings = {
