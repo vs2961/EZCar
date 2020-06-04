@@ -98,10 +98,11 @@ const Quality = (props) => {
     const classes = useStyles()
     console.log(props)
     var dataKey = props.dataType
+    var dataValue = (props.dataValue == 0 ? "?" : props.dataValue)
     // const chipValue = (props.dataValue == 0) ? "N/A" : props.dataValue;
     return (
         <ThemeProvider theme={decideTheme(props.dataType, props.rank)}>
-        <Chip color="primary" clickable className={classes.root} size="medium" icon={possibleValues[dataKey]}label={`${dataKey}: ${props.dataValue}`}/>
+        <Chip color="primary" clickable className={classes.root} size="medium" icon={possibleValues[dataKey]}label={`${dataKey}: ${dataValue}`}/>
         </ThemeProvider>
     )
 }
