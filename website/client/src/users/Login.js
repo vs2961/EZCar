@@ -33,6 +33,7 @@ const Login = (props) => {
 	const [username, setUsername] = React.useState("");
 	const [showPassword, setVisibility] = React.useState(false);
 	const [open, setOpen] = React.useState(false);
+	const [errorMessage, setMessage] = React.useState("");
 	const verifyForm = () => {
 		return password.length > 1 && username.length > 0;
 	};
@@ -48,7 +49,10 @@ const Login = (props) => {
 			})
 			.then((res) => {
 				console.log(res.data);
-				if (res.data.id === "Invalid user" || res.data.id === "Invalid password") setOpen(true)
+				if (res.data.id === "Invalid user" || res.data.id === "Invalid password") {
+					setOpen(true)
+					setMessage(res.data.id)
+				}
 				else {
 					setCookie("id", res.data.id, {path: "/"})
 					setCookie("username", res.data.username, {path: "/"})
@@ -63,7 +67,8 @@ const Login = (props) => {
 		return <p>You have already logged in.</p>;
 	return (
 		<>
-			{<Snackbar open={open} anchorOrigin = {{vertical: 'top', horizontal: 'center'}} ><Alert severity="error">This is an error alert — check it out!</Alert></Snackbar>}
+			{<Snackbar open={open} anchorOrigin = {{vertical: 'top', horizontal: 'center'}} ><Alert severity="error">{`${errorMessage}. Please try again.`}
+		</Alert></Snackbar>}
 			<h1>Login</h1>
 			<Grid container>
 				<Grid item xs={12}>
