@@ -117,6 +117,7 @@ class Welcome extends React.PureComponent {
 							this.state.avails[item[1]] && (
 								<Grid item xs={4} key={index}>
 									<NewCard
+										id={index}
 										val={item}
 										func={this.updateChoices}
 										text={item[1]}
