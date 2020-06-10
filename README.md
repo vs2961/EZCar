@@ -1,4 +1,4 @@
-# reimagined-rotary-phone
+# EZCar
 Google Mentorship Project for Car Search
 
 ## To run our app:
