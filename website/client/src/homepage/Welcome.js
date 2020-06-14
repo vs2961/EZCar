@@ -8,6 +8,7 @@ import { Cookies } from "react-cookie";
 // import { ThemeProvider } from '@material-ui/core';
 import history from "../routing/history";
 import Alert from '@material-ui/lab/Alert';
+import {Snackbar} from "@material-ui/core";
 
 class Welcome extends React.PureComponent {
 	constructor(props) {
@@ -28,6 +29,7 @@ class Welcome extends React.PureComponent {
 				["Seats", "More Than 5", [5, "unlimited"]],
 		];
 		this.state = {
+			selection: [],
 			curIndex: 0,
 			avails: {
 				Newcomer: true,
@@ -41,6 +43,7 @@ class Welcome extends React.PureComponent {
 				"More Than 5": true,
 			},
 			currentFilter: "MSRP",
+			open: false
 		};
 
 		this.choices = {
@@ -50,7 +53,6 @@ class Welcome extends React.PureComponent {
 			Price: [],
 			Type: [],
 			Seats: [],
-			futureRound: this.rounds[1],
 			sort_by: this.state.currentFilter,
 		};
 
@@ -62,6 +64,14 @@ class Welcome extends React.PureComponent {
 
 	updateChoices(val) {
 		console.log(val);
+		if (!this.state.selection.includes(val[1])) {
+			this.setState({selection: this.state.selection.concat(val[1])})
+		}
+		else{
+			this.setState({selection: this.state.selection.filter(x => x != val[1])})
+		}
+		this.setState({open: true})
+
 		if (!this.choices[val[0]].includes(val[2])) this.choices[val[0]].push(val[2])
 		else (this.choices[val[0]] = this.choices[val[0]].filter(item => item != val[2]))
 		console.log(this.choices);
@@ -121,8 +131,13 @@ class Welcome extends React.PureComponent {
 	}
 
 	render() {
+		console.log(this.state.selection);
 		return (
 			<>
+				{<Snackbar open={this.state.open} autoHideDuration='1000' onClose={() => this.setState({open: false})} anchorOrigin = {{vertical: 'top', horizontal: 'center'}} ><Alert severity="success"> {
+				this.state.selection.map((value, item) => value + ", ")}
+
+		</Alert></Snackbar>}
 				<CarAppBar />
 				<Grid container>
 					{this.rounds.map((item, index) => {
