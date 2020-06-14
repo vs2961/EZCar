@@ -139,3 +139,7 @@ website/client/src/homepage/.idea/home.iml
 
 # Eric's IDE
 .DS_Store
+
+
+# Ignore React Build
+./website/client/build
