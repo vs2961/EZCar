@@ -1,5 +1,6 @@
 # EZCar
 Google Mentorship Project for Car Search
+
 View a demo at https://ez-car.herokuapp.com/
 
 ## To run our app:
